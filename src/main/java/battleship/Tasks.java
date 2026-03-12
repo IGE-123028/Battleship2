@@ -110,7 +110,8 @@ public class Tasks {
 			System.out.print("> ");
 			command = in.next();
 		}
-		System.out.println(GOODBYE_MESSAGE);
+        System.out.println(GOODBYE_MESSAGE);
+        Scoreboard.saveResult("Jogo terminado por desistência");
 	}
 
 	/**
