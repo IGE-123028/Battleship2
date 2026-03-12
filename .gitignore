@@ -1,12 +1,1 @@
-# Maven
 /target/
-
-# Eclipse
-.settings/
-.classpath
-.project
-.factorypath
-
-# IntelliJ IDEA
-.idea/
-
