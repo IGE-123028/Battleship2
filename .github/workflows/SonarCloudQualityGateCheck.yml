@@ -1,0 +1,26 @@
+name: SonarCloud Quality Gate Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  sonarcloud-quality-gate:
+    name: SonarCloud Quality Gate Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Wait for SonarCloud analysis to complete
+        uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
+        with:
+          scanMetadataReportFile: .scannerwork/report-task.txt
+          sonarInstanceUrl: https://sonarcloud.io
+          sonarProjectKey: your_org_your_project_key
+          sonarOrganization: your_org_key
+          sonarToken: ${{ secrets.SONAR_TOKEN }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}

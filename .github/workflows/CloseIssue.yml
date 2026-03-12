@@ -1,0 +1,37 @@
+name: Java CI
+
+on:
+  issues:
+    types: [closed]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Checkout repository
+      uses: actions/checkout@v4.2.1
+      
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4.7.1
+      with:
+        java-version: '21'
+        distribution: 'jetbrains'
+        cache: maven
+
+    - name: Compile the project
+      run: mvn compile
+
+    - name: Generate Javadoc
+      run: mvn javadoc:javadoc
+      
+#    - name: Run JUnit tests (CompassTest only)
+#      run: mvn -Dtest=CompassTest test
+      
+    - name: Run JUnit tests
+      run: mvn test
+
+
+
+        

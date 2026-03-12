@@ -1,0 +1,19 @@
+***  Battleship  ***
+nova
+caravela 0 0 s
+galeao 0 3 o
+barca 0 9 n
+fragata 8 6 e
+nau 9 0 e
+caravela 5 2 o
+nau 3 7 n
+barca 3 1 s
+barca 3 5 e
+caravela 7 0 e
+barca 7 4 o
+mapa
+rajada
+A 3
+B 5
+D 10
+tiros
