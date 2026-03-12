@@ -434,10 +434,12 @@ public class Game implements IGame
 		Game.printBoard(this.alienFleet, this.myMoves, show_shots, show_legend);
 	}
 
-	public void over() {
-			System.out.println();
-			System.out.println("+--------------------------------------------------------------+");
-			System.out.println("| Maldito sejas, Java Sparrow, eu voltarei, glub glub glub ... |");
-			System.out.println("+--------------------------------------------------------------+");
-	}
+    public void over() {
+        System.out.println();
+        System.out.println("+--------------------------------------------------------------+");
+        System.out.println("| Maldito sejas, Java Sparrow, eu voltarei, glub glub glub ... |");
+        System.out.println("+--------------------------------------------------------------+");
+
+        Scoreboard.saveResult("Jogo terminado");
+    }
 }

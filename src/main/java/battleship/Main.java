@@ -21,6 +21,6 @@ public class Main
     {
 		System.out.println("***  Battleship  ***");
 
-		Tasks.menu();
+		Tasks.demenu();
     }
 }
