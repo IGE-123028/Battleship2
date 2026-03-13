@@ -32,6 +32,8 @@
 		<allure.version>2.31.0</allure.version>
 
 		<jetbrains.annotations.version>26.1.0</jetbrains.annotations.version>
+
+		<diogonunes.version>5.5.1</diogonunes.version>
 	</properties>
 
 	<dependencies>
@@ -98,6 +100,11 @@
 		</dependency>
 
         <dependency>
+            <groupId>com.diogonunes</groupId>
+            <artifactId>JColor</artifactId>
+			<version>${diogonunes.version}</version>
+        </dependency>
+
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
             <version>1.10.0</version>
