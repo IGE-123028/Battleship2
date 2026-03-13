@@ -4,7 +4,6 @@ import org.openpdf.text.*;
 import org.openpdf.text.pdf.*;
 import java.io.FileOutputStream;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * PDFExporter provides functionality to generate a PDF report of a Battleship game.
