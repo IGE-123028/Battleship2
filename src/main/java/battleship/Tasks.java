@@ -16,7 +16,7 @@ public class Tasks {
 	/**
 	 * The constant LOGGER.
 	 */
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger(Tasks.class);
 
 	/**
 	 * The constant GOODBYE_MESSAGE.
@@ -36,6 +36,7 @@ public class Tasks {
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
     private static final String PDF = "pdf";
+    private static final String LINGUAGEM = "linguagem";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -57,6 +58,16 @@ public class Tasks {
 					game = new Game(myFleet);
 					game.printMyBoard(false, true);
 					break;
+                case LINGUAGEM:
+                    String lang = in.next();
+
+                    try {
+                        Messages.load(lang);
+                        System.out.println("Linguagem alterada para: " + lang);
+                    } catch (Exception e) {
+                        System.out.println("Erro ao mudar linguagem.");
+                    }
+                    break;
 				case LEFROTA:
 					myFleet = buildFleet(in);
 					game = new Game(myFleet);
@@ -124,7 +135,8 @@ public class Tasks {
 			System.out.print("> ");
 			command = in.next();
 		}
-		System.out.println(GOODBYE_MESSAGE);
+        System.out.println(GOODBYE_MESSAGE);
+        Scoreboard.saveResult("Jogo terminado por desistência");
 	}
 
 	/**
@@ -142,6 +154,7 @@ public class Tasks {
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
         System.out.println("- " + PDF + ": Gera um ficheiro PDF com um resumo das jogadas");
+        System.out.println("- " + LINGUAGEM + ": muda o idioma do jogo. As opções são en/pt ");
 		System.out.println("===============================================================");
 	}
 	/**
