@@ -105,11 +105,14 @@
             <artifactId>openpdf</artifactId>
             <version>3.0.3</version>
             <scope>compile</scope>
-        <dependency>
+		</dependency>
+			
+		<dependency>
             <groupId>com.diogonunes</groupId>
             <artifactId>JColor</artifactId>
 			<version>${diogonunes.version}</version>
         </dependency>
+			
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
