@@ -9,6 +9,14 @@ public class Messages {
 
     private static PropertiesConfiguration config;
 
+    static {
+        try {
+            load("pt"); // idioma default
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void load(String lang) throws Exception {
 
         Configurations configs = new Configurations();
