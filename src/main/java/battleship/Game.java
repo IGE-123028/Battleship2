@@ -889,9 +889,9 @@ public class Game implements IGame
     public void over() {
         System.out.println();
         System.out.println("+--------------------------------------------------------------+");
-        System.out.println("| Maldito sejas, Java Sparrow, eu voltarei, glub glub glub ... |");
+        System.out.println("| " + Messages.get("game_over") + " |");
         System.out.println("+--------------------------------------------------------------+");
 
-        Scoreboard.saveResult("Jogo terminado");
+        Scoreboard.saveResult(Messages.get("game_finished"));
     }
 }
