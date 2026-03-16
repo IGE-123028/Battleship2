@@ -25,13 +25,15 @@
 		<maven.surefire.version>3.1.2</maven.surefire.version>
 		<maven.shade.version>3.5.0</maven.shade.version>
 
-		<apache.log4j.version>2.20.0</apache.log4j.version>
+		<apache.log4j.version>2.25.3</apache.log4j.version>
 
-		<jackson.version>2.17.1</jackson.version>
+		<jackson.version>3.1.0</jackson.version>
 
 		<allure.version>2.31.0</allure.version>
 
 		<jetbrains.annotations.version>26.1.0</jetbrains.annotations.version>
+
+		<diogonunes.version>5.5.1</diogonunes.version>
 	</properties>
 
 	<dependencies>
@@ -66,7 +68,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
+			<groupId>tools.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
@@ -90,6 +92,19 @@
             <artifactId>commons-csv</artifactId>
             <version>1.10.0</version>
         </dependency>
+        <!-- Source: https://mvnrepository.com/artifact/com.github.librepdf/openpdf -->
+        <dependency>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>3.0.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.diogonunes</groupId>
+            <artifactId>JColor</artifactId>
+			<version>${diogonunes.version}</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>
@@ -118,7 +133,7 @@
 							<createDependencyReducedPom>false</createDependencyReducedPom>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>pt.iscte-iul.istar.battleship.Main</mainClass>
+									<mainClass>battleship.Main</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

@@ -72,7 +72,7 @@ public class Game implements IGame
 			char rowLabel = pos.getClassicRow();
 			System.out.print(" " + rowLabel + " |");
 			for (int col = 0; col < BOARD_SIZE; col++)
-				System.out.print(" " + map[row][col]);
+				System.out.print(" " + BoardColor.colored(map[row][col]));
 			System.out.println(" |");
 		}
 
