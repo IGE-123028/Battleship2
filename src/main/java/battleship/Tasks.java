@@ -36,6 +36,7 @@ public class Tasks {
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
     private static final String PDF = "pdf";
+    private static final String LINGUAGEM = "linguagem";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -57,6 +58,16 @@ public class Tasks {
 					game = new Game(myFleet);
 					game.printMyBoard(false, true);
 					break;
+                case LINGUAGEM:
+                    String lang = in.next();
+
+                    try {
+                        Messages.load(lang);
+                        System.out.println("Linguagem alterada para: " + lang);
+                    } catch (Exception e) {
+                        System.out.println("Erro ao mudar linguagem.");
+                    }
+                    break;
 				case LEFROTA:
 					myFleet = buildFleet(in);
 					game = new Game(myFleet);
@@ -131,21 +142,21 @@ public class Tasks {
 	/**
 	 * This function provides help information about the menu commands.
 	 */
-	public static void menuHelp() {
-		System.out.println("======================= AJUDA DO MENU =========================");
-		System.out.println("Digite um dos comandos abaixo para interagir com o jogo:");
-		System.out.println("- " + GERAFROTA + ": Gera uma frota aleatória de navios.");
-		System.out.println("- " + LEFROTA + ": Permite criar e carregar uma frota personalizada.");
-		System.out.println("- " + STATUS + ": Mostra o status atual da frota.)");
-		System.out.println("- " + MAPA + ": Exibe o mapa da frota.");
-		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
-		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
-		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
-		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
-        System.out.println("- " + PDF + ": Gera um ficheiro PDF com um resumo das jogadas");
-		System.out.println("===============================================================");
-	}
-	/**
+        public static void menuHelp() {
+                System.out.println("======================= " + Messages.get("help.title") + " =========================");
+                System.out.println("- " + GERAFROTA + ": " + Messages.get("help.gerafrota"));
+                System.out.println("- " + LEFROTA + ": " + Messages.get("help.lefrota"));
+                System.out.println("- " + STATUS + ": " + Messages.get("help.estado"));
+                System.out.println("- " + MAPA + ": " + Messages.get("help.mapa"));
+                System.out.println("- " + RAJADA + ": " + Messages.get("help.rajada"));
+                System.out.println("- " + SIMULA + ": " + Messages.get("help.simula"));
+                System.out.println("- " + TIROS + ": " + Messages.get("help.tiros"));
+                System.out.println("- " + DESISTIR + ": " + Messages.get("help.desisto"));
+                System.out.println("- " + PDF + ": " +  Messages.get("help.pdf"));
+                System.out.println("- " + LINGUAGEM + ": " + Messages.get("help.linguagem"));
+                System.out.println("===============================================================");
+        }
+        /**
 	 * This operation allows the build up of a fleet, given user data
 	 *
 	 * @param in The scanner to read from
