@@ -32,6 +32,8 @@
 		<allure.version>2.31.0</allure.version>
 
 		<jetbrains.annotations.version>26.1.0</jetbrains.annotations.version>
+
+		<diogonunes.version>5.5.1</diogonunes.version>
 	</properties>
 
 	<dependencies>
@@ -84,6 +86,13 @@
 			<version>${jetbrains.annotations.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
+        <dependency>
+            <groupId>com.diogonunes</groupId>
+            <artifactId>JColor</artifactId>
+			<version>${diogonunes.version}</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>
