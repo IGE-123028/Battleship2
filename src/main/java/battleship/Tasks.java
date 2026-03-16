@@ -4,6 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.IOError;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,8 +40,9 @@ public class Tasks {
 	private static final String MAPA = "mapa";
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
-    private static final String PDF = "pdf";
-    private static final String LINGUAGEM = "linguagem";
+        private static final String PDF = "pdf";
+        private static final String LINGUAGEM = "linguagem";
+        private static final String IA = "ia";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -126,6 +132,61 @@ public class Tasks {
                         System.out.println("No game in progress.");
                     }
                     break;
+                case IA:
+                    if (game != null) {
+                        String token = null;
+                        try {
+                            io.github.cdimascio.dotenv.Dotenv dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load();
+                            token = dotenv.get("HF_TOKEN");
+                        } catch (Exception e) {
+                            // ignore se n encontrar .env
+                        }
+
+                        if (token == null || token.trim().isEmpty()) {
+                            token = System.getenv("HF_TOKEN");
+                        }
+
+                        if (token == null || token.trim().isEmpty()) {
+                            System.out.println("Não foi encontrado o 'HF_TOKEN' no ficheiro .env nem nas variáveis de ambiente.");
+                            System.out.print("Introduza o seu Token da Hugging Face manualmente: ");
+                            token = in.nextLine();
+                            if (token.trim().isEmpty()) {
+                                token = in.nextLine();
+                            }
+                        }
+
+                        if (token == null || token.trim().isEmpty() || token.trim().length() < 10) {
+                            System.out.println("Erro: Token da Hugging Face inválido ou não encontrado.");
+                            break;
+                        }
+                        LLMService llmService = new LLMService(token.trim());
+                        System.out.println("A preparar para interagir com o LLM (Hugging Face)...");
+                        try {
+                            while (game.getRemainingShips() > 0) {
+                                System.out.println("\nA perguntar ao LLM o próximo movimento...");
+                                String jsonShots = llmService.getNextMove((Game) game);
+                                System.out.println("LLM propõe: " + jsonShots);
+
+                                List<IPosition> shots = parseJsonShots(jsonShots);
+                                game.fireShots(shots);
+
+                                myFleet.printStatus();
+                                game.printMyBoard(true, false);
+
+                                if (game.getRemainingShips() == 0) {
+                                    game.over();
+                                    System.exit(0);
+                                }
+                                Thread.sleep(2000);
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Erro na interação com o LLM: " + e.getMessage());
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("Gere uma frota primeiro!");
+                    }
+                    break;
                 case AJUDA:
                     menuHelp();
                     break;
@@ -153,6 +214,7 @@ public class Tasks {
                 System.out.println("- " + TIROS + ": " + Messages.get("help.tiros"));
                 System.out.println("- " + DESISTIR + ": " + Messages.get("help.desisto"));
                 System.out.println("- " + PDF + ": " +  Messages.get("help.pdf"));
+                System.out.println("- " + IA + ":" + Messages.get("help.ai"));
                 System.out.println("- " + LINGUAGEM + ": " + Messages.get("help.linguagem"));
                 System.out.println("===============================================================");
         }
@@ -252,6 +314,26 @@ public class Tasks {
 		} else {
 			throw new IllegalArgumentException("Formato inválido. Use 'A3', 'A 3' ou similar.");
 		}
+	}
+
+	/**
+	 * Parses a JSON string representing a list of shots into a list of IPosition objects.
+	 *
+	 * @param json the JSON string containing the shots.
+	 * @return a list of IPosition objects.
+	 * @throws IOException if there is an error during JSON parsing.
+	 */
+	private static List<IPosition> parseJsonShots(String json) throws IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		List<Map<String, Object>> shotsData = objectMapper.readValue(json, new TypeReference<List<Map<String, Object>>>() {});
+		List<IPosition> shots = new ArrayList<>();
+		for (Map<String, Object> shotMap : shotsData) {
+			String rowStr = (String) shotMap.get("row");
+			char row = rowStr.charAt(0);
+			int column = (int) shotMap.get("column");
+			shots.add(new Position(row, column));
+		}
+		return shots;
 	}
 
 }
