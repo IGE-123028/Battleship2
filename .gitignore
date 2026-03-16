@@ -10,3 +10,5 @@ data/scoreboard.csv
 
 # IntelliJ IDEA
 .idea/
+
+.env
