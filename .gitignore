@@ -1,2 +1,12 @@
+# Maven
 /target/
 data/scoreboard.csv
+
+# Eclipse
+.settings/
+.classpath
+.project
+.factorypath
+
+# IntelliJ IDEA
+.idea/
