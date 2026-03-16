@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * Client for interacting with Hugging Face Inference API.
  */
 public class HuggingFaceClient {
-    private static final String DEFAULT_MODEL = "mistralai/Mistral-7B-Instruct-v0.3";
+    private static final String DEFAULT_MODEL = "neulab/codebert-java";
     private final String apiKey;
     private final String model;
     private final HttpClient httpClient;
