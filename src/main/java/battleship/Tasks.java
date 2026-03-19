@@ -162,7 +162,55 @@ public class Tasks {
                         LLMService llmService = new LLMService(token.trim());
                         System.out.println("A preparar para interagir com o LLM (Hugging Face)...");
                         try {
-                            while (game.getRemainingShips() > 0) {
+                            while (game.getRemainingShips() > 0 && game.getRemainingAlienShips() > 0) {
+                                boolean inputValido = false;
+                                List<IPosition> humanShots = new ArrayList<>();
+                                while (!inputValido) {
+                                    System.out.println("\nA sua vez de atirar! Introduza " + Game.NUMBER_SHOTS + " posições (ex: A1 B2 C3):");
+                                    humanShots.clear();
+                                    String inputLine = in.nextLine();
+                                    if (inputLine.trim().isEmpty()) {
+                                        inputLine = in.nextLine();
+                                    }
+                                    
+                                    try {
+                                        Scanner lineScanner = new Scanner(inputLine);
+                                        while (humanShots.size() < Game.NUMBER_SHOTS && lineScanner.hasNext()) {
+                                            String shotToken = lineScanner.next();
+                                            if (shotToken.equalsIgnoreCase("rajada")) {
+                                                continue;
+                                            }
+                                            if (shotToken.matches("[A-Za-z]")) {
+                                                if (lineScanner.hasNextInt()) {
+                                                    int row = lineScanner.nextInt();
+                                                    humanShots.add(new Position(shotToken.toUpperCase().charAt(0), row));
+                                                }
+                                            } else {
+                                                Scanner singleScanner = new Scanner(shotToken);
+                                                humanShots.add(Tasks.readClassicPosition(singleScanner));
+                                            }
+                                        }
+
+                                        if (humanShots.size() != Game.NUMBER_SHOTS) {
+                                            System.out.println("Entrada incompleta. Introduza as " + Game.NUMBER_SHOTS + " posições.");
+                                        } else {
+                                            inputValido = true;
+                                        }
+                                    } catch (Exception ex) {
+                                        System.out.println("Formato de posições inválido. Tente novamente apenas com as posições (ex: A1 B2 C3).");
+                                    }
+                                }
+
+                                game.fireMyShots(humanShots);
+                                System.out.println("Tiros efetuados na frota inimiga:");
+                                game.printAlienBoard(true, false);
+
+                                if (game.getRemainingAlienShips() == 0) {
+                                    System.out.println("\nParabéns! Destruiu a frota inimiga!");
+                                    game.over();
+                                    System.exit(0);
+                                }
+
                                 System.out.println("\nA perguntar ao LLM o próximo movimento...");
                                 String jsonShots = llmService.getNextMove((Game) game);
                                 System.out.println("LLM propõe: " + jsonShots);
@@ -170,10 +218,12 @@ public class Tasks {
                                 List<IPosition> shots = parseJsonShots(jsonShots);
                                 game.fireShots(shots);
 
+                                System.out.println("A sua frota após o ataque do LLM:");
                                 myFleet.printStatus();
                                 game.printMyBoard(true, false);
 
                                 if (game.getRemainingShips() == 0) {
+                                    System.out.println("\nA IA destruiu a sua frota!");
                                     game.over();
                                     System.exit(0);
                                 }

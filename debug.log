@@ -1,0 +1,17 @@
+DEBUG:httpcore.connection:connect_tcp.started host='router.huggingface.co' port=443 local_address=None timeout=None socket_options=None
+DEBUG:httpcore.connection:connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015BCFF92FF0>
+DEBUG:httpcore.connection:start_tls.started ssl_context=<ssl.SSLContext object at 0x0000015BD01BEED0> server_hostname='router.huggingface.co' timeout=None
+DEBUG:httpcore.connection:start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015BCFFFA7B0>
+DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_headers.complete
+DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_body.complete
+DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=utf-8'), (b'Content-Length', b'428'), (b'Connection', b'keep-alive'), (b'Date', b'Thu, 19 Mar 2026 01:30:37 GMT'), (b'x-inference-provider', b'nscale'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-69bb51bc-7c100ae277fd6adc2989bcf0;fa1cef81-ba2f-4ce7-a8b9-e6f1b67f3c9c'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Vary', b'Origin'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Robots-Tag', b'none'), (b'inference-id', b'05c9f3c5-d0e7-4d41-9e89-1624dad968b1'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 4caf89d9551581434521ab922bf19f74.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'LIS50-P2'), (b'X-Amz-Cf-Id', b'jlGBU7AOtuhiI7TR6VNshvGP9u2N-RKy0aJnxlZRmHmW6dWSpzmKDg==')])
+INFO:httpx:HTTP Request: POST https://router.huggingface.co/v1/chat/completions "HTTP/1.1 200 OK"
+DEBUG:httpcore.http11:receive_response_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_body.complete
+DEBUG:httpcore.http11:response_closed.started
+DEBUG:httpcore.http11:response_closed.complete
+DEBUG:httpcore.connection:close.started
+DEBUG:httpcore.connection:close.complete

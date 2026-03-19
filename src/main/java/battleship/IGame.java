@@ -33,6 +33,13 @@ public interface IGame
 	 */
 	void fireShots(List<IPosition> shots);
 
+	/**
+	 * Fires a set of human shots on the alien fleet.
+	 *
+	 * @param shots the positions where the shots are fired
+	 */
+	void fireMyShots(List<IPosition> shots);
+
 	record ShotResult(boolean valid, boolean repeated, IShip ship, boolean sunk) {}
 
 	/**
@@ -108,6 +115,13 @@ public interface IGame
 	 * @return the remaining ships
 	 */
 	int getRemainingShips();
+
+	/**
+	 * Gets remaining alien ships.
+	 *
+	 * @return the remaining alien ships
+	 */
+	int getRemainingAlienShips();
 
 	/**
 	 * Print my board (my fleet + alien shots).
