@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
  * Client for interacting with Hugging Face Inference API via Router.
  */
 public class HuggingFaceClient {
-    private static final String DEFAULT_MODEL = "Qwen/Qwen2.5-Coder-7B-Instruct";
+    private static final String DEFAULT_MODEL = "Qwen/Qwen2.5-72B-Instruct";
     private final String apiKey;
     private final String model;
     private final HttpClient httpClient;

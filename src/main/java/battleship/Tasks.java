@@ -134,32 +134,29 @@ public class Tasks {
                     break;
                 case IA:
                     if (game != null) {
-                        String token = null;
-                        try {
-                            io.github.cdimascio.dotenv.Dotenv dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load();
-                            token = dotenv.get("HF_TOKEN");
-                        } catch (Exception e) {
-                            // ignore se n encontrar .env
-                        }
-
-                        if (token == null || token.trim().isEmpty()) {
-                            token = System.getenv("HF_TOKEN");
-                        }
-
-                        if (token == null || token.trim().isEmpty()) {
-                            System.out.println("Não foi encontrado o 'HF_TOKEN' no ficheiro .env nem nas variáveis de ambiente.");
-                            System.out.print("Introduza o seu Token da Hugging Face manualmente: ");
-                            token = in.nextLine();
-                            if (token.trim().isEmpty()) {
-                                token = in.nextLine();
+                        System.out.println("A preparar para interagir com o LLM (Hugging Face)...");
+                        String token = "";
+                        java.io.Console console = System.console();
+                        if (console != null) {
+                            char[] passwordChars = console.readPassword("Introduza o seu Token da Hugging Face (o input ficara oculto por seguranca): ");
+                            if (passwordChars != null) {
+                                token = new String(passwordChars).trim();
                             }
+                        } else {
+                            // Fallback para ambientes sem consola interativa (ex: IDEs)
+                            System.out.print("Introduza o seu Token da Hugging Face: ");
+                            String tokenInput = in.nextLine();
+                            if (tokenInput.trim().isEmpty()) {
+                                tokenInput = in.nextLine();
+                            }
+                            token = tokenInput.trim();
                         }
 
-                        if (token == null || token.trim().isEmpty() || token.trim().length() < 10) {
-                            System.out.println("Erro: Token da Hugging Face inválido ou não encontrado.");
+                        if (token.isEmpty() || token.length() < 10) {
+                            System.out.println("Erro: Token da Hugging Face inválido ou não introduzido.");
                             break;
                         }
-                        LLMService llmService = new LLMService(token.trim());
+                        LLMService llmService = new LLMService(token);
                         System.out.println("A preparar para interagir com o LLM (Hugging Face)...");
                         try {
                             while (game.getRemainingShips() > 0 && game.getRemainingAlienShips() > 0) {
@@ -264,7 +261,7 @@ public class Tasks {
                 System.out.println("- " + TIROS + ": " + Messages.get("help.tiros"));
                 System.out.println("- " + DESISTIR + ": " + Messages.get("help.desisto"));
                 System.out.println("- " + PDF + ": " +  Messages.get("help.pdf"));
-                System.out.println("- " + IA + ":" + Messages.get("help.ai"));
+                System.out.println("- " + IA + ": " + Messages.get("help.ia"));
                 System.out.println("- " + LINGUAGEM + ": " + Messages.get("help.linguagem"));
                 System.out.println("===============================================================");
         }
