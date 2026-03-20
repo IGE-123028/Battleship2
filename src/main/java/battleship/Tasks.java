@@ -162,77 +162,120 @@ public class Tasks {
 						LLMService llmService = new LLMService(token);
 						System.out.println("A preparar para interagir com o LLM (Hugging Face)...");
 						try {
-							while (game.getRemainingShips() > 0 && game.getRemainingAlienShips() > 0) {
-								boolean inputValido = false;
-								List<IPosition> humanShots = new ArrayList<>();
-								while (!inputValido) {
-									System.out.println("\nA sua vez de atirar! Introduza " + Game.NUMBER_SHOTS
-											+ " posições (ex: A1 B2 C3):");
-									humanShots.clear();
-									String inputLine = in.nextLine();
-									if (inputLine.trim().isEmpty()) {
-										inputLine = in.nextLine();
+						boolean quitIA = false;
+						while (game.getRemainingShips() > 0 && game.getRemainingAlienShips() > 0 && !quitIA) {
+							boolean inputValido = false;
+							List<IPosition> humanShots = new ArrayList<>();
+							while (!inputValido) {
+								System.out.println("\nA sua vez de atirar! Introduza " + Game.NUMBER_SHOTS
+										+ " posições (ex: A1 B2 C3),\nou um comando (ex: /mapa, /estado, /pdf, /ajuda) ou 'q' para desistir:");
+								humanShots.clear();
+								String inputLine = in.nextLine();
+								if (inputLine.trim().isEmpty()) {
+									inputLine = in.nextLine();
+								}
+								inputLine = inputLine.trim();
+
+								if (inputLine.equalsIgnoreCase("q") || inputLine.equalsIgnoreCase("/desisto")) {
+									System.out.println("Desistiu do jogo contra a IA.");
+									Scoreboard.saveResult("Jogo contra IA terminado por desistência");
+									quitIA = true;
+									break;
+								}
+
+								if (inputLine.startsWith("/")) {
+									String cmd = inputLine.substring(1).toLowerCase();
+									switch (cmd) {
+										case MAPA:
+											game.printMyBoard(false, true);
+											break;
+										case STATUS:
+											myFleet.printStatus();
+											break;
+										case TIROS:
+											game.printMyBoard(true, true);
+											break;
+										case PDF:
+											System.out.print(
+													"Enter the path where you want to save the PDF (do not need to include the *.pdf extension): ");
+											String fileName = in.nextLine();
+											PDFExporter.exportGameToPDF(game, fileName + ".pdf");
+											break;
+										case AJUDA:
+											System.out.println("Comandos disponíveis durante o jogo contra IA:");
+											System.out.println("- /" + MAPA + ": " + Messages.get("help.mapa"));
+											System.out.println("- /" + STATUS + ": " + Messages.get("help.estado"));
+											System.out.println("- /" + TIROS + ": " + Messages.get("help.tiros"));
+											System.out.println("- /" + PDF + ": " + Messages.get("help.pdf"));
+											System.out.println("- /" + DESISTIR + " ou 'q': " + Messages.get("help.desisto"));
+											break;
+										default:
+											System.out.println("Comando desconhecido: /" + cmd);
 									}
+									continue;
+								}
 
-									try {
-										Scanner lineScanner = new Scanner(inputLine);
-										while (humanShots.size() < Game.NUMBER_SHOTS && lineScanner.hasNext()) {
-											String shotToken = lineScanner.next();
-											if (shotToken.equalsIgnoreCase("rajada")) {
-												continue;
-											}
-											if (shotToken.matches("[A-Za-z]")) {
-												if (lineScanner.hasNextInt()) {
-													int row = lineScanner.nextInt();
-													humanShots
-															.add(new Position(shotToken.toUpperCase().charAt(0), row));
-												}
-											} else {
-												Scanner singleScanner = new Scanner(shotToken);
-												humanShots.add(Tasks.readClassicPosition(singleScanner));
-											}
+								try {
+									Scanner lineScanner = new Scanner(inputLine);
+									while (humanShots.size() < Game.NUMBER_SHOTS && lineScanner.hasNext()) {
+										String shotToken = lineScanner.next();
+										if (shotToken.equalsIgnoreCase("rajada")) {
+											continue;
 										}
-
-										if (humanShots.size() != Game.NUMBER_SHOTS) {
-											System.out.println("Entrada incompleta. Introduza as " + Game.NUMBER_SHOTS
-													+ " posições.");
+										if (shotToken.matches("[A-Za-z]")) {
+											if (lineScanner.hasNextInt()) {
+												int row = lineScanner.nextInt();
+												humanShots
+														.add(new Position(shotToken.toUpperCase().charAt(0), row));
+											}
 										} else {
-											inputValido = true;
+											Scanner singleScanner = new Scanner(shotToken);
+											humanShots.add(Tasks.readClassicPosition(singleScanner));
 										}
-									} catch (Exception ex) {
-										System.out.println(
-												"Formato de posições inválido. Tente novamente apenas com as posições (ex: A1 B2 C3).");
 									}
+
+									if (humanShots.size() != Game.NUMBER_SHOTS) {
+										System.out.println("Entrada incompleta. Introduza as " + Game.NUMBER_SHOTS
+												+ " posições ou um comando.");
+									} else {
+										inputValido = true;
+									}
+								} catch (Exception ex) {
+									System.out.println(
+											"Formato de posições inválido. Tente novamente apenas com as posições (ex: A1 B2 C3) ou um comando.");
 								}
-
-								game.fireMyShots(humanShots);
-								System.out.println("Tiros efetuados na frota inimiga:");
-								game.printAlienBoard(true, false);
-
-								if (game.getRemainingAlienShips() == 0) {
-									System.out.println("\nParabéns! Destruiu a frota inimiga!");
-									game.over();
-									System.exit(0);
-								}
-
-								System.out.println("\nA perguntar ao LLM o próximo movimento...");
-								String jsonShots = llmService.getNextMove((Game) game);
-								System.out.println("LLM propõe: " + jsonShots);
-
-								List<IPosition> shots = parseJsonShots(jsonShots);
-								game.fireShots(shots);
-
-								System.out.println("A sua frota após o ataque do LLM:");
-								myFleet.printStatus();
-								game.printMyBoard(true, false);
-
-								if (game.getRemainingShips() == 0) {
-									System.out.println("\nA IA destruiu a sua frota!");
-									game.over();
-									System.exit(0);
-								}
-								Thread.sleep(2000);
 							}
+
+							if (quitIA) break;
+
+							game.fireMyShots(humanShots);
+							System.out.println("Tiros efetuados na frota inimiga:");
+							game.printAlienBoard(true, false);
+
+							if (game.getRemainingAlienShips() == 0) {
+								System.out.println("\nParabéns! Destruiu a frota inimiga!");
+								game.over();
+								break;
+							}
+
+							System.out.println("\nA perguntar ao LLM o próximo movimento...");
+							String jsonShots = llmService.getNextMove((Game) game);
+							System.out.println("LLM propõe: " + jsonShots);
+
+							List<IPosition> shots = parseJsonShots(jsonShots);
+							game.fireShots(shots);
+
+							System.out.println("A sua frota após o ataque do LLM:");
+							myFleet.printStatus();
+							game.printMyBoard(true, false);
+
+							if (game.getRemainingShips() == 0) {
+								System.out.println("\nA IA destruiu a sua frota!");
+								game.over();
+								break;
+							}
+							Thread.sleep(2000);
+						}
 						} catch (Exception e) {
 							System.out.println("Erro na interação com o LLM: " + e.getMessage());
 							e.printStackTrace();
