@@ -241,7 +241,7 @@ https://iscteiul365-my.sharepoint.com/:v:/g/personal/tfsps_iscte-iul_pt/IQC_zjdx
 ---
 
 ## ℹ️ Aditional Information
-- The answears to the questions in the guide are on the file [Answers.md](./Answers.md)
+- The answears to the questions in the guide are on this [file](./ANSWERS.md)
 - There is a issue explaining some details about the workflow, since we had some problems and we had to rewrite the log (ISSUE #15)
 
 ---
