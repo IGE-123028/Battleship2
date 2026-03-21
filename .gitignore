@@ -10,6 +10,3 @@
 
 # IntelliJ IDEA
 .idea/
-
-.env
-output.txt
