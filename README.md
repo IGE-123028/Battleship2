@@ -236,7 +236,7 @@ If the enemy fleet is fully sunk:
 
 ## 🎥 Link to Demo Video
 
-https://iscteiul365-my.sharepoint.com/:v:/g/personal/tfsps_iscte-iul_pt/IQC_zjdxyAYHQ5bxzzxHRHjyAXrNYsY30tJIEN13X-IWkak?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=VOnN2A
+https://youtu.be/7Hz4BcZQ2fw
 
 ---
 
