@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 public class Scoreboard {
 
     public static void saveResult(String resultado) {
-        try (FileWriter writer = new FileWriter("data/scoreboard.csv", true);
+        String homeDir = System.getProperty("user.home");
+        String filePath = homeDir + java.io.File.separator + "battleship_scoreboard.csv";
+        try (FileWriter writer = new FileWriter(filePath, true);
              CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
 
             csvPrinter.printRecord(LocalDateTime.now(), resultado);

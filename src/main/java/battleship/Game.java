@@ -21,8 +21,9 @@ public class Game implements IGame
 	 *                    their result (hit or miss) on the board.
 	 * @param showLegend  if true, displays an explanatory legend of the symbols used
 	 *                    to represent various elements such as ships, misses, hits, etc.
+	 * @param hide_ships  if true, only shows ships that are completely sunk, hiding intact ones.
 	 */
-	public static void printBoard(IFleet fleet, List<IMove> moves, boolean show_shots, boolean showLegend) {
+	public static void printBoard(IFleet fleet, List<IMove> moves, boolean show_shots, boolean showLegend, boolean hide_ships) {
 
 		assert fleet != null;
 		assert moves != null;
@@ -34,11 +35,13 @@ public class Game implements IGame
 				map[r][c] = EMPTY_MARKER;
 
 		for (IShip ship : fleet.getShips()) {
-			for (IPosition ship_pos : ship.getPositions())
-				map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
-			if (!ship.stillFloating())
-				for (IPosition adjacent_pos : ship.getAdjacentPositions())
-					map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
+			if (!hide_ships || !ship.stillFloating()) {
+				for (IPosition ship_pos : ship.getPositions())
+					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
+				if (!ship.stillFloating())
+					for (IPosition adjacent_pos : ship.getAdjacentPositions())
+						map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
+			}
 		}
 
 		if (show_shots)
@@ -47,9 +50,9 @@ public class Game implements IGame
 					if (shot.isInside()){
 						int row = shot.getRow();
 						int col = shot.getColumn();
-						if (map[row][col] == SHIP_MARKER)
+						if (fleet.shipAt(shot) != null)
 							map[row][col] = SHOT_SHIP_MARKER;
-						if (map[row][col] == EMPTY_MARKER || map[row][col] == SHIP_ADJACENT_MARKER)
+						else
 							map[row][col] = SHOT_WATER_MARKER;
 					}
 				}
@@ -165,7 +168,7 @@ public class Game implements IGame
 		this.alienMoves = new ArrayList<IMove>();
 		this.myMoves = new ArrayList<IMove>();
 
-		this.alienFleet = new Fleet();
+		this.alienFleet = Fleet.createRandom();
 		this.myFleet = myFleet;
 
 		this.countInvalidShots = 0;
@@ -345,6 +348,29 @@ public class Game implements IGame
 		moveNumber++;
 	}
 
+	@Override
+	public void fireMyShots(List<IPosition> shots)
+	{
+		assert shots != null;
+
+		List<ShotResult> shotResults = new ArrayList<ShotResult>();
+		if (shots.size() != NUMBER_SHOTS) {
+			throw new IllegalArgumentException("Must fire exactly " + NUMBER_SHOTS + " shots per move.");
+		}
+
+		List<IPosition> alreadyShot = new ArrayList<IPosition>();
+		for (IPosition pos : shots) {
+			shotResults.add(fireMySingleShot(pos, alreadyShot.contains(pos)));
+			alreadyShot.add(pos);
+		}
+
+		Move move = new Move(myMoves.size() + 1, shots, shotResults);
+
+		move.processEnemyFire(true);
+
+		myMoves.add(move);
+	}
+
 	/**
 	 * Fires a single shot at the specified position, handling scenarios such as invalid positions,
 	 * repeated shots, hits, misses, and sinking a ship. The method updates the necessary counters
@@ -383,6 +409,28 @@ public class Game implements IGame
 		}
 	}
 
+	public ShotResult fireMySingleShot(IPosition pos, boolean isRepeated) {
+
+		assert pos != null;
+
+		if (!pos.isInside()) {
+			return new ShotResult(false, false, null, false);
+		}
+
+		if (isRepeated || myRepeatedShot(pos)) {
+			return new ShotResult(true, true, null, false);
+		}
+
+		IShip ship = alienFleet.shipAt(pos);
+		if (ship == null)
+			return new ShotResult(true, false, null, false);
+		else
+		{
+			ship.shoot(pos);
+			return new ShotResult(true, false, ship, !ship.stillFloating());
+		}
+	}
+
 	@Override
 	public int getRepeatedShots()
 	{
@@ -414,6 +462,13 @@ public class Game implements IGame
 		return floatingShips.size();
 	}
 
+	@Override
+	public int getRemainingAlienShips()
+	{
+		List<IShip> floatingShips = alienFleet.getFloatingShips();
+		return floatingShips.size();
+	}
+
 	public boolean repeatedShot(IPosition pos)
 	{
 		assert pos != null;
@@ -424,14 +479,24 @@ public class Game implements IGame
 		return false;
 	}
 
+	public boolean myRepeatedShot(IPosition pos)
+	{
+		assert pos != null;
+
+		for (IMove move : myMoves)
+			if (move.getShots().contains(pos))
+				return true;
+		return false;
+	}
+
 	public void printMyBoard(boolean show_shots, boolean show_legend)
 	{
-		Game.printBoard(this.myFleet, this.alienMoves, show_shots, show_legend);
+		Game.printBoard(this.myFleet, this.alienMoves, show_shots, show_legend, false);
 	}
 
 	public void printAlienBoard(boolean show_shots, boolean show_legend)
 	{
-		Game.printBoard(this.alienFleet, this.myMoves, show_shots, show_legend);
+		Game.printBoard(this.alienFleet, this.myMoves, show_shots, show_legend, true);
 	}
 
 	public void over() {

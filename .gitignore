@@ -1,6 +1,6 @@
 # Maven
 /target/
-data/scoreboard.csv
+/data/
 
 # Eclipse
 .settings/
