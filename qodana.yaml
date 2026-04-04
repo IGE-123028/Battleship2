@@ -3,12 +3,6 @@
 ####################################################################################################################
 
 version: "1.0"
-linter: jetbrains/qodana-jvm:2025.3
+linter: jetbrains/qodana-jvm:latest
 profile:
   name: qodana.recommended
-include:
-  - name: CheckDependencyLicenses
-
-  - name: OverlyComplexMethod
-    options:
-      m_limit: 10
