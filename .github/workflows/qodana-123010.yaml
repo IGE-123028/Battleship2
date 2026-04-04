@@ -1,96 +1,33 @@
 # Manuel Albuquerque IGE-123010
-name: "Qodana — Long Method Quality Gate"
+name: "Overly Complex Method - Qodana Quality Gate"
 
 on:
   push:
-    branches:
-    - main
+    branches: [main]
   pull_request:
-    branches:
-    - main
+    branches: [main]
 
 jobs:
   qodana:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       checks: write
       pull-requests: write
-      security-events: write
 
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@v2025.3
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          cloud-token: ${{ secrets.QODANA_TOKEN }}
 
-      # Cria qodana.yaml inline — não é necessário ficheiro separado no repo
-      # Operacionalização de Lanza & Marinescu (2006), cap. 3, pp. 77-79:
-      #   Long Method = LOC > 15 (MethodTooLong) AND CC > 5 (CyclomaticComplexity)
-      - name: Criar qodana.yaml
-        run: |
-          cat > qodana.yaml << 'EOF'
-          version: "1.0"
-          linter: qodana-jvm
+          args: --fail-threshold,0
 
-          inspections:
-            # LOC por método > 15 linhas úteis (Lanza & Marinescu, p. 78)
-            - inspection: MethodTooLong
-              enabled: true
-              severity: WARNING
-              options:
-                maxLength: 15
-
-            # Complexidade Ciclomática > 5 (Lanza & Marinescu, p. 79)
-            - inspection: CyclomaticComplexity
-              enabled: true
-              severity: WARNING
-              options:
-                threshold: 5
-
-            # Variante que combina CC + profundidade de nesting
-            - inspection: OverlyComplexMethod
-              enabled: true
-              severity: WARNING
-
-          # Quality gate: 0 novas violações permitidas em código novo
-          # O baseline isola débito técnico pré-existente
-          failThreshold: 0
-
-          exclude:
-            - name: All
-              paths:
-                - build/
-                - target/
-                - generated/
-          EOF
-
-      - name: "Qodana — Long Method Analysis"
-        uses: JetBrains/qodana-action@v2024.3
-        with:
-          results-dir: ${{ runner.temp }}/qodana-results
-          upload-result: false        # true se tiver conta Qodana Cloud
-          fail-threshold: 0           # falha o build se houver novas violações
-          use-baseline: false         # mude para true após gerar baseline inicial
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-
-      - name: Upload SARIF → GitHub Code Scanning
-        if: always()
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ${{ runner.temp }}/qodana-results/qodana.sarif.json
-
-      - name: Upload relatório
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: qodana-report
-          path: ${{ runner.temp }}/qodana-results/
-          retention-days: 14
+          pr-mode: true
+          post-pr-comment: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
