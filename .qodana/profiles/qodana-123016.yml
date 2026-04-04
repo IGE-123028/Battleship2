@@ -3,16 +3,13 @@ version: "1.0"
 # Custom profile to Long Parameter List
 # Based on "Object-Oriented Metrics in Practice" (Lanza & Marinescu)
 # IGE-123016 - Tiago Pires
+linter: jetbrains/qodana-jvm:latest
 profile:
-    name: empty
-
+  name: qodana.recommended
 include:
   - name: ParametersPerMethod
-    options:
-      m_limit: 5
-    enabled: true
-
+    properties:
+      limit: 5
   - name: ParametersPerConstructor
-    options:
-      m_limit: 5
-    enabled: true
+    properties:
+      limit: 5
