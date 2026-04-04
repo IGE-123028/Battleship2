@@ -7,9 +7,6 @@ profile:
     name: empty
 
   inspections:
-    - group: ALL
-      enabled: false
-
     - inspection: ParametersPerMethod
       options:
         m_limit: 5
