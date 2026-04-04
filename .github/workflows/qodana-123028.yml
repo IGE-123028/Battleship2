@@ -1,5 +1,5 @@
-# IGE-123016 - Tiago Pires
-name: "Qodana - Long Parameter List (ParametersPerMethod)"
+# IGE-123028
+name: "Qodana"
 
 on:
   push:
@@ -28,6 +28,6 @@ jobs:
       - name: Run Qodana Analysis
         uses: JetBrains/qodana-action@v2024.3
         with:
-          args: --config,.github/qodana-123016.yaml
+          args: --config,./qodana.yaml
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}

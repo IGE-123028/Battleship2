@@ -29,5 +29,5 @@ jobs:
           args: --profile-path,.qodana/profiles/long-parameter-list.yaml
           pr-mode: false
         env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1695558519 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
