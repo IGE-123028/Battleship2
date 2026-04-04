@@ -1,25 +1,15 @@
-# IGE-123016 - Tiago Pires
 version: "1.0"
 
+# Custom profile to Long Parameter List
+# Based on "Object-Oriented Metrics in Practice" (Lanza & Marinescu)
 profile:
   base:
     name: empty
 
-  groups:
-    - groupId: DisableAll
-      groups:
-        - "ALL"
-
   inspections:
-    - group: DisableAll
-      enabled: false
-
     - inspection: ParametersPerMethod
       options:
-        m_limit: 5
-      enabled: true
-
+        m_limit: 3
     - inspection: ParametersPerConstructor
       options:
-        m_limit: 5
-      enabled: true
+        m_limit: 3
