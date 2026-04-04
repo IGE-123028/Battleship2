@@ -23,11 +23,10 @@ jobs:
 
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2025.3
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-          cloud-token: ${{ secrets.QODANA_TOKEN }}
-
-          args: --fail-threshold,0
-
+          args: --fail-threshold 0
           pr-mode: true
           post-pr-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
