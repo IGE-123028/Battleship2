@@ -1,0 +1,20 @@
+version: "1.0"
+
+linter: jetbrains/qodana-jvm:2024.3
+
+profile:
+  name: empty
+
+include:
+  - name: ParametersPerMethod
+  - name: ParametersPerConstructor
+
+inspections:
+  - inspection: ParametersPerMethod
+    options:
+      m_limit: 3
+  - inspection: ParametersPerConstructor
+    options:
+      m_limit: 3
+
+failThreshold: 0
