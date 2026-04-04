@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
 
       - name: 'Qodana Scan - Long Parameter List'
-        uses: JetBrains/qodana-action@v2025.3
+        uses: JetBrains/qodana-action@v2024.3
         with:
           args: --profile-path,.qodana/profiles/long-parameter-list.yaml
           pr-mode: false
