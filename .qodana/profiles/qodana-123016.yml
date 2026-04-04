@@ -13,3 +13,5 @@ profile:
     - inspection: ParametersPerConstructor
       options:
         m_limit: 3
+
+failThreshold: 0
