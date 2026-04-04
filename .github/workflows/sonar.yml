@@ -1,0 +1,22 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          args: >
+            -Dsonar.projectKey=IGE-123028_Battleship2
+            -Dsonar.organization=ige-123028
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
