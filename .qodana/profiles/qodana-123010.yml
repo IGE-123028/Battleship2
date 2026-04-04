@@ -1,0 +1,12 @@
+# Manuel Albuquerque IGE-123010
+version: "1.0"
+
+profile:
+  base:
+    name: empty
+
+  inspections:
+    - inspection: OverlyComplexMethod
+      options:
+        m_limit: 10
+      enabled: true
