@@ -28,7 +28,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven Wrapper
-        run: ./mvn -B package
+        run: ./mvnw -B package
 
   qodana:
     needs: build
