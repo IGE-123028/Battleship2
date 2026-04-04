@@ -1,8 +1,6 @@
-# .github/workflows/qodana-123016.yml
 # IGE-123016 - Tiago Pires
-# Quality Gate: Long Parameter List (Detection Strategy)
 
-name: "Qodana - Long Parameter List (Tiago Pires)"
+name: "Qodana - Long Parameter List"
 
 on:
   workflow_dispatch:
@@ -12,26 +10,7 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [ '17' ]
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK ${{ matrix.java }}
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ matrix.java }}
-          distribution: 'adopt'
-          cache: maven
-
-      - name: Build with Maven Wrapper
-        run: ./mvnw -B package
-
   qodana:
-    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: write
