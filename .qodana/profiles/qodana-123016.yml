@@ -2,6 +2,7 @@ version: "1.0"
 
 # Custom profile to Long Parameter List
 # Based on "Object-Oriented Metrics in Practice" (Lanza & Marinescu)
+# IGE-123016 - Tiago Pires
 profile:
   base:
     name: empty
@@ -9,9 +10,10 @@ profile:
   inspections:
     - inspection: ParametersPerMethod
       options:
-        m_limit: 3
+        m_limit: 5
+      enabled: true
+
     - inspection: ParametersPerConstructor
       options:
-        m_limit: 3
-
-failThreshold: 0
+        m_limit: 5
+      enabled: true
