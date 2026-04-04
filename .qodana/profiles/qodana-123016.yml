@@ -11,10 +11,10 @@ profile:
 
     - inspection: ParametersPerMethod
       options:
-        m_limit: 3
+        m_limit: 5
       enabled: true
 
     - inspection: ParametersPerConstructor
       options:
-        m_limit: 3
+        m_limit: 5
       enabled: true
