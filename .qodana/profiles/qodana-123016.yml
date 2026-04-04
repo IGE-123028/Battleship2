@@ -1,11 +1,17 @@
+# IGE-123016 - Tiago Pires
 version: "1.0"
 
 profile:
   base:
     name: empty
 
+  groups:
+    - groupId: DisableAll
+      groups:
+        - "ALL"
+
   inspections:
-    - group: ALL
+    - group: DisableAll
       enabled: false
 
     - inspection: ParametersPerMethod
