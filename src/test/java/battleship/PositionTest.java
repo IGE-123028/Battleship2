@@ -209,4 +209,19 @@ public class PositionTest {
 		assertTrue(adjacents.contains(new Position(1, 4))); // northeast
 		assertTrue(adjacents.contains(new Position(1, 2))); // northwest
 	}
+
+	@Test
+	public void testAdjacentPositionsEdge() {
+		Position position = new Position(0, 5);
+		List<IPosition> adjacents = position.adjacentPositions();
+		assertEquals(5, adjacents.size());
+		assertTrue(adjacents.contains(new Position(0, 4)));
+		assertTrue(adjacents.contains(new Position(0, 6)));
+		assertTrue(adjacents.contains(new Position(1, 4)));
+		assertTrue(adjacents.contains(new Position(1, 5)));
+		assertTrue(adjacents.contains(new Position(1, 6)));
+		assertFalse(adjacents.contains(new Position(-1, 4)));
+		assertFalse(adjacents.contains(new Position(-1, 5)));
+		assertFalse(adjacents.contains(new Position(-1, 6)));
+	}
 }

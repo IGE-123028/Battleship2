@@ -122,10 +122,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public String chat(String prompt) throws Exception {
-&nbsp;        // 1. O Endpoint agora é para Chat Completions (formato unificado OpenAI)
 <b class="nc">&nbsp;        String apiUrl = &quot;https://router.huggingface.co/v1/chat/completions&quot;;</b>
 &nbsp;
-&nbsp;        // 2. Construir o corpo no formato Chat (messages)
 <b class="nc">&nbsp;        Map&lt;String, Object&gt; body = new HashMap&lt;&gt;();</b>
 <b class="nc">&nbsp;        body.put(&quot;model&quot;, this.model);</b>
 &nbsp;
@@ -137,7 +135,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="nc">&nbsp;        body.put(&quot;messages&quot;, messages);</b>
 <b class="nc">&nbsp;        body.put(&quot;max_tokens&quot;, 500);</b>
-<b class="nc">&nbsp;        body.put(&quot;temperature&quot;, 0.1); // Baixa temperatura para JSON mais estável</b>
+<b class="nc">&nbsp;        body.put(&quot;temperature&quot;, 0.1);</b>
 &nbsp;
 <b class="nc">&nbsp;        String jsonBody = objectMapper.writeValueAsString(body);</b>
 &nbsp;
@@ -154,8 +152,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;            throw new RuntimeException(&quot;HTTP error &quot; + response.statusCode() + &quot;: &quot; + response.body());</b>
 &nbsp;        }
 &nbsp;
-&nbsp;        // 3. O parsing mudou! O Router retorna um objeto JSON, não uma lista.
-&nbsp;        // Estrutura: choices[0].message.content
 <b class="nc">&nbsp;        JsonNode rootNode = objectMapper.readTree(response.body());</b>
 <b class="nc">&nbsp;        JsonNode choices = rootNode.path(&quot;choices&quot;);</b>
 &nbsp;
@@ -189,7 +185,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-04-16 15:08</div>
+    <div style="float:right;">generated on 2026-04-16 22:13</div>
 </div>
 </body>
 </html>
