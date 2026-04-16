@@ -132,6 +132,23 @@ mvn test
 
 ---
 
+## 🚀 Continuous Integration (GitHub Actions)
+
+This project uses **GitHub Actions** to automate the build and testing process.
+
+![Java CI with Maven](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/actions/workflows/maven.yml/badge.svg)
+
+### Workflow Overview
+The `Java CI with Maven` workflow is triggered on every **Push** or **Pull Request** to the `main` branch. It ensures that:
+
+1.  **Environment:** The code is compiled in an isolated Ubuntu environment.
+2.  **JDK Setup:** JDK 21 (Temurin) is configured.
+3.  **Automated Testing:** All **JUnit unit tests** are executed using `mvn clean verify`. 
+4.  **Quality Gate:** If any test fails, the build status will turn red, alerting the team to fix the issues.
+
+### How to Check Status
+You can view the detailed execution logs under the **"Actions"** tab of this repository. A green checkmark indicates that all tests passed successfully.
+
 ## 🤖 Final LLM Prompt
 
 ### CONTEXT AND ROLE
