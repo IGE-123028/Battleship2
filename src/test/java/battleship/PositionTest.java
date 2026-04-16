@@ -1,6 +1,10 @@
 package battleship;
 
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -27,7 +31,6 @@ public class PositionTest {
 	@BeforeEach
 	void setUp() {
 		position = new Position(2, 3);
-	//	position = new Position('C', 4);
 	}
 
 	@AfterEach
@@ -36,11 +39,21 @@ public class PositionTest {
 	}
 
 	@Test
-	void constructor() {
+	void constructor1() {
 		Position pos = new Position(1, 1);
 		assertNotNull(pos, "Failed to create Position: object is null");
 		assertEquals(1, pos.getRow(), "Failed to set row: expected 1 but got " + pos.getRow());
 		assertEquals(1, pos.getColumn(), "Failed to set column: expected 1 but got " + pos.getColumn());
+		assertFalse(pos.isOccupied(), "New position should not be occupied");
+		assertFalse(pos.isHit(), "New position should not be hit");
+	}
+
+	@Test
+	void constructor2() {
+		Position pos = new Position('C', 1);
+		assertNotNull(pos, "Failed to create Position: object is null");
+		assertEquals('C', pos.getClassicRow(), "Failed to set row: expected C but got " + pos.getClassicRow());
+		assertEquals(1, pos.getClassicColumn(), "Failed to set column: expected 1 but got " + pos.getClassicColumn());
 		assertFalse(pos.isOccupied(), "New position should not be occupied");
 		assertFalse(pos.isHit(), "New position should not be hit");
 	}
@@ -62,7 +75,7 @@ public class PositionTest {
 
 	@Test
 	void getClassicColumn() {
-		assertEquals(3, position.getColumn(), "Failed to get column: expected 3 but got " + position.getColumn());
+		assertEquals(4, position.getClassicColumn(), "Failed to get column: expected 3 but got " + position.getClassicColumn());
 	}
 
 	@Test
@@ -181,5 +194,19 @@ public class PositionTest {
 		assertEquals(expected, position.toString(),
 				"Incorrect string representation: expected '" + expected +
 						"' but got '" + position.toString() + "'");
+	}
+
+	@Test
+	void adjacentPositions() {
+		List<IPosition> adjacents = position.adjacentPositions();
+		assertEquals(8, adjacents.size());
+		assertTrue(adjacents.contains(new Position(1, 3))); // north
+		assertTrue(adjacents.contains(new Position(2, 4))); // east
+		assertTrue(adjacents.contains(new Position(3, 3))); // south
+		assertTrue(adjacents.contains(new Position(2, 2))); // west
+		assertTrue(adjacents.contains(new Position(3, 4))); // southeast
+		assertTrue(adjacents.contains(new Position(3, 2))); // southwest
+		assertTrue(adjacents.contains(new Position(1, 4))); // northeast
+		assertTrue(adjacents.contains(new Position(1, 2))); // northwest
 	}
 }
