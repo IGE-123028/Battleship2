@@ -45,26 +45,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Carrack</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (12/12)
+    (0/12)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (10/10)
+    (0/10)
   </span>
 </td>
 </tr>
@@ -72,18 +72,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     <td class="name">Carrack$1</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
   </tr>
@@ -91,26 +91,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (2/2)
+    (0/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (12/12)
+    (0/12)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (11/11)
+    (0/11)
   </span>
 </td>
 </tr>
@@ -142,24 +142,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 * @param pos     The initial position of the ship on the game board.
 &nbsp;	 */
 &nbsp;	public Carrack(Compass bearing, IPosition pos) {
-<b class="fc">&nbsp;		super(&quot;Nau&quot;, bearing, pos, 3);</b>
+<b class="nc">&nbsp;		super(&quot;Nau&quot;, bearing, pos, 3);</b>
 &nbsp;
-<b class="pc">&nbsp;		switch (bearing) {</b>
+<b class="nc">&nbsp;		switch (bearing) {</b>
 &nbsp;			case SOUTH:
-<b class="fc">&nbsp;				for (int r = 0; r &lt; this.getSize(); r++)</b>
-<b class="fc">&nbsp;					getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));</b>
+<b class="nc">&nbsp;				for (int r = 0; r &lt; this.getSize(); r++)</b>
+<b class="nc">&nbsp;					getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));</b>
 &nbsp;				break;
 &nbsp;			case NORTH:
-<b class="fc">&nbsp;				for (int r = 0; r &lt; this.getSize(); r++)</b>
-<b class="fc">&nbsp;					getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));</b>
+<b class="nc">&nbsp;				for (int r = 0; r &lt; this.getSize(); r++)</b>
+<b class="nc">&nbsp;					getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));</b>
 &nbsp;				break;
 &nbsp;			case EAST:
-<b class="fc">&nbsp;				for (int c = 0; c &lt; this.getSize(); c++)</b>
-<b class="fc">&nbsp;					getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));</b>
+<b class="nc">&nbsp;				for (int c = 0; c &lt; this.getSize(); c++)</b>
+<b class="nc">&nbsp;					getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));</b>
 &nbsp;				break;
 &nbsp;			case WEST:
-<b class="fc">&nbsp;				for (int c = 0; c &lt; this.getSize(); c++)</b>
-<b class="fc">&nbsp;					getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));</b>
+<b class="nc">&nbsp;				for (int c = 0; c &lt; this.getSize(); c++)</b>
+<b class="nc">&nbsp;					getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));</b>
 &nbsp;				break;
 &nbsp;		}
 &nbsp;	}
@@ -187,7 +187,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-04-16 22:13</div>
+    <div style="float:right;">generated on 2026-04-17 01:32</div>
 </div>
 </body>
 </html>

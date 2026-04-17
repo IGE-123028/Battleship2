@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IShip</title>
+  <title>Coverage Report > IPosition</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,16 +22,25 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">battleship</a>
 </div>
 
-<h1>Coverage Summary for Class: IShip (battleship)</h1>
+<h1>Coverage Summary for Class: IPosition (battleship)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">IPosition$MockitoMock$e0uk0r8p</td>
+  </tr>
+  <tr>
+    <td class="name">IPosition$MockitoMock$e0uk0r8p$auxiliary$ETxbCVw3</td>
+  </tr>
+  <tr>
+    <td class="name">IPosition$MockitoMock$e0uk0r8p$auxiliary$fGApHl2l</td>
+  </tr>
 <tr>
-  <td class="name">IShip</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -39,130 +48,100 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;/**
-&nbsp; * 
-&nbsp; */
-&nbsp;package battleship;
+<code class="sourceCode" id="sourceCode">&nbsp;package battleship;
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
 &nbsp;/**
-&nbsp; * The interface Ship.
+&nbsp; * The interface Position.
+&nbsp; *
+&nbsp; * @author fba
 &nbsp; */
-&nbsp;public interface IShip
+&nbsp;public interface IPosition
 &nbsp;{
 &nbsp;	/**
-&nbsp;	 * Gets category.
+&nbsp;	 * Gets row.
 &nbsp;	 *
-&nbsp;	 * @return the category
+&nbsp;	 * @return the row
 &nbsp;	 */
-&nbsp;	String getCategory();
+&nbsp;	int getRow();
 &nbsp;
 &nbsp;	/**
-&nbsp;	 * Gets size.
+&nbsp;	 * Gets column.
 &nbsp;	 *
-&nbsp;	 * @return the size
+&nbsp;	 * @return the column
 &nbsp;	 */
-&nbsp;	Integer getSize();
+&nbsp;	int getColumn();
 &nbsp;
 &nbsp;	/**
-&nbsp;	 * Gets positions.
+&nbsp;	 * Gets traditional row.
 &nbsp;	 *
-&nbsp;	 * @return the positions
+&nbsp;	 * @return the traditional row within [A-J]
 &nbsp;	 */
-&nbsp;	List&lt;IPosition&gt; getPositions();
+&nbsp;	char getClassicRow();
 &nbsp;
 &nbsp;	/**
-&nbsp;	 * Gets positions.
+&nbsp;	 * Gets traditional column.
 &nbsp;	 *
-&nbsp;	 * @return the adjacent positions
+&nbsp;	 * @return the traditional column within [1-10]
 &nbsp;	 */
-&nbsp;	List&lt;IPosition&gt; getAdjacentPositions();
+&nbsp;	int getClassicColumn();
 &nbsp;
 &nbsp;	/**
-&nbsp;	 * Gets position.
-&nbsp;	 *
-&nbsp;	 * @return the position
-&nbsp;	 */
-&nbsp;	IPosition getPosition();
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Gets bearing.
-&nbsp;	 *
-&nbsp;	 * @return the bearing
-&nbsp;	 */
-&nbsp;	Compass getBearing();
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Still floating boolean.
-&nbsp;	 *
-&nbsp;	 * @return the boolean
-&nbsp;	 */
-&nbsp;	boolean stillFloating();
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Gets top most pos.
-&nbsp;	 *
-&nbsp;	 * @return the top most pos
-&nbsp;	 */
-&nbsp;	int getTopMostPos();
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Gets bottom most pos.
-&nbsp;	 *
-&nbsp;	 * @return the bottom most pos
-&nbsp;	 */
-&nbsp;	int getBottomMostPos();
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Gets left most pos.
-&nbsp;	 *
-&nbsp;	 * @return the left most pos
-&nbsp;	 */
-&nbsp;	int getLeftMostPos();
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Gets right most pos.
-&nbsp;	 *
-&nbsp;	 * @return the right most pos
-&nbsp;	 */
-&nbsp;	int getRightMostPos();
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Occupies boolean.
-&nbsp;	 *
-&nbsp;	 * @param pos the pos
-&nbsp;	 * @return the boolean
-&nbsp;	 */
-&nbsp;	boolean occupies(IPosition pos);
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Too close to boolean.
+&nbsp;	 * Equals boolean.
 &nbsp;	 *
 &nbsp;	 * @param other the other
 &nbsp;	 * @return the boolean
 &nbsp;	 */
-&nbsp;	boolean tooCloseTo(IShip other);
+&nbsp;	boolean equals(Object other);
 &nbsp;
 &nbsp;	/**
-&nbsp;	 * Too close to boolean.
+&nbsp;	 * Checks if the position is inside the board.
 &nbsp;	 *
-&nbsp;	 * @param pos the pos
+&nbsp;	 * @return true if the position is inside the board, false otherwise
+&nbsp;	 */
+&nbsp;	boolean isInside();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Is adjacent to boolean.
+&nbsp;	 *
+&nbsp;	 * @param other the other
 &nbsp;	 * @return the boolean
 &nbsp;	 */
-&nbsp;	boolean tooCloseTo(IPosition pos);
+&nbsp;	boolean isAdjacentTo(IPosition other);
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Occupy.
+&nbsp;	 */
+&nbsp;	void occupy();
 &nbsp;
 &nbsp;	/**
 &nbsp;	 * Shoot.
-&nbsp;	 *
-&nbsp;	 * @param pos the pos
 &nbsp;	 */
-&nbsp;	void shoot(IPosition pos);
+&nbsp;	void shoot();
 &nbsp;
 &nbsp;	/**
-&nbsp;	 * Sink.
+&nbsp;	 * Is occupied boolean.
+&nbsp;	 *
+&nbsp;	 * @return the boolean
 &nbsp;	 */
-&nbsp;	void sink();
+&nbsp;	boolean isOccupied();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Is hit boolean.
+&nbsp;	 *
+&nbsp;	 * @return the boolean
+&nbsp;	 */
+&nbsp;	boolean isHit();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Retrieves a list of positions that are adjacent to the current position.
+&nbsp;	 * Adjacent positions are defined as those sharing a border or corner
+&nbsp;	 * with the current position.
+&nbsp;	 *
+&nbsp;	 * @return a list of adjacent positions as IPosition objects
+&nbsp;	 */
+&nbsp;	List&lt;IPosition&gt; adjacentPositions();
 &nbsp;}
 </code>
 </pre>
@@ -187,7 +166,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-04-16 22:13</div>
+    <div style="float:right;">generated on 2026-04-17 01:32</div>
 </div>
 </body>
 </html>

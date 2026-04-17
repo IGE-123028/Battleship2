@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">PDFExporter</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/2)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    95.8%
   </span>
   <span class="absValue">
-    (0/24)
+    (23/24)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    98%
   </span>
   <span class="absValue">
-    (0/50)
+    (49/50)
   </span>
 </td>
 </tr>
@@ -105,7 +105,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * any implementation of {@link IGame}, {@link IMove}, and {@link IGame.ShotResult}.
 &nbsp; * &lt;/p&gt;
 &nbsp; */
-<b class="nc">&nbsp;public class PDFExporter {</b>
+<b class="fc">&nbsp;public class PDFExporter {</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Generates a PDF file containing a summary of the game and detailed moves.
@@ -116,85 +116,85 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public static void exportGameToPDF(IGame game, String fileName) {
 &nbsp;
-<b class="nc">&nbsp;        assert game != null;</b>
-<b class="nc">&nbsp;        assert fileName != null &amp;&amp; !fileName.isEmpty();</b>
+<b class="fc">&nbsp;        assert game != null;</b>
+<b class="pc">&nbsp;        assert fileName != null &amp;&amp; !fileName.isEmpty();</b>
 &nbsp;
 &nbsp;        try {
 &nbsp;            // Create the document and link to a file output stream
-<b class="nc">&nbsp;            Document document = new Document();</b>
-<b class="nc">&nbsp;            PdfWriter.getInstance(document, new FileOutputStream(fileName));</b>
-<b class="nc">&nbsp;            document.open();</b>
+<b class="fc">&nbsp;            Document document = new Document();</b>
+<b class="fc">&nbsp;            PdfWriter.getInstance(document, new FileOutputStream(fileName));</b>
+<b class="fc">&nbsp;            document.open();</b>
 &nbsp;
 &nbsp;            // Add the title centered at the top
-<b class="nc">&nbsp;            Font titleFont = new Font(Font.HELVETICA, 18, Font.BOLD);</b>
-<b class="nc">&nbsp;            Paragraph title = new Paragraph(&quot;Battleship Game Summary&quot;, titleFont);</b>
-<b class="nc">&nbsp;            title.setAlignment(Element.ALIGN_CENTER);</b>
-<b class="nc">&nbsp;            document.add(title);</b>
+<b class="fc">&nbsp;            Font titleFont = new Font(Font.HELVETICA, 18, Font.BOLD);</b>
+<b class="fc">&nbsp;            Paragraph title = new Paragraph(&quot;Battleship Game Summary&quot;, titleFont);</b>
+<b class="fc">&nbsp;            title.setAlignment(Element.ALIGN_CENTER);</b>
+<b class="fc">&nbsp;            document.add(title);</b>
 &nbsp;
-<b class="nc">&nbsp;            document.add(new Paragraph(&quot; &quot;)); // blank line</b>
+<b class="fc">&nbsp;            document.add(new Paragraph(&quot; &quot;)); // blank line</b>
 &nbsp;
 &nbsp;            // Add general game statistics
-<b class="nc">&nbsp;            document.add(new Paragraph(&quot;Remaining Ships: &quot; + game.getRemainingShips()));</b>
-<b class="nc">&nbsp;            document.add(new Paragraph(&quot;Repeated Shots: &quot; + game.getRepeatedShots()));</b>
-<b class="nc">&nbsp;            document.add(new Paragraph(&quot;Invalid Shots: &quot; + game.getInvalidShots()));</b>
-<b class="nc">&nbsp;            document.add(new Paragraph(&quot;Successful Hits: &quot; + game.getHits()));</b>
-<b class="nc">&nbsp;            document.add(new Paragraph(&quot;Sunk Ships: &quot; + game.getSunkShips()));</b>
+<b class="fc">&nbsp;            document.add(new Paragraph(&quot;Remaining Ships: &quot; + game.getRemainingShips()));</b>
+<b class="fc">&nbsp;            document.add(new Paragraph(&quot;Repeated Shots: &quot; + game.getRepeatedShots()));</b>
+<b class="fc">&nbsp;            document.add(new Paragraph(&quot;Invalid Shots: &quot; + game.getInvalidShots()));</b>
+<b class="fc">&nbsp;            document.add(new Paragraph(&quot;Successful Hits: &quot; + game.getHits()));</b>
+<b class="fc">&nbsp;            document.add(new Paragraph(&quot;Sunk Ships: &quot; + game.getSunkShips()));</b>
 &nbsp;
-<b class="nc">&nbsp;            document.add(new Paragraph(&quot; &quot;)); // blank line</b>
+<b class="fc">&nbsp;            document.add(new Paragraph(&quot; &quot;)); // blank line</b>
 &nbsp;
 &nbsp;            // Create a table for all moves
-<b class="nc">&nbsp;            PdfPTable table = new PdfPTable(5); // Columns: Turn | Shots | Result1 | Result2 | Result3</b>
-<b class="nc">&nbsp;            table.setWidthPercentage(100);</b>
-<b class="nc">&nbsp;            table.setWidths(new float[]{1, 3, 2, 2, 2});</b>
+<b class="fc">&nbsp;            PdfPTable table = new PdfPTable(5); // Columns: Turn | Shots | Result1 | Result2 | Result3</b>
+<b class="fc">&nbsp;            table.setWidthPercentage(100);</b>
+<b class="fc">&nbsp;            table.setWidths(new float[]{1, 3, 2, 2, 2});</b>
 &nbsp;
 &nbsp;            // Table header
-<b class="nc">&nbsp;            table.addCell(&quot;Turn&quot;);</b>
-<b class="nc">&nbsp;            table.addCell(&quot;Shots&quot;);</b>
-<b class="nc">&nbsp;            table.addCell(&quot;Result 1&quot;);</b>
-<b class="nc">&nbsp;            table.addCell(&quot;Result 2&quot;);</b>
-<b class="nc">&nbsp;            table.addCell(&quot;Result 3&quot;);</b>
+<b class="fc">&nbsp;            table.addCell(&quot;Turn&quot;);</b>
+<b class="fc">&nbsp;            table.addCell(&quot;Shots&quot;);</b>
+<b class="fc">&nbsp;            table.addCell(&quot;Result 1&quot;);</b>
+<b class="fc">&nbsp;            table.addCell(&quot;Result 2&quot;);</b>
+<b class="fc">&nbsp;            table.addCell(&quot;Result 3&quot;);</b>
 &nbsp;
 &nbsp;            // Populate the table with moves
-<b class="nc">&nbsp;            List&lt;IMove&gt; moves = game.getAlienMoves(); // All enemy moves stored in the game</b>
-<b class="nc">&nbsp;            for (IMove move : moves) {</b>
+<b class="fc">&nbsp;            List&lt;IMove&gt; moves = game.getAlienMoves(); // All enemy moves stored in the game</b>
+<b class="fc">&nbsp;            for (IMove move : moves) {</b>
 &nbsp;                // Turn number
-<b class="nc">&nbsp;                table.addCell(String.valueOf(move.getNumber()));</b>
+<b class="fc">&nbsp;                table.addCell(String.valueOf(move.getNumber()));</b>
 &nbsp;
 &nbsp;                // Shots as a single string, e.g., &quot;(2,3) (4,5) (1,1)&quot;
-<b class="nc">&nbsp;                StringBuilder shots = new StringBuilder();</b>
-<b class="nc">&nbsp;                for (IPosition pos : move.getShots()) {</b>
-<b class="nc">&nbsp;                    shots.append(&quot;(&quot;).append(pos.getClassicRow())</b>
-<b class="nc">&nbsp;                            .append(&quot;,&quot;).append(pos.getClassicColumn()).append(&quot;) &quot;);</b>
+<b class="fc">&nbsp;                StringBuilder shots = new StringBuilder();</b>
+<b class="fc">&nbsp;                for (IPosition pos : move.getShots()) {</b>
+<b class="fc">&nbsp;                    shots.append(&quot;(&quot;).append(pos.getClassicRow())</b>
+<b class="fc">&nbsp;                            .append(&quot;,&quot;).append(pos.getClassicColumn()).append(&quot;) &quot;);</b>
 &nbsp;                }
-<b class="nc">&nbsp;                table.addCell(shots.toString().trim());</b>
+<b class="fc">&nbsp;                table.addCell(shots.toString().trim());</b>
 &nbsp;
 &nbsp;                // Results of each shot
-<b class="nc">&nbsp;                List&lt;IGame.ShotResult&gt; results = move.getShotResults();</b>
-<b class="nc">&nbsp;                for (int i = 0; i &lt; Game.NUMBER_SHOTS; i++) {</b>
-<b class="nc">&nbsp;                    if (i &lt; results.size()) {</b>
-<b class="nc">&nbsp;                        IGame.ShotResult res = results.get(i);</b>
-<b class="nc">&nbsp;                        if (!res.valid())</b>
-<b class="nc">&nbsp;                            table.addCell(&quot;Invalid&quot;);</b>
-<b class="nc">&nbsp;                        else if (res.repeated())</b>
-<b class="nc">&nbsp;                            table.addCell(&quot;Repeated&quot;);</b>
-<b class="nc">&nbsp;                        else if (res.ship() != null &amp;&amp; res.sunk())</b>
-<b class="nc">&nbsp;                            table.addCell(&quot;Sunk&quot;);</b>
-<b class="nc">&nbsp;                        else if (res.ship() != null)</b>
-<b class="nc">&nbsp;                            table.addCell(&quot;Hit&quot;);</b>
+<b class="fc">&nbsp;                List&lt;IGame.ShotResult&gt; results = move.getShotResults();</b>
+<b class="fc">&nbsp;                for (int i = 0; i &lt; Game.NUMBER_SHOTS; i++) {</b>
+<b class="fc">&nbsp;                    if (i &lt; results.size()) {</b>
+<b class="fc">&nbsp;                        IGame.ShotResult res = results.get(i);</b>
+<b class="fc">&nbsp;                        if (!res.valid())</b>
+<b class="fc">&nbsp;                            table.addCell(&quot;Invalid&quot;);</b>
+<b class="fc">&nbsp;                        else if (res.repeated())</b>
+<b class="fc">&nbsp;                            table.addCell(&quot;Repeated&quot;);</b>
+<b class="fc">&nbsp;                        else if (res.ship() != null &amp;&amp; res.sunk())</b>
+<b class="fc">&nbsp;                            table.addCell(&quot;Sunk&quot;);</b>
+<b class="fc">&nbsp;                        else if (res.ship() != null)</b>
+<b class="fc">&nbsp;                            table.addCell(&quot;Hit&quot;);</b>
 &nbsp;                        else
-<b class="nc">&nbsp;                            table.addCell(&quot;Miss&quot;);</b>
+<b class="fc">&nbsp;                            table.addCell(&quot;Miss&quot;);</b>
 &nbsp;                    } else {
-<b class="nc">&nbsp;                        table.addCell(&quot;-&quot;);</b>
+<b class="fc">&nbsp;                        table.addCell(&quot;-&quot;);</b>
 &nbsp;                    }
 &nbsp;                }
 &nbsp;            }
 &nbsp;
-<b class="nc">&nbsp;            document.add(table);</b>
+<b class="fc">&nbsp;            document.add(table);</b>
 &nbsp;
 &nbsp;            // Close the document
 &nbsp;            document.close();
 &nbsp;
-<b class="nc">&nbsp;            System.out.println(&quot;PDF successfully generated: &quot; + fileName);</b>
+<b class="fc">&nbsp;            System.out.println(&quot;PDF successfully generated: &quot; + fileName);</b>
 &nbsp;
 &nbsp;        } catch (Exception e) {
 <b class="nc">&nbsp;            throw new RuntimeException(&quot;Error while generating PDF file: &quot; + fileName, e);</b>
@@ -224,7 +224,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-04-16 22:13</div>
+    <div style="float:right;">generated on 2026-04-17 01:32</div>
 </div>
 </body>
 </html>

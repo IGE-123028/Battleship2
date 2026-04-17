@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Fleet</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    75%
+    0%
   </span>
   <span class="absValue">
-    (12/16)
+    (0/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    71.4%
+    0%
   </span>
   <span class="absValue">
-    (40/56)
+    (0/56)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    85.5%
+    0%
   </span>
   <span class="absValue">
-    (47/55)
+    (0/55)
   </span>
 </td>
 </tr>
@@ -98,7 +98,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;/**
 &nbsp; * The type Fleet.
 &nbsp; */
-<b class="fc">&nbsp;public class Fleet implements IFleet</b>
+<b class="nc">&nbsp;public class Fleet implements IFleet</b>
 &nbsp;{
 &nbsp;	/**
 &nbsp;	 * Creates a randomly generated fleet containing ships of various predefined types.
@@ -109,29 +109,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	public static IFleet createRandom() {
 &nbsp;
-<b class="fc">&nbsp;		Fleet randomFleet = new Fleet();</b>
+<b class="nc">&nbsp;		Fleet randomFleet = new Fleet();</b>
 &nbsp;
 &nbsp;		// Define the types of ships to be added
-<b class="fc">&nbsp;		String[] shipTypes =</b>
+<b class="nc">&nbsp;		String[] shipTypes =</b>
 &nbsp;					{&quot;galeao&quot;,                           // 1 galleon
 &nbsp;				 	&quot;fragata&quot;,                           // 1 frigate
 &nbsp; 				 	&quot;nau&quot;, &quot;nau&quot;,                        // 2 carracks
 &nbsp;					&quot;caravela&quot;, &quot;caravela&quot;, &quot;caravela&quot;,  // 3 caravels
 &nbsp;					&quot;barca&quot;, &quot;barca&quot;, &quot;barca&quot;, &quot;barca&quot;}; // 4 barges
 &nbsp;
-<b class="fc">&nbsp;		int fleetSize = 0;</b>
+<b class="nc">&nbsp;		int fleetSize = 0;</b>
 &nbsp;
-<b class="fc">&nbsp;		while (fleetSize &lt; shipTypes.length) {</b>
+<b class="nc">&nbsp;		while (fleetSize &lt; shipTypes.length) {</b>
 &nbsp;
 &nbsp;			// Build the ship
-<b class="fc">&nbsp;			Ship ship = Ship.buildShip(shipTypes[fleetSize], Compass.randomBearing(), Position.randomPosition());</b>
+<b class="nc">&nbsp;			Ship ship = Ship.buildShip(shipTypes[fleetSize], Compass.randomBearing(), Position.randomPosition());</b>
 &nbsp;
 &nbsp;			// Attempt to add the ship to the fleet
-<b class="pc">&nbsp;			if (ship != null &amp;&amp; randomFleet.addShip(ship)) {</b>
-<b class="fc">&nbsp;				fleetSize++; // Increment count if ship is successfully added</b>
+<b class="nc">&nbsp;			if (ship != null &amp;&amp; randomFleet.addShip(ship)) {</b>
+<b class="nc">&nbsp;				fleetSize++; // Increment count if ship is successfully added</b>
 &nbsp;			}
 &nbsp;		}
-<b class="fc">&nbsp;		return randomFleet;</b>
+<b class="nc">&nbsp;		return randomFleet;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;
@@ -147,8 +147,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 * Instantiates a new Fleet.
 &nbsp;	 */
 &nbsp;	public Fleet()
-<b class="fc">&nbsp;    {</b>
-<b class="fc">&nbsp;	ships = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;	ships = new ArrayList&lt;&gt;();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;	/**
@@ -159,7 +159,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	@Override
 &nbsp;    public List&lt;IShip&gt; getShips()
 &nbsp;    {
-<b class="fc">&nbsp;	return ships;</b>
+<b class="nc">&nbsp;	return ships;</b>
 &nbsp;    }
 &nbsp;	
 &nbsp;	/**
@@ -176,15 +176,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @Override
 &nbsp;    public boolean addShip(IShip s)
 &nbsp;    {
-<b class="pc">&nbsp;		assert s != null;</b>
+<b class="nc">&nbsp;		assert s != null;</b>
 &nbsp;
-<b class="fc">&nbsp;		boolean result = false;</b>
-<b class="pc">&nbsp;		if ((ships.size() &lt;= FLEET_SIZE) &amp;&amp; (isInsideBoard(s)) &amp;&amp; (!colisionRisk(s)))</b>
+<b class="nc">&nbsp;		boolean result = false;</b>
+<b class="nc">&nbsp;		if ((ships.size() &lt;= FLEET_SIZE) &amp;&amp; (isInsideBoard(s)) &amp;&amp; (!colisionRisk(s)))</b>
 &nbsp;		{
-<b class="fc">&nbsp;			ships.add(s);</b>
-<b class="fc">&nbsp;			result = true;</b>
+<b class="nc">&nbsp;			ships.add(s);</b>
+<b class="nc">&nbsp;			result = true;</b>
 &nbsp;		}
-<b class="fc">&nbsp;		return result;</b>
+<b class="nc">&nbsp;		return result;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;	/**
@@ -201,14 +201,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @Override
 &nbsp;    public List&lt;IShip&gt; getShipsLike(String category)
 &nbsp;    {
-<b class="pc">&nbsp;		assert category != null;</b>
+<b class="nc">&nbsp;		assert category != null;</b>
 &nbsp;
-<b class="fc">&nbsp;		List&lt;IShip&gt; shipsLike = new ArrayList&lt;&gt;();</b>
-<b class="fc">&nbsp;		for (IShip s : ships)</b>
-<b class="pc">&nbsp;			if (s.getCategory().equals(category))</b>
-<b class="fc">&nbsp;				shipsLike.add(s);</b>
+<b class="nc">&nbsp;		List&lt;IShip&gt; shipsLike = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;		for (IShip s : ships)</b>
+<b class="nc">&nbsp;			if (s.getCategory().equals(category))</b>
+<b class="nc">&nbsp;				shipsLike.add(s);</b>
 &nbsp;
-<b class="fc">&nbsp;		return shipsLike;</b>
+<b class="nc">&nbsp;		return shipsLike;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;	/**
@@ -224,12 +224,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @Override
 &nbsp;    public List&lt;IShip&gt; getFloatingShips()
 &nbsp;    {
-<b class="fc">&nbsp;		List&lt;IShip&gt; floatingShips = new ArrayList&lt;IShip&gt;();</b>
-<b class="fc">&nbsp;		for (IShip s : ships)</b>
-<b class="fc">&nbsp;			if (s.stillFloating())</b>
-<b class="fc">&nbsp;				floatingShips.add(s);</b>
+<b class="nc">&nbsp;		List&lt;IShip&gt; floatingShips = new ArrayList&lt;IShip&gt;();</b>
+<b class="nc">&nbsp;		for (IShip s : ships)</b>
+<b class="nc">&nbsp;			if (s.stillFloating())</b>
+<b class="nc">&nbsp;				floatingShips.add(s);</b>
 &nbsp;
-<b class="fc">&nbsp;		return floatingShips;</b>
+<b class="nc">&nbsp;		return floatingShips;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;	/**
@@ -245,12 +245,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	@Override
 &nbsp;	public List&lt;IShip&gt; getSunkShips()
 &nbsp;	{
-<b class="fc">&nbsp;		List&lt;IShip&gt; sunkShips = new ArrayList&lt;IShip&gt;();</b>
-<b class="fc">&nbsp;		for (IShip s : ships)</b>
-<b class="pc">&nbsp;			if (!s.stillFloating())</b>
+<b class="nc">&nbsp;		List&lt;IShip&gt; sunkShips = new ArrayList&lt;IShip&gt;();</b>
+<b class="nc">&nbsp;		for (IShip s : ships)</b>
+<b class="nc">&nbsp;			if (!s.stillFloating())</b>
 <b class="nc">&nbsp;				sunkShips.add(s);</b>
 &nbsp;
-<b class="fc">&nbsp;		return sunkShips;</b>
+<b class="nc">&nbsp;		return sunkShips;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	/**
@@ -267,12 +267,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @Override
 &nbsp;    public IShip shipAt(IPosition pos)
 &nbsp;    {
-<b class="pc">&nbsp;		assert pos != null;</b>
+<b class="nc">&nbsp;		assert pos != null;</b>
 &nbsp;
-<b class="fc">&nbsp;		for (IShip ship : ships)</b>
-<b class="fc">&nbsp;			if (ship.occupies(pos))</b>
-<b class="fc">&nbsp;				return ship;</b>
-<b class="fc">&nbsp;		return null;</b>
+<b class="nc">&nbsp;		for (IShip ship : ships)</b>
+<b class="nc">&nbsp;			if (ship.occupies(pos))</b>
+<b class="nc">&nbsp;				return ship;</b>
+<b class="nc">&nbsp;		return null;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;	/**
@@ -283,10 +283,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	private boolean isInsideBoard(IShip s)
 &nbsp;    {
-<b class="pc">&nbsp;		assert s != null;</b>
+<b class="nc">&nbsp;		assert s != null;</b>
 &nbsp;
-<b class="pc">&nbsp;		return (s.getLeftMostPos() &gt;= 0 &amp;&amp; s.getRightMostPos() &lt;= Game.BOARD_SIZE - 1 &amp;&amp; s.getTopMostPos() &gt;= 0</b>
-<b class="fc">&nbsp;			&amp;&amp; s.getBottomMostPos() &lt;= Game.BOARD_SIZE - 1);</b>
+<b class="nc">&nbsp;		return (s.getLeftMostPos() &gt;= 0 &amp;&amp; s.getRightMostPos() &lt;= Game.BOARD_SIZE - 1 &amp;&amp; s.getTopMostPos() &gt;= 0</b>
+<b class="nc">&nbsp;			&amp;&amp; s.getBottomMostPos() &lt;= Game.BOARD_SIZE - 1);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;	/**
@@ -297,14 +297,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	private boolean colisionRisk(IShip s)
 &nbsp;    {
-<b class="pc">&nbsp;		assert s != null;</b>
+<b class="nc">&nbsp;		assert s != null;</b>
 &nbsp;
-<b class="fc">&nbsp;		for (int i = 0; i &lt; ships.size(); i++)</b>
+<b class="nc">&nbsp;		for (int i = 0; i &lt; ships.size(); i++)</b>
 &nbsp;		{
-<b class="fc">&nbsp;			if (ships.get(i).tooCloseTo(s))</b>
-<b class="fc">&nbsp;				return true;</b>
+<b class="nc">&nbsp;			if (ships.get(i).tooCloseTo(s))</b>
+<b class="nc">&nbsp;				return true;</b>
 &nbsp;		}
-<b class="fc">&nbsp;		return false;</b>
+<b class="nc">&nbsp;		return false;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;	/**
@@ -325,7 +325,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	public void printStatus()
 &nbsp;    {
-<b class="fc">&nbsp;		System.out.println(&quot;Estado da Frota: &quot; + this.getFloatingShips().size() + &quot; a flutuar, &quot; + this.getSunkShips().size() + &quot; afundados!&quot;);</b>
+<b class="nc">&nbsp;		System.out.println(&quot;Estado da Frota: &quot; + this.getFloatingShips().size() + &quot; a flutuar, &quot; + this.getSunkShips().size() + &quot; afundados!&quot;);</b>
 &nbsp;//		printAllShips();
 &nbsp;//		printFloatingShips();
 &nbsp;//		printShipsByCategory(&quot;Galeao&quot;);
@@ -387,7 +387,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-04-16 22:13</div>
+    <div style="float:right;">generated on 2026-04-17 01:32</div>
 </div>
 </body>
 </html>
