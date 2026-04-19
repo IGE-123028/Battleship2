@@ -58,7 +58,7 @@ class PDFExporterTest {
 
     @AfterEach
     void tearDown() {
-        new File(FILE).delete(); // limpa ficheiro gerado
+        new File(FILE).delete();
     }
 
     @Test

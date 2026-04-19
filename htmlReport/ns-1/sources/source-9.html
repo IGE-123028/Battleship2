@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Game</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    48%
   </span>
   <span class="absValue">
-    (0/25)
+    (12/25)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    12.3%
   </span>
   <span class="absValue">
-    (0/122)
+    (15/122)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    23.4%
   </span>
   <span class="absValue">
-    (0/192)
+    (45/192)
   </span>
 </td>
 </tr>
@@ -95,7 +95,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import java.util.*;
 &nbsp;
-<b class="nc">&nbsp;public class Game implements IGame</b>
+<b class="fc">&nbsp;public class Game implements IGame</b>
 &nbsp;{
 &nbsp;	/**
 &nbsp;	 * Prints the game board by representing the positions of ships, adjacent tiles,
@@ -251,31 +251,31 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;	//------------------------------------------------------------------
 &nbsp;	public Game(IFleet myFleet)
-<b class="nc">&nbsp;	{</b>
-<b class="nc">&nbsp;		this.moveNumber = 1;</b>
+<b class="fc">&nbsp;	{</b>
+<b class="fc">&nbsp;		this.moveNumber = 1;</b>
 &nbsp;
-<b class="nc">&nbsp;		this.alienMoves = new ArrayList&lt;IMove&gt;();</b>
-<b class="nc">&nbsp;		this.myMoves = new ArrayList&lt;IMove&gt;();</b>
+<b class="fc">&nbsp;		this.alienMoves = new ArrayList&lt;IMove&gt;();</b>
+<b class="fc">&nbsp;		this.myMoves = new ArrayList&lt;IMove&gt;();</b>
 &nbsp;
-<b class="nc">&nbsp;		this.alienFleet = Fleet.createRandom();</b>
-<b class="nc">&nbsp;		this.myFleet = myFleet;</b>
+<b class="fc">&nbsp;		this.alienFleet = Fleet.createRandom();</b>
+<b class="fc">&nbsp;		this.myFleet = myFleet;</b>
 &nbsp;
-<b class="nc">&nbsp;		this.countInvalidShots = 0;</b>
-<b class="nc">&nbsp;		this.countRepeatedShots = 0;</b>
-<b class="nc">&nbsp;		this.countHits = 0;</b>
-<b class="nc">&nbsp;		this.countSinks = 0;</b>
+<b class="fc">&nbsp;		this.countInvalidShots = 0;</b>
+<b class="fc">&nbsp;		this.countRepeatedShots = 0;</b>
+<b class="fc">&nbsp;		this.countHits = 0;</b>
+<b class="fc">&nbsp;		this.countSinks = 0;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
 &nbsp;	public IFleet getMyFleet()
 &nbsp;	{
-<b class="nc">&nbsp;		return myFleet;</b>
+<b class="fc">&nbsp;		return myFleet;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
 &nbsp;	public List&lt;IMove&gt; getAlienMoves()
 &nbsp;	{
-<b class="nc">&nbsp;		return alienMoves;</b>
+<b class="fc">&nbsp;		return alienMoves;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
@@ -413,28 +413,28 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	public void fireShots(List&lt;IPosition&gt; shots)
 &nbsp;	{
-<b class="nc">&nbsp;		assert shots != null;</b>
+<b class="pc">&nbsp;		assert shots != null;</b>
 &nbsp;
-<b class="nc">&nbsp;		List&lt;ShotResult&gt; shotResults = new ArrayList&lt;ShotResult&gt;();</b>
-<b class="nc">&nbsp;		if (shots.size() != NUMBER_SHOTS) {</b>
+<b class="fc">&nbsp;		List&lt;ShotResult&gt; shotResults = new ArrayList&lt;ShotResult&gt;();</b>
+<b class="pc">&nbsp;		if (shots.size() != NUMBER_SHOTS) {</b>
 <b class="nc">&nbsp;			throw new IllegalArgumentException(&quot;Must fire exactly &quot; + NUMBER_SHOTS + &quot; shots per move.&quot;);</b>
 &nbsp;		}
 &nbsp;
-<b class="nc">&nbsp;		List&lt;IPosition&gt; alreadyShot = new ArrayList&lt;IPosition&gt;();</b>
-<b class="nc">&nbsp;		for (IPosition pos : shots) {</b>
-<b class="nc">&nbsp;			shotResults.add(fireSingleShot(pos, alreadyShot.contains(pos)));</b>
-<b class="nc">&nbsp;			alreadyShot.add(pos);</b>
+<b class="fc">&nbsp;		List&lt;IPosition&gt; alreadyShot = new ArrayList&lt;IPosition&gt;();</b>
+<b class="fc">&nbsp;		for (IPosition pos : shots) {</b>
+<b class="fc">&nbsp;			shotResults.add(fireSingleShot(pos, alreadyShot.contains(pos)));</b>
+<b class="fc">&nbsp;			alreadyShot.add(pos);</b>
 &nbsp;		}
 &nbsp;
-<b class="nc">&nbsp;		Move move = new Move(moveNumber, shots, shotResults);</b>
+<b class="fc">&nbsp;		Move move = new Move(moveNumber, shots, shotResults);</b>
 &nbsp;
 &nbsp;//		System.out.println(move);
 &nbsp;
-<b class="nc">&nbsp;		move.processEnemyFire(true);</b>
+<b class="fc">&nbsp;		move.processEnemyFire(true);</b>
 &nbsp;
-<b class="nc">&nbsp;		alienMoves.add(move);</b>
+<b class="fc">&nbsp;		alienMoves.add(move);</b>
 &nbsp;
-<b class="nc">&nbsp;		moveNumber++;</b>
+<b class="fc">&nbsp;		moveNumber++;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
@@ -472,21 +472,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	public ShotResult fireSingleShot(IPosition pos, boolean isRepeated) {
 &nbsp;
-<b class="nc">&nbsp;		assert pos != null;</b>
+<b class="pc">&nbsp;		assert pos != null;</b>
 &nbsp;
-<b class="nc">&nbsp;		if (!pos.isInside()) {</b>
-<b class="nc">&nbsp;			countInvalidShots++;</b>
-<b class="nc">&nbsp;			return new ShotResult(false, false, null, false);</b>
+<b class="fc">&nbsp;		if (!pos.isInside()) {</b>
+<b class="fc">&nbsp;			countInvalidShots++;</b>
+<b class="fc">&nbsp;			return new ShotResult(false, false, null, false);</b>
 &nbsp;		}
 &nbsp;
-<b class="nc">&nbsp;		if (isRepeated || repeatedShot(pos)) {</b>
-<b class="nc">&nbsp;			countRepeatedShots++;</b>
-<b class="nc">&nbsp;			return new ShotResult(true, true, null, false);</b>
+<b class="pc">&nbsp;		if (isRepeated || repeatedShot(pos)) {</b>
+<b class="fc">&nbsp;			countRepeatedShots++;</b>
+<b class="fc">&nbsp;			return new ShotResult(true, true, null, false);</b>
 &nbsp;		}
 &nbsp;
-<b class="nc">&nbsp;		IShip ship = myFleet.shipAt(pos);</b>
-<b class="nc">&nbsp;		if (ship == null)</b>
-<b class="nc">&nbsp;			return new ShotResult(true, false, null, false);</b>
+<b class="fc">&nbsp;		IShip ship = myFleet.shipAt(pos);</b>
+<b class="pc">&nbsp;		if (ship == null)</b>
+<b class="fc">&nbsp;			return new ShotResult(true, false, null, false);</b>
 &nbsp;		else
 &nbsp;		{
 <b class="nc">&nbsp;			ship.shoot(pos);</b>
@@ -523,32 +523,32 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	@Override
 &nbsp;	public int getRepeatedShots()
 &nbsp;	{
-<b class="nc">&nbsp;		return this.countRepeatedShots;</b>
+<b class="fc">&nbsp;		return this.countRepeatedShots;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
 &nbsp;	public int getInvalidShots()
 &nbsp;	{
-<b class="nc">&nbsp;		return this.countInvalidShots;</b>
+<b class="fc">&nbsp;		return this.countInvalidShots;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
 &nbsp;	public int getHits()
 &nbsp;	{
-<b class="nc">&nbsp;		return this.countHits;</b>
+<b class="fc">&nbsp;		return this.countHits;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
 &nbsp;	public int getSunkShips()
 &nbsp;	{
-<b class="nc">&nbsp;		return this.countSinks;</b>
+<b class="fc">&nbsp;		return this.countSinks;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
 &nbsp;	public int getRemainingShips()
 &nbsp;	{
-<b class="nc">&nbsp;		List&lt;IShip&gt; floatingShips = myFleet.getFloatingShips();</b>
-<b class="nc">&nbsp;		return floatingShips.size();</b>
+<b class="fc">&nbsp;		List&lt;IShip&gt; floatingShips = myFleet.getFloatingShips();</b>
+<b class="fc">&nbsp;		return floatingShips.size();</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
@@ -560,12 +560,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;	public boolean repeatedShot(IPosition pos)
 &nbsp;	{
-<b class="nc">&nbsp;		assert pos != null;</b>
+<b class="pc">&nbsp;		assert pos != null;</b>
 &nbsp;
-<b class="nc">&nbsp;		for (IMove move : alienMoves)</b>
-<b class="nc">&nbsp;			if (move.getShots().contains(pos))</b>
-<b class="nc">&nbsp;				return true;</b>
-<b class="nc">&nbsp;		return false;</b>
+<b class="fc">&nbsp;		for (IMove move : alienMoves)</b>
+<b class="pc">&nbsp;			if (move.getShots().contains(pos))</b>
+<b class="fc">&nbsp;				return true;</b>
+<b class="fc">&nbsp;		return false;</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	public boolean myRepeatedShot(IPosition pos)
@@ -618,7 +618,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-04-17 01:32</div>
+    <div style="float:right;">generated on 2026-04-19 23:43</div>
 </div>
 </body>
 </html>
