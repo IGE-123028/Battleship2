@@ -15,6 +15,7 @@ import static org.mockito.Mockito.when;
  * - exportGameToPDF: 10
  */
 
+@DisplayName("Tests for PDFExporter")
 class PDFExporterTest {
 
     private IGame game;
@@ -62,6 +63,7 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should generate PDF successfully with valid game data")
     void exportGameToPDF1_shouldGeneratePdf() {
         assertDoesNotThrow(() ->
                 PDFExporter.exportGameToPDF(game, FILE)
@@ -72,6 +74,7 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should handle invalid shot without throwing exception")
     void exportGameToPDF2_invalidShot() {
         when(shotResult.valid()).thenReturn(false);
 
@@ -81,6 +84,7 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should handle repeated shot without throwing exception")
     void exportGameToPDF3_repeatedShot() {
         when(shotResult.repeated()).thenReturn(true);
 
@@ -90,6 +94,7 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should process hit shot correctly (not sunk)")
     void exportGameToPDF4_hitShot() {
         when(shotResult.ship()).thenReturn(ship);
         when(shotResult.sunk()).thenReturn(false);
@@ -100,6 +105,7 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should process sunk ship correctly")
     void exportGameToPDF5_sunkShot() {
         when(shotResult.ship()).thenReturn(ship);
         when(shotResult.sunk()).thenReturn(true);
@@ -110,6 +116,7 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should handle multiple moves correctly")
     void exportGameToPDF6_multipleMoves() {
         IMove move2 = mock(IMove.class);
 
@@ -125,6 +132,7 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should handle empty move list without errors")
     void exportGameToPDF7_emptyMoves() {
         when(game.getAlienMoves()).thenReturn(List.of());
 
@@ -134,8 +142,9 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should handle partial shot results gracefully")
     void exportGameToPDF8_partialResults() {
-        when(move.getShotResults()).thenReturn(List.of()); // menos que NUMBER_SHOTS
+        when(move.getShotResults()).thenReturn(List.of());
 
         assertDoesNotThrow(() ->
                 PDFExporter.exportGameToPDF(game, FILE)
@@ -143,6 +152,7 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should throw AssertionError when arguments are null")
     void exportGameToPDF9_nullArguments() {
         assertThrows(AssertionError.class, () ->
                 PDFExporter.exportGameToPDF(null, FILE)
@@ -154,6 +164,7 @@ class PDFExporterTest {
     }
 
     @Test
+    @DisplayName("Should throw RuntimeException when PDF generation fails")
     void shouldThrowRuntimeExceptionWhenPdfFails() {
         IGame badGame = mock(IGame.class);
 
