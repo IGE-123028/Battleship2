@@ -1,0 +1,286 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > LLMService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">battleship</a>
+</div>
+
+<h1>Coverage Summary for Class: LLMService (battleship)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LLMService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package battleship;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class LLMService {
+&nbsp;    private final HuggingFaceClient client;
+&nbsp;    private final String initialPrompt;
+&nbsp;
+<b class="nc">&nbsp;    public LLMService(String apiKey) {</b>
+<b class="nc">&nbsp;        this.client = new HuggingFaceClient(apiKey);</b>
+<b class="nc">&nbsp;        this.initialPrompt = &quot;&quot;&quot;</b>
+&nbsp;                CONTEXT AND ROLE
+&nbsp;
+&nbsp;                    You are an expert strategist in the game Battleship (Portuguese Discoveries version).
+&nbsp;                    Your goal is to sink the entire enemy fleet using the fewest possible shots.
+&nbsp;
+&nbsp;                CORE OBJECTIVE
+&nbsp;
+&nbsp;                    Maximize efficiency. Victory is not about speed, but about minimizing the total number of shots.
+&nbsp;
+&nbsp;                CRITICAL RULES (MANDATORY)
+&nbsp;
+&nbsp;                    Your response MUST be ONLY a valid JSON object
+&nbsp;                    DO NOT include any text outside the JSON
+&nbsp;                    DO NOT use markdown (```json)
+&nbsp;                    Each response MUST contain exactly 3 shots
+&nbsp;
+&nbsp;                    Coordinates MUST be valid:
+&nbsp;                    Rows: A–J
+&nbsp;                    Columns: 1–10
+&nbsp;
+&nbsp;                    If ANY rule is violated, the response is invalid.
+&nbsp;
+&nbsp;                    HARD CONSTRAINTS (ENFORCED)
+&nbsp;
+&nbsp;                    NEVER repeat a coordinate that has already been used
+&nbsp;
+&nbsp;                    NEVER shoot outside the board
+&nbsp;
+&nbsp;                    ONLY repeat shots if the game is already finished (to complete the 3 required shots)
+&nbsp;
+&nbsp;                    ALWAYS ensure coordinates are unique within the same response
+&nbsp;
+&nbsp;                    INVALID or duplicate coordinates are strictly forbidden
+&nbsp;
+&nbsp;                    INTERNAL MEMORY (LOGBOOK – DO NOT OUTPUT)
+&nbsp;
+&nbsp;                    You must maintain an internal Logbook tracking:
+&nbsp;                    Volley number (Volley 1, 2, 3...)
+&nbsp;                    Coordinates fired
+&nbsp;                    Result of each shot (Miss, Hit, Sunk, Ship type)
+&nbsp;                    Use this memory to:
+&nbsp;                    Avoid duplicate shots
+&nbsp;                    Infer ship positions
+&nbsp;                    Mark blocked zones (halo around sunk ships)
+&nbsp;                    DO NOT include this Logbook in your response.
+&nbsp;
+&nbsp;                TACTICAL RULES
+&nbsp;
+&nbsp;                    If a shot hits a ship → prioritize adjacent positions (North, South, East, West) in the next move
+&nbsp;                    If a ship is confirmed sunk → DO NOT target adjacent cells (ships never touch)
+&nbsp;                    Ships (Caravel, Nau, Frigate) are straight lines (horizontal or vertical)
+&nbsp;                    Therefore, diagonals from a hit are almost always water
+&nbsp;                    ONLY consider diagonals in the case of a Galleon (T-shaped ship)
+&nbsp;                    Once a ship is sunk:
+&nbsp;                        Identify all its positions using your Logbook
+&nbsp;                        Mark all surrounding cells (halo) as invalid targets
+&nbsp;
+&nbsp;                SEARCH STRATEGY (HYBRID)
+&nbsp;
+&nbsp;                    Use a non-predictable, adaptive approach:
+&nbsp;                    Divide the board into 4 quadrants
+&nbsp;                    Start near the center of a quadrant
+&nbsp;                    Use a parity system (cells classified as 0 and 1)
+&nbsp;                    Select one parity and stick with it initially
+&nbsp;
+&nbsp;                Pattern movement:
+&nbsp;
+&nbsp;                    Jump 3 cells in one direction
+&nbsp;                    Then shift 1 cell orthogonally
+&nbsp;                    Continue in a spiral-like pattern (example: D3 → G4 → F7 → C6)
+&nbsp;                    This creates a loose rectangular sweep
+&nbsp;                    Then shift the pattern diagonally and repeat (example: F1 → I2 → H5 → E4)
+&nbsp;                    Adjust the pattern dynamically. Do NOT follow rigid or predictable sequences.
+&nbsp;
+&nbsp;                EFFICIENCY PRINCIPLES
+&nbsp;
+&nbsp;                    Do NOT blindly chase every hit immediately
+&nbsp;                    Continue exploration until at least ~3 ships are located
+&nbsp;                    Avoid linear or checkerboard-only strategies
+&nbsp;                    Avoid predictable patterns that opponents can exploit
+&nbsp;
+&nbsp;                REASONING FIELD
+&nbsp;
+&nbsp;                    The &quot;raciocinio&quot; field MUST contain:
+&nbsp;                    A short explanation (1–2 sentences)
+&nbsp;                    The strategy used (e.g., exploration, pattern, continuation)
+&nbsp;                    DO NOT include detailed chain-of-thought
+&nbsp;
+&nbsp;                INPUT
+&nbsp;
+&nbsp;                    You will receive a History (external Logbook) containing the results of the previous volley.
+&nbsp;
+&nbsp;                OUTPUT FORMAT (STRICT)
+&nbsp;
+&nbsp;                    {
+&nbsp;                    &quot;raciocinio&quot;: &quot;Short explanation of the tactical decision.&quot;,
+&nbsp;                    &quot;rajada&quot;: [
+&nbsp;                    {&quot;row&quot;: &quot;A&quot;, &quot;column&quot;: 1},
+&nbsp;                    {&quot;row&quot;: &quot;B&quot;, &quot;column&quot;: 2},
+&nbsp;                    {&quot;row&quot;: &quot;C&quot;, &quot;column&quot;: 3}
+&nbsp;                    ]
+&nbsp;                    }
+&nbsp;
+&nbsp;                ENDGAME RULE
+&nbsp;
+&nbsp;                If the enemy fleet is fully sunk:
+&nbsp;                    Continue returning exactly 3 shots
+&nbsp;                    Repeated coordinates are allowed ONLY in this situation
+&nbsp;                    Indicate this clearly in the reasoning
+&nbsp;                    FINAL VALIDATION (MANDATORY BEFORE RESPONDING)
+&nbsp;                    All 3 coordinates are unique
+&nbsp;                    No coordinate has been used before
+&nbsp;                    All coordinates are within A–J and 1–10
+&nbsp;                    JSON is valid and properly formatted
+&nbsp;
+&nbsp;                If ANY condition fails → correct it before responding.
+&nbsp;                &quot;&quot;&quot;;
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getNextMove(Game game) throws Exception {
+<b class="nc">&nbsp;        StringBuilder history = new StringBuilder();</b>
+<b class="nc">&nbsp;        history.append(&quot;Histórico de tiros (Diário de Bordo):\n&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;IMove&gt; alienMoves = game.getAlienMoves();</b>
+<b class="nc">&nbsp;        if (alienMoves.isEmpty()) {</b>
+<b class="nc">&nbsp;            history.append(&quot;Nenhuma rajada efetuada ainda. Todos os espaços de A1 a J10 podem ser atirados.\n&quot;);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            for (IMove move : alienMoves) {</b>
+<b class="nc">&nbsp;                history.append(&quot;Rajada &quot;).append(move.getNumber()).append(&quot;: &quot;).append(Game.jsonShots(move.getShots()))</b>
+<b class="nc">&nbsp;                        .append(&quot;\n&quot;);</b>
+<b class="nc">&nbsp;                history.append(&quot;Relatório: &quot;).append(move.processEnemyFire(false)).append(&quot;\n\n&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        String fullPrompt = initialPrompt + &quot;\n&quot; + history.toString()</b>
+&nbsp;                + &quot;\nO seu output estritamente em JSON (com &#39;raciocinio&#39; e &#39;rajada&#39;):&quot;;
+&nbsp;
+<b class="nc">&nbsp;        String response = client.chat(fullPrompt);</b>
+<b class="nc">&nbsp;        return cleanJsonResponse(response);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String cleanJsonResponse(String response) {
+<b class="nc">&nbsp;        int arrayStartMarker = response.indexOf(&quot;\&quot;rajada\&quot;&quot;);</b>
+<b class="nc">&nbsp;        int start = -1;</b>
+&nbsp;
+<b class="nc">&nbsp;        if (arrayStartMarker != -1) {</b>
+<b class="nc">&nbsp;            start = response.indexOf(&quot;[&quot;, arrayStartMarker);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            start = response.indexOf(&quot;[&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int end = response.lastIndexOf(&quot;]&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (start != -1 &amp;&amp; end != -1 &amp;&amp; start &lt; end) {</b>
+<b class="nc">&nbsp;            return response.substring(start, end + 1);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return response.trim();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-23 16:42</div>
+</div>
+</body>
+</html>

@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    75%
+    100%
   </span>
   <span class="absValue">
-    (12/16)
+    (16/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    71.4%
+    83.9%
   </span>
   <span class="absValue">
-    (40/56)
+    (47/56)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    85.5%
+    100%
   </span>
   <span class="absValue">
-    (47/55)
+    (55/55)
   </span>
 </td>
 </tr>
@@ -179,7 +179,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="pc">&nbsp;		assert s != null;</b>
 &nbsp;
 <b class="fc">&nbsp;		boolean result = false;</b>
-<b class="pc">&nbsp;		if ((ships.size() &lt;= FLEET_SIZE) &amp;&amp; (isInsideBoard(s)) &amp;&amp; (!colisionRisk(s)))</b>
+<b class="fc">&nbsp;        if ((ships.size() &lt; FLEET_SIZE) &amp;&amp; (isInsideBoard(s)) &amp;&amp; (!colisionRisk(s)))</b>
 &nbsp;		{
 <b class="fc">&nbsp;			ships.add(s);</b>
 <b class="fc">&nbsp;			result = true;</b>
@@ -205,7 +205,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;		List&lt;IShip&gt; shipsLike = new ArrayList&lt;&gt;();</b>
 <b class="fc">&nbsp;		for (IShip s : ships)</b>
-<b class="pc">&nbsp;			if (s.getCategory().equals(category))</b>
+<b class="fc">&nbsp;			if (s.getCategory().equals(category))</b>
 <b class="fc">&nbsp;				shipsLike.add(s);</b>
 &nbsp;
 <b class="fc">&nbsp;		return shipsLike;</b>
@@ -247,8 +247,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	{
 <b class="fc">&nbsp;		List&lt;IShip&gt; sunkShips = new ArrayList&lt;IShip&gt;();</b>
 <b class="fc">&nbsp;		for (IShip s : ships)</b>
-<b class="pc">&nbsp;			if (!s.stillFloating())</b>
-<b class="nc">&nbsp;				sunkShips.add(s);</b>
+<b class="fc">&nbsp;			if (!s.stillFloating())</b>
+<b class="fc">&nbsp;				sunkShips.add(s);</b>
 &nbsp;
 <b class="fc">&nbsp;		return sunkShips;</b>
 &nbsp;	}
@@ -314,10 +314,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	public void printShips(List&lt;IShip&gt; ships)
 &nbsp;	{
-<b class="nc">&nbsp;		assert ships != null;</b>
+<b class="pc">&nbsp;		assert ships != null;</b>
 &nbsp;
-<b class="nc">&nbsp;		for (IShip ship : ships)</b>
-<b class="nc">&nbsp;			System.out.println(ship);</b>
+<b class="fc">&nbsp;		for (IShip ship : ships)</b>
+<b class="fc">&nbsp;			System.out.println(ship);</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	/**
@@ -343,9 +343,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	public void printShipsByCategory(String category)
 &nbsp;    {
-<b class="nc">&nbsp;		assert category != null;</b>
+<b class="pc">&nbsp;		assert category != null;</b>
 &nbsp;
-<b class="nc">&nbsp;		printShips(getShipsLike(category));</b>
+<b class="fc">&nbsp;		printShips(getShipsLike(category));</b>
 &nbsp;    }
 &nbsp;
 &nbsp;	/**
@@ -353,7 +353,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	public void printFloatingShips()
 &nbsp;    {
-<b class="nc">&nbsp;	printShips(getFloatingShips());</b>
+<b class="fc">&nbsp;	printShips(getFloatingShips());</b>
 &nbsp;    }
 &nbsp;
 &nbsp;	/**
@@ -361,7 +361,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	 */
 &nbsp;	void printAllShips()
 &nbsp;    {
-<b class="nc">&nbsp;		printShips(ships);</b>
+<b class="fc">&nbsp;		printShips(ships);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -387,7 +387,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-04-16 15:08</div>
+    <div style="float:right;">generated on 2026-04-23 16:40</div>
 </div>
 </body>
 </html>
