@@ -1,0 +1,163 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IPosition</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">battleship</a>
+</div>
+
+<h1>Coverage Summary for Class: IPosition (battleship)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">IPosition</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package battleship;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * The interface Position.
+&nbsp; *
+&nbsp; * @author fba
+&nbsp; */
+&nbsp;public interface IPosition
+&nbsp;{
+&nbsp;	/**
+&nbsp;	 * Gets row.
+&nbsp;	 *
+&nbsp;	 * @return the row
+&nbsp;	 */
+&nbsp;	int getRow();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets column.
+&nbsp;	 *
+&nbsp;	 * @return the column
+&nbsp;	 */
+&nbsp;	int getColumn();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets traditional row.
+&nbsp;	 *
+&nbsp;	 * @return the traditional row within [A-J]
+&nbsp;	 */
+&nbsp;	char getClassicRow();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets traditional column.
+&nbsp;	 *
+&nbsp;	 * @return the traditional column within [1-10]
+&nbsp;	 */
+&nbsp;	int getClassicColumn();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Equals boolean.
+&nbsp;	 *
+&nbsp;	 * @param other the other
+&nbsp;	 * @return the boolean
+&nbsp;	 */
+&nbsp;	boolean equals(Object other);
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Checks if the position is inside the board.
+&nbsp;	 *
+&nbsp;	 * @return true if the position is inside the board, false otherwise
+&nbsp;	 */
+&nbsp;	boolean isInside();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Is adjacent to boolean.
+&nbsp;	 *
+&nbsp;	 * @param other the other
+&nbsp;	 * @return the boolean
+&nbsp;	 */
+&nbsp;	boolean isAdjacentTo(IPosition other);
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Occupy.
+&nbsp;	 */
+&nbsp;	void occupy();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Shoot.
+&nbsp;	 */
+&nbsp;	void shoot();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Is occupied boolean.
+&nbsp;	 *
+&nbsp;	 * @return the boolean
+&nbsp;	 */
+&nbsp;	boolean isOccupied();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Is hit boolean.
+&nbsp;	 *
+&nbsp;	 * @return the boolean
+&nbsp;	 */
+&nbsp;	boolean isHit();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Retrieves a list of positions that are adjacent to the current position.
+&nbsp;	 * Adjacent positions are defined as those sharing a border or corner
+&nbsp;	 * with the current position.
+&nbsp;	 *
+&nbsp;	 * @return a list of adjacent positions as IPosition objects
+&nbsp;	 */
+&nbsp;	List&lt;IPosition&gt; adjacentPositions();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-26 19:13</div>
+</div>
+</body>
+</html>
