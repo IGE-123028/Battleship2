@@ -1,0 +1,248 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IGame</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">battleship</a>
+</div>
+
+<h1>Coverage Summary for Class: IGame (battleship)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+  <tr>
+    <td class="name">IGame$ShotResult</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * 
+&nbsp; */
+&nbsp;package battleship;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;/**
+&nbsp; * The interface Game.
+&nbsp; */
+&nbsp;public interface IGame
+&nbsp;{
+&nbsp;	/**
+&nbsp;	 * Simulates a random enemy firing action on the game board.
+&nbsp;	 *
+&nbsp;	 * @return a {@code String} indicating the result of the firing action, such as details about a hit, a miss, or other outcomes
+&nbsp;	 */
+&nbsp;	String randomEnemyFire();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Reads the result of an enemy firing action from input and interprets it.
+&nbsp;	 *
+&nbsp;	 * @param in the {@code Scanner} to read the input from, which provides the details of the enemy fire
+&nbsp;	 * @return a {@code String} describing the outcome of the enemy fire, such as a hit, a miss, or other results
+&nbsp;	 */
+&nbsp;	String readEnemyFire(Scanner in);
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Fires a set of shots in a given move.
+&nbsp;	 *
+&nbsp;	 * @param shots the positions where the shots are fired
+&nbsp;	 */
+&nbsp;	void fireShots(List&lt;IPosition&gt; shots);
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Fires a set of human shots on the alien fleet.
+&nbsp;	 *
+&nbsp;	 * @param shots the positions where the shots are fired
+&nbsp;	 */
+&nbsp;	void fireMyShots(List&lt;IPosition&gt; shots);
+&nbsp;
+<b class="fc">&nbsp;	record ShotResult(boolean valid, boolean repeated, IShip ship, boolean sunk) {}</b>
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Fires a single shot at the specified position and indicates whether the shot is valid, repeated,
+&nbsp;	 * and if it hit or sank a ship.
+&nbsp;	 *
+&nbsp;	 * @param pos the position to fire the shot at, represented as an instance of {@code IPosition}
+&nbsp;	 * @param isRepeated a boolean indicating if the shot is a repeated attempt at the given position
+&nbsp;	 * @return a {@code ShotResult} containing details such as the validity of the shot, whether it was repeated,
+&nbsp;	 *         the ship (if any) affected, and whether the ship was sunk
+&nbsp;	 */
+&nbsp;	ShotResult fireSingleShot(IPosition pos, boolean isRepeated);
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets my fleet.
+&nbsp;	 *
+&nbsp;	 * @return my fleet
+&nbsp;	 */
+&nbsp;	IFleet getMyFleet();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets alien moves
+&nbsp;	 *
+&nbsp;	 * @return the alien moves
+&nbsp;	 */
+&nbsp;	List&lt;IMove&gt; getAlienMoves();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets the alien fleet
+&nbsp;	 *
+&nbsp;	 * @return the alien fleet
+&nbsp;	 */
+&nbsp;	IFleet getAlienFleet();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets my moves
+&nbsp;	 *
+&nbsp;	 * @return my moves
+&nbsp;	 */
+&nbsp;	List&lt;IMove&gt; getMyMoves();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets repeated shots.
+&nbsp;	 *
+&nbsp;	 * @return the repeated shots
+&nbsp;	 */
+&nbsp;	int getRepeatedShots();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets invalid shots.
+&nbsp;	 *
+&nbsp;	 * @return the invalid shots
+&nbsp;	 */
+&nbsp;	int getInvalidShots();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets hits.
+&nbsp;	 *
+&nbsp;	 * @return the hits
+&nbsp;	 */
+&nbsp;	int getHits();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets sunk ships.
+&nbsp;	 *
+&nbsp;	 * @return the sunk ships
+&nbsp;	 */
+&nbsp;	int getSunkShips();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets remaining ships.
+&nbsp;	 *
+&nbsp;	 * @return the remaining ships
+&nbsp;	 */
+&nbsp;	int getRemainingShips();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets remaining alien ships.
+&nbsp;	 *
+&nbsp;	 * @return the remaining alien ships
+&nbsp;	 */
+&nbsp;	int getRemainingAlienShips();
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Print my board (my fleet + alien shots).
+&nbsp;	 */
+&nbsp;	void printMyBoard(boolean show_shots, boolean show_legend);
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Print the alien board (alien fleet + my shots).
+&nbsp;	 */
+&nbsp;	void printAlienBoard(boolean show_shots, boolean show_legend);
+&nbsp;
+&nbsp;	void over();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-23 16:42</div>
+</div>
+</body>
+</html>

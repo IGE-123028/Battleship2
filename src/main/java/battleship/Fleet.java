@@ -90,7 +90,7 @@ public class Fleet implements IFleet
 		assert s != null;
 
 		boolean result = false;
-		if ((ships.size() <= FLEET_SIZE) && (isInsideBoard(s)) && (!colisionRisk(s)))
+        if ((ships.size() < FLEET_SIZE) && (isInsideBoard(s)) && (!colisionRisk(s)))
 		{
 			ships.add(s);
 			result = true;
