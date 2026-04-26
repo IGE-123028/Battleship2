@@ -33,10 +33,8 @@ public class HuggingFaceClient {
     }
 
     public String chat(String prompt) throws Exception {
-        // 1. O Endpoint agora é para Chat Completions (formato unificado OpenAI)
         String apiUrl = "https://router.huggingface.co/v1/chat/completions";
 
-        // 2. Construir o corpo no formato Chat (messages)
         Map<String, Object> body = new HashMap<>();
         body.put("model", this.model);
 
@@ -48,7 +46,7 @@ public class HuggingFaceClient {
 
         body.put("messages", messages);
         body.put("max_tokens", 500);
-        body.put("temperature", 0.1); // Baixa temperatura para JSON mais estável
+        body.put("temperature", 0.1);
 
         String jsonBody = objectMapper.writeValueAsString(body);
 
@@ -65,8 +63,6 @@ public class HuggingFaceClient {
             throw new RuntimeException("HTTP error " + response.statusCode() + ": " + response.body());
         }
 
-        // 3. O parsing mudou! O Router retorna um objeto JSON, não uma lista.
-        // Estrutura: choices[0].message.content
         JsonNode rootNode = objectMapper.readTree(response.body());
         JsonNode choices = rootNode.path("choices");
 
