@@ -38,14 +38,7 @@ public class PDFExporter {
 
             addTitle(document);
 
-            // Add general game statistics
-            document.add(new Paragraph("Remaining Ships: " + game.getRemainingShips()));
-            document.add(new Paragraph("Repeated Shots: " + game.getRepeatedShots()));
-            document.add(new Paragraph("Invalid Shots: " + game.getInvalidShots()));
-            document.add(new Paragraph("Successful Hits: " + game.getHits()));
-            document.add(new Paragraph("Sunk Ships: " + game.getSunkShips()));
-
-            document.add(new Paragraph(" ")); // blank line
+            addGameStatistics(game, document);
 
             // Create a table for all moves
             PdfPTable table = new PdfPTable(5); // Columns: Turn | Shots | Result1 | Result2 | Result3
@@ -104,6 +97,17 @@ public class PDFExporter {
         } catch (Exception e) {
             throw new RuntimeException("Error while generating PDF file: " + fileName, e);
         }
+    }
+
+    private static void addGameStatistics(IGame game, Document document) {
+        // Add general game statistics
+        document.add(new Paragraph("Remaining Ships: " + game.getRemainingShips()));
+        document.add(new Paragraph("Repeated Shots: " + game.getRepeatedShots()));
+        document.add(new Paragraph("Invalid Shots: " + game.getInvalidShots()));
+        document.add(new Paragraph("Successful Hits: " + game.getHits()));
+        document.add(new Paragraph("Sunk Ships: " + game.getSunkShips()));
+
+        document.add(new Paragraph(" ")); // blank line
     }
 
     private static void addTitle(Document document) {
