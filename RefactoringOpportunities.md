@@ -1,4 +1,4 @@
-# RefactoringOpportunities
+# Refactoring Opportunities
 
 | Local | Nome do cheiro no código | Nome da refabricação | Responsável |
 |---|---|---|------------:|
