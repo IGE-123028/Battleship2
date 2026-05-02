@@ -41,53 +41,7 @@ public class PDFExporter {
             addGameStatistics(game, document);
 
             // Create a table for all moves
-            PdfPTable table = new PdfPTable(5); // Columns: Turn | Shots | Result1 | Result2 | Result3
-            table.setWidthPercentage(100);
-            table.setWidths(new float[]{1, 3, 2, 2, 2});
-
-            // Table header
-            table.addCell("Turn");
-            table.addCell("Shots");
-            table.addCell("Result 1");
-            table.addCell("Result 2");
-            table.addCell("Result 3");
-
-            // Populate the table with moves
-            List<IMove> moves = game.getAlienMoves(); // All enemy moves stored in the game
-            for (IMove move : moves) {
-                // Turn number
-                table.addCell(String.valueOf(move.getNumber()));
-
-                // Shots as a single string, e.g., "(2,3) (4,5) (1,1)"
-                StringBuilder shots = new StringBuilder();
-                for (IPosition pos : move.getShots()) {
-                    shots.append("(").append(pos.getClassicRow())
-                            .append(",").append(pos.getClassicColumn()).append(") ");
-                }
-                table.addCell(shots.toString().trim());
-
-                // Results of each shot
-                List<IGame.ShotResult> results = move.getShotResults();
-                for (int i = 0; i < Game.NUMBER_SHOTS; i++) {
-                    if (i < results.size()) {
-                        IGame.ShotResult res = results.get(i);
-                        if (!res.valid())
-                            table.addCell("Invalid");
-                        else if (res.repeated())
-                            table.addCell("Repeated");
-                        else if (res.ship() != null && res.sunk())
-                            table.addCell("Sunk");
-                        else if (res.ship() != null)
-                            table.addCell("Hit");
-                        else
-                            table.addCell("Miss");
-                    } else {
-                        table.addCell("-");
-                    }
-                }
-            }
-
-            document.add(table);
+            addMovesTable(game, document);
 
             // Close the document
             document.close();
@@ -97,6 +51,56 @@ public class PDFExporter {
         } catch (Exception e) {
             throw new RuntimeException("Error while generating PDF file: " + fileName, e);
         }
+    }
+
+    private static void addMovesTable(IGame game, Document document) {
+        PdfPTable table = new PdfPTable(5); // Columns: Turn | Shots | Result1 | Result2 | Result3
+        table.setWidthPercentage(100);
+        table.setWidths(new float[]{1, 3, 2, 2, 2});
+
+        // Table header
+        table.addCell("Turn");
+        table.addCell("Shots");
+        table.addCell("Result 1");
+        table.addCell("Result 2");
+        table.addCell("Result 3");
+
+        // Populate the table with moves
+        List<IMove> moves = game.getAlienMoves(); // All enemy moves stored in the game
+        for (IMove move : moves) {
+            // Turn number
+            table.addCell(String.valueOf(move.getNumber()));
+
+            // Shots as a single string, e.g., "(2,3) (4,5) (1,1)"
+            StringBuilder shots = new StringBuilder();
+            for (IPosition pos : move.getShots()) {
+                shots.append("(").append(pos.getClassicRow())
+                        .append(",").append(pos.getClassicColumn()).append(") ");
+            }
+            table.addCell(shots.toString().trim());
+
+            // Results of each shot
+            List<IGame.ShotResult> results = move.getShotResults();
+            for (int i = 0; i < Game.NUMBER_SHOTS; i++) {
+                if (i < results.size()) {
+                    IGame.ShotResult res = results.get(i);
+                    if (!res.valid())
+                        table.addCell("Invalid");
+                    else if (res.repeated())
+                        table.addCell("Repeated");
+                    else if (res.ship() != null && res.sunk())
+                        table.addCell("Sunk");
+                    else if (res.ship() != null)
+                        table.addCell("Hit");
+                    else
+                        table.addCell("Miss");
+                } else {
+                    table.addCell("-");
+                }
+            }
+        }
+
+        document.add(table);
     }
 
     private static void addGameStatistics(IGame game, Document document) {
