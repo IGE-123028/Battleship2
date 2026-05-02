@@ -1,5 +1,5 @@
 # IGE-123016 - Tiago Pires
-name: "Qodana - Long Parameter List"
+name: "Qodana - Complete Analysis"
 
 on:
   workflow_dispatch:
@@ -16,6 +16,7 @@ jobs:
       pull-requests: write
       checks: write
 
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -25,7 +26,7 @@ jobs:
       - name: 'Qodana Scan - Long Parameter List'
         uses: JetBrains/qodana-action@v2024.3
         with:
-          args: --profile-path,.qodana/profiles/qodana-123016.yml --fail-threshold 0
+          args: --profile-path,.qodana/profiles/long-parameter-list.yaml
           pr-mode: false
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1695558519 }}
