@@ -33,20 +33,9 @@ public class Game implements IGame
 
         markShipsOnMap(fleet, hide_ships, map);
 
-        if (show_shots)
-			for (IMove move : moves)
-				for (IPosition shot : move.getShots()) {
-					if (shot.isInside()){
-						int row = shot.getRow();
-						int col = shot.getColumn();
-						if (fleet.shipAt(shot) != null)
-							map[row][col] = SHOT_SHIP_MARKER;
-						else
-							map[row][col] = SHOT_WATER_MARKER;
-					}
-				}
+        markShotsOnMap(fleet, moves, show_shots, map);
 
-		System.out.println();
+        System.out.println();
 		System.out.print("    ");
 		for (int col = 0; col < BOARD_SIZE; col++) {
 			System.out.print(" " + (col + 1));
@@ -80,6 +69,21 @@ public class Game implements IGame
 		}
 		System.out.println();
 	}
+
+    private static void markShotsOnMap(IFleet fleet, List<IMove> moves, boolean show_shots, char[][] map) {
+        if (show_shots)
+			for (IMove move : moves)
+				for (IPosition shot : move.getShots()) {
+					if (shot.isInside()){
+						int row = shot.getRow();
+						int col = shot.getColumn();
+						if (fleet.shipAt(shot) != null)
+							map[row][col] = SHOT_SHIP_MARKER;
+						else
+							map[row][col] = SHOT_WATER_MARKER;
+					}
+				}
+    }
 
     private static void markShipsOnMap(IFleet fleet, boolean hide_ships, char[][] map) {
         for (IShip ship : fleet.getShips()) {
