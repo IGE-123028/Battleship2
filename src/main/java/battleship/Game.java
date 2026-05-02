@@ -35,14 +35,9 @@ public class Game implements IGame
 
         markShotsOnMap(fleet, moves, show_shots, map);
 
-        System.out.println();
-		System.out.print("    ");
-		for (int col = 0; col < BOARD_SIZE; col++) {
-			System.out.print(" " + (col + 1));
-		}
-		System.out.println();
+        printMap();
 
-		System.out.print("   +-");
+        System.out.print("   +-");
 		for (int col = 0; col < BOARD_SIZE; col++) {
 			System.out.print("--");
 		}
@@ -69,6 +64,15 @@ public class Game implements IGame
 		}
 		System.out.println();
 	}
+
+    private static void printMap() {
+        System.out.println();
+        System.out.print("    ");
+        for (int col = 0; col < BOARD_SIZE; col++) {
+            System.out.print(" " + (col + 1));
+        }
+        System.out.println();
+    }
 
     private static void markShotsOnMap(IFleet fleet, List<IMove> moves, boolean show_shots, char[][] map) {
         if (show_shots)
