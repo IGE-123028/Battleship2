@@ -48,6 +48,10 @@ public class HuggingFaceClient {
             throw new RuntimeException("HTTP error " + response.statusCode() + ": " + response.body());
         }
 
+        return extractContentFromResponse(response);
+    }
+
+    private String extractContentFromResponse(HttpResponse<String> response) throws JsonProcessingException {
         JsonNode rootNode = objectMapper.readTree(response.body());
         JsonNode choices = rootNode.path("choices");
 
