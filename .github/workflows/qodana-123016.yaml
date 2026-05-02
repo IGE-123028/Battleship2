@@ -28,5 +28,5 @@ jobs:
           args: --profile-path,.qodana/profiles/qodana-123016.yml --fail-threshold 0
           pr-mode: false
         env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1695558519 }}
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
