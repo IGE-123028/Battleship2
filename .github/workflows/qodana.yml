@@ -1,5 +1,5 @@
 # IGE-123016 - Tiago Pires
-name: "Qodana - Complete Analysis"
+name: "Qodana - Complete Code Smells Analysis"
 
 on:
   workflow_dispatch:
@@ -16,18 +16,17 @@ jobs:
       pull-requests: write
       checks: write
 
-
     steps:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
-      - name: 'Qodana Scan - Long Parameter List'
+      - name: 'Complete Qodana Scan'
         uses: JetBrains/qodana-action@v2024.3
         with:
-          args: --profile-path,.qodana/profiles/long-parameter-list.yaml
+          args: --profile-path,.qodana/profiles/qodana-123016.yml
           pr-mode: false
         env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1695558519 }}
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
