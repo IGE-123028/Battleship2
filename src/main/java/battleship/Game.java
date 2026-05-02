@@ -3,6 +3,7 @@ package battleship;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -28,13 +29,9 @@ public class Game implements IGame
 		assert fleet != null;
 		assert moves != null;
 
-		char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
+        char[][] map = createEmptyMap();
 
-		for (int r = 0; r < BOARD_SIZE; r++)
-			for (int c = 0; c < BOARD_SIZE; c++)
-				map[r][c] = EMPTY_MARKER;
-
-		for (IShip ship : fleet.getShips()) {
+        for (IShip ship : fleet.getShips()) {
 			if (!hide_ships || !ship.stillFloating()) {
 				for (IPosition ship_pos : ship.getPositions())
 					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
@@ -92,7 +89,16 @@ public class Game implements IGame
 		System.out.println();
 	}
 
-	/**
+    private static char[] @NotNull [] createEmptyMap() {
+        char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
+
+        for (int r = 0; r < BOARD_SIZE; r++)
+            for (int c = 0; c < BOARD_SIZE; c++)
+                map[r][c] = EMPTY_MARKER;
+        return map;
+    }
+
+    /**
 	 * Serializes a list of shot positions into a JSON string. Each shot is represented
 	 * with its classic row and column values. The method uses the Jackson library for
 	 * JSON serialization.
