@@ -36,13 +36,7 @@ public class PDFExporter {
             PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
 
-            // Add the title centered at the top
-            Font titleFont = new Font(Font.HELVETICA, 18, Font.BOLD);
-            Paragraph title = new Paragraph("Battleship Game Summary", titleFont);
-            title.setAlignment(Element.ALIGN_CENTER);
-            document.add(title);
-
-            document.add(new Paragraph(" ")); // blank line
+            addTitle(document);
 
             // Add general game statistics
             document.add(new Paragraph("Remaining Ships: " + game.getRemainingShips()));
@@ -110,5 +104,15 @@ public class PDFExporter {
         } catch (Exception e) {
             throw new RuntimeException("Error while generating PDF file: " + fileName, e);
         }
+    }
+
+    private static void addTitle(Document document) {
+        // Add the title centered at the top
+        Font titleFont = new Font(Font.HELVETICA, 18, Font.BOLD);
+        Paragraph title = new Paragraph("Battleship Game Summary", titleFont);
+        title.setAlignment(Element.ALIGN_CENTER);
+        document.add(title);
+
+        document.add(new Paragraph(" ")); // blank line
     }
 }
