@@ -40,12 +40,7 @@ public class HuggingFaceClient {
 
         String jsonBody = createRequestBody(prompt);
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(apiUrl))
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + apiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
-                .build();
+        HttpRequest request = createHttpRequest(apiUrl, jsonBody);
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -61,6 +56,16 @@ public class HuggingFaceClient {
         }
 
         return "";
+    }
+
+    private HttpRequest createHttpRequest(String apiUrl, String jsonBody) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiUrl))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + apiKey)
+                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+                .build();
+        return request;
     }
 
     private String createRequestBody(String prompt) throws JsonProcessingException {
