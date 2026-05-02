@@ -12,6 +12,10 @@ public class Scoreboard {
 
     public static void saveResult(String resultado) {
         String filePath = getFilePath();
+        writeResultToCSV(resultado, filePath);
+    }
+
+    private static void writeResultToCSV(String resultado, String filePath) {
         try (FileWriter writer = new FileWriter(filePath, true);
              CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
 
