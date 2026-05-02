@@ -3,6 +3,8 @@ package battleship;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
@@ -21,6 +23,10 @@ public class Messages {
     public static void load(String lang) throws Exception {
         lang = lang.toLowerCase();
 
+        loadConfiguration(lang);
+    }
+
+    private static void loadConfiguration(String lang) throws ConfigurationException {
         Parameters params = new Parameters();
         FileBasedConfigurationBuilder<PropertiesConfiguration> builder =
                 new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class)
