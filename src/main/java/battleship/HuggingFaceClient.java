@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Client for interacting with Hugging Face Inference API via Router.
@@ -33,7 +34,7 @@ public class HuggingFaceClient {
     }
 
     public String chat(String prompt) throws Exception {
-        String apiUrl = "https://router.huggingface.co/v1/chat/completions";
+        String apiUrl = getApiUrl();
 
         Map<String, Object> body = new HashMap<>();
         body.put("model", this.model);
@@ -71,5 +72,10 @@ public class HuggingFaceClient {
         }
 
         return "";
+    }
+
+    private static @NotNull String getApiUrl() {
+        String apiUrl = "https://router.huggingface.co/v1/chat/completions";
+        return apiUrl;
     }
 }
