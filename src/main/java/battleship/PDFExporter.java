@@ -71,13 +71,7 @@ public class PDFExporter {
             // Turn number
             table.addCell(String.valueOf(move.getNumber()));
 
-            // Shots as a single string, e.g., "(2,3) (4,5) (1,1)"
-            StringBuilder shots = new StringBuilder();
-            for (IPosition pos : move.getShots()) {
-                shots.append("(").append(pos.getClassicRow())
-                        .append(",").append(pos.getClassicColumn()).append(") ");
-            }
-            table.addCell(shots.toString().trim());
+            formatShots(move, table);
 
             // Results of each shot
             List<IGame.ShotResult> results = move.getShotResults();
@@ -101,6 +95,16 @@ public class PDFExporter {
         }
 
         document.add(table);
+    }
+
+    private static void formatShots(IMove move, PdfPTable table) {
+        // Shots as a single string, e.g., "(2,3) (4,5) (1,1)"
+        StringBuilder shots = new StringBuilder();
+        for (IPosition pos : move.getShots()) {
+            shots.append("(").append(pos.getClassicRow())
+                    .append(",").append(pos.getClassicColumn()).append(") ");
+        }
+        table.addCell(shots.toString().trim());
     }
 
     private static void addGameStatistics(IGame game, Document document) {
