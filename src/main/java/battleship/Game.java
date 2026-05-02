@@ -31,17 +31,9 @@ public class Game implements IGame
 
         char[][] map = createEmptyMap();
 
-        for (IShip ship : fleet.getShips()) {
-			if (!hide_ships || !ship.stillFloating()) {
-				for (IPosition ship_pos : ship.getPositions())
-					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
-				if (!ship.stillFloating())
-					for (IPosition adjacent_pos : ship.getAdjacentPositions())
-						map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
-			}
-		}
+        markShipsOnMap(fleet, hide_ships, map);
 
-		if (show_shots)
+        if (show_shots)
 			for (IMove move : moves)
 				for (IPosition shot : move.getShots()) {
 					if (shot.isInside()){
@@ -88,6 +80,18 @@ public class Game implements IGame
 		}
 		System.out.println();
 	}
+
+    private static void markShipsOnMap(IFleet fleet, boolean hide_ships, char[][] map) {
+        for (IShip ship : fleet.getShips()) {
+			if (!hide_ships || !ship.stillFloating()) {
+				for (IPosition ship_pos : ship.getPositions())
+					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
+				if (!ship.stillFloating())
+					for (IPosition adjacent_pos : ship.getAdjacentPositions())
+						map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
+			}
+		}
+    }
 
     private static char[] @NotNull [] createEmptyMap() {
         char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
