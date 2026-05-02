@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.NotNull;
@@ -36,20 +38,7 @@ public class HuggingFaceClient {
     public String chat(String prompt) throws Exception {
         String apiUrl = getApiUrl();
 
-        Map<String, Object> body = new HashMap<>();
-        body.put("model", this.model);
-
-        List<Map<String, String>> messages = new ArrayList<>();
-        Map<String, String> userMessage = new HashMap<>();
-        userMessage.put("role", "user");
-        userMessage.put("content", prompt);
-        messages.add(userMessage);
-
-        body.put("messages", messages);
-        body.put("max_tokens", 500);
-        body.put("temperature", 0.1);
-
-        String jsonBody = objectMapper.writeValueAsString(body);
+        String jsonBody = createRequestBody(prompt);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))
@@ -72,6 +61,24 @@ public class HuggingFaceClient {
         }
 
         return "";
+    }
+
+    private String createRequestBody(String prompt) throws JsonProcessingException {
+        Map<String, Object> body = new HashMap<>();
+        body.put("model", this.model);
+
+        List<Map<String, String>> messages = new ArrayList<>();
+        Map<String, String> userMessage = new HashMap<>();
+        userMessage.put("role", "user");
+        userMessage.put("content", prompt);
+        messages.add(userMessage);
+
+        body.put("messages", messages);
+        body.put("max_tokens", 500);
+        body.put("temperature", 0.1);
+
+        String jsonBody = objectMapper.writeValueAsString(body);
+        return jsonBody;
     }
 
     private static @NotNull String getApiUrl() {
