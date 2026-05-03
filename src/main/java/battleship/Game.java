@@ -29,15 +29,15 @@ public class Game implements IGame
 		assert fleet != null;
 		assert moves != null;
 
-        char[][] map = createEmptyMap();
+		char[][] map = createEmptyMap();
 
-        markShipsOnMap(fleet, hide_ships, map);
+		markShipsOnMap(fleet, hide_ships, map);
 
-        markShotsOnMap(fleet, moves, show_shots, map);
+		markShotsOnMap(fleet, moves, show_shots, map);
 
-        printMap();
+		printMap();
 
-        System.out.print("   +-");
+		System.out.print("   +-");
 		for (int col = 0; col < BOARD_SIZE; col++) {
 			System.out.print("--");
 		}
@@ -65,17 +65,17 @@ public class Game implements IGame
 		System.out.println();
 	}
 
-    private static void printMap() {
-        System.out.println();
-        System.out.print("    ");
-        for (int col = 0; col < BOARD_SIZE; col++) {
-            System.out.print(" " + (col + 1));
-        }
-        System.out.println();
-    }
+	private static void printMap() {
+		System.out.println();
+		System.out.print("    ");
+		for (int col = 0; col < BOARD_SIZE; col++) {
+			System.out.print(" " + (col + 1));
+		}
+		System.out.println();
+	}
 
-    private static void markShotsOnMap(IFleet fleet, List<IMove> moves, boolean show_shots, char[][] map) {
-        if (show_shots)
+	private static void markShotsOnMap(IFleet fleet, List<IMove> moves, boolean show_shots, char[][] map) {
+		if (show_shots)
 			for (IMove move : moves)
 				for (IPosition shot : move.getShots()) {
 					if (shot.isInside()){
@@ -87,10 +87,10 @@ public class Game implements IGame
 							map[row][col] = SHOT_WATER_MARKER;
 					}
 				}
-    }
+	}
 
-    private static void markShipsOnMap(IFleet fleet, boolean hide_ships, char[][] map) {
-        for (IShip ship : fleet.getShips()) {
+	private static void markShipsOnMap(IFleet fleet, boolean hide_ships, char[][] map) {
+		for (IShip ship : fleet.getShips()) {
 			if (!hide_ships || !ship.stillFloating()) {
 				for (IPosition ship_pos : ship.getPositions())
 					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
@@ -99,18 +99,18 @@ public class Game implements IGame
 						map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
 			}
 		}
-    }
+	}
 
-    private static char[] @NotNull [] createEmptyMap() {
-        char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
+	private static char[] @NotNull [] createEmptyMap() {
+		char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
 
-        for (int r = 0; r < BOARD_SIZE; r++)
-            for (int c = 0; c < BOARD_SIZE; c++)
-                map[r][c] = EMPTY_MARKER;
-        return map;
-    }
+		for (int r = 0; r < BOARD_SIZE; r++)
+			for (int c = 0; c < BOARD_SIZE; c++)
+				map[r][c] = EMPTY_MARKER;
+		return map;
+	}
 
-    /**
+	/**
 	 * Serializes a list of shot positions into a JSON string. Each shot is represented
 	 * with its classic row and column values. The method uses the Jackson library for
 	 * JSON serialization.
@@ -249,22 +249,8 @@ public class Game implements IGame
 		System.out.println();
 		// Gerar coordenadas únicas até atingir o número definido por NUMBER_SHOTS
 
-		IPosition newShot = null;
-		if (candidateShots.size() >= Game.NUMBER_SHOTS)
-			while (shots.size() < Game.NUMBER_SHOTS) {
-				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
-				if (!shots.contains(newShot))
-					shots.add(newShot);
-			}
-		else {
-			while (shots.size() < candidateShots.size()) {
-				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
-				if (!shots.contains(newShot))
-					shots.add(newShot);
-			}
-			while (shots.size() < Game.NUMBER_SHOTS)
-				shots.add(newShot);
-		}
+		addRandomUniqueShots(shots, candidateShots, random);
+		repeatLastShotUntilFull(shots);
 
 		System.out.print("rajada ");
 		for (IPosition shot : shots)
@@ -274,6 +260,28 @@ public class Game implements IGame
 		this.fireShots(shots);
 
 		return Game.jsonShots(shots);
+	}
+
+	private void addRandomUniqueShots(List<IPosition> shots, List<IPosition> candidateShots, Random random) {
+		int targetSize = Math.min(Game.NUMBER_SHOTS, candidateShots.size());
+		while (shots.size() < targetSize) {
+			IPosition shot = randomShot(candidateShots, random);
+			if (!shots.contains(shot))
+				shots.add(shot);
+		}
+	}
+
+	private IPosition randomShot(List<IPosition> candidateShots, Random random) {
+		return candidateShots.get(random.nextInt(candidateShots.size()));
+	}
+
+	private void repeatLastShotUntilFull(List<IPosition> shots) {
+		while (shots.size() < Game.NUMBER_SHOTS)
+			shots.add(lastShot(shots));
+	}
+
+	private IPosition lastShot(List<IPosition> shots) {
+		return shots.get(shots.size() - 1);
 	}
 
 
@@ -519,7 +527,7 @@ public class Game implements IGame
 	public void over() {
 		System.out.println();
 		System.out.println("+--------------------------------------------------------------+");
-                System.out.println( "| " + Messages.get("game_over") + " |");
+		System.out.println( "| " + Messages.get("game_over") + " |");
 		System.out.println("+--------------------------------------------------------------+");
 	}
 }
