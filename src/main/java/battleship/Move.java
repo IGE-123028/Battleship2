@@ -38,6 +38,11 @@ public class Move implements IMove {
     }
 
     @Override
+    public boolean hasShot(IPosition pos) {
+      return this.shots.contains(pos);
+    }
+  
+    @Override
     public List<IGame.ShotResult> getShotResults() {
         return this.shotResults;
     }

@@ -31,14 +31,4 @@ public class BoardColor {
                 return ADJ.format("-");
         }
 
-        public static String colored(char marker) {
-                return switch (marker) {
-                        case '#' -> ship();
-                        case '*' -> hit();
-                        case 'o' -> miss();
-                        case '-' -> adjacent();
-                        case '.' -> water();
-                        default -> String.valueOf(marker);
-                };
-        }
 }

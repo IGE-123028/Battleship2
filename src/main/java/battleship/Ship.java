@@ -14,43 +14,24 @@ import java.util.Objects;
 public abstract class Ship implements IShip
 {
 	/**
-	 * The constant GALEAO.
-	 */
-	private static final String GALEAO = "galeao";
-	/**
-	 * The constant FRAGATA.
-	 */
-	private static final String FRAGATA = "fragata";
-	/**
-	 * The constant NAU.
-	 */
-	private static final String NAU = "nau";
-	/**
-	 * The constant CARAVELA.
-	 */
-	private static final String CARAVELA = "caravela";
-	/**
-	 * The constant BARCA.
-	 */
-	private static final String BARCA = "barca";
-
-	/**
 	 * Create a new ship
 	 *
-	 * @param shipKind the ship kind
+	 * @param shipType the ship type
 	 * @param bearing  the bearing
 	 * @param pos      the pos
 	 * @return s ship
 	 */
-	static Ship buildShip(String shipKind, Compass bearing, Position pos)
-    {
-		assert shipKind != null;
+	static Ship buildShip(ShipType shipType, Compass bearing, Position pos)
+	{
 		assert bearing != null;
 		assert pos != null;
 
-        Ship s;
-        switch (shipKind)
-        {
+	        Ship s;
+		if (shipType == null)
+			return null;
+
+	        switch (shipType)
+	        {
         case BARCA:
             s = new Barge(bearing, pos);
 			break;

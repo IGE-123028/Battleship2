@@ -30,6 +30,8 @@ public interface IMove {
 
 	List<IPosition> getShots();
 
+	boolean hasShot(IPosition pos);
+
 	List<IGame.ShotResult> getShotResults();
 
 	String processEnemyFire(boolean verbose);
