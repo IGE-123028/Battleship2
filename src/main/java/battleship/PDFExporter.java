@@ -54,51 +54,55 @@ public class PDFExporter {
     }
 
     private static void addMovesTable(IGame game, Document document) {
-        PdfPTable table = new PdfPTable(5); // Columns: Turn | Shots | Result1 | Result2 | Result3
+        PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100);
         table.setWidths(new float[]{1, 3, 2, 2, 2});
 
-        // Table header
-        table.addCell("Turn");
-        table.addCell("Shots");
-        table.addCell("Result 1");
-        table.addCell("Result 2");
-        table.addCell("Result 3");
+        addTableHeader(table);
 
-        // Populate the table with moves
-        List<IMove> moves = game.getAlienMoves(); // All enemy moves stored in the game
+        List<IMove> moves = game.getAlienMoves();
         for (IMove move : moves) {
-            // Turn number
-            table.addCell(String.valueOf(move.getNumber()));
-
-            formatShots(move, table);
-
-            // Results of each shot
-            List<IGame.ShotResult> results = move.getShotResults();
-            for (int i = 0; i < Game.NUMBER_SHOTS; i++) {
-                if (i < results.size()) {
-                    IGame.ShotResult res = results.get(i);
-                    if (!res.valid())
-                        table.addCell("Invalid");
-                    else if (res.repeated())
-                        table.addCell("Repeated");
-                    else if (res.ship() != null && res.sunk())
-                        table.addCell("Sunk");
-                    else if (res.ship() != null)
-                        table.addCell("Hit");
-                    else
-                        table.addCell("Miss");
-                } else {
-                    table.addCell("-");
-                }
-            }
+            addMoveRow(table, move);
         }
 
         document.add(table);
     }
 
+    private static void addTableHeader(PdfPTable table) {
+        table.addCell("Turn");
+        table.addCell("Shots");
+        table.addCell("Result 1");
+        table.addCell("Result 2");
+        table.addCell("Result 3");
+    }
+
+    private static void addMoveRow(PdfPTable table, IMove move) {
+        table.addCell(String.valueOf(move.getNumber()));
+        formatShots(move, table);
+
+        List<IGame.ShotResult> results = move.getShotResults();
+        for (int i = 0; i < Game.NUMBER_SHOTS; i++) {
+            if (i < results.size()) {
+                table.addCell(getShotResultText(results.get(i)));
+            } else {
+                table.addCell("-");
+            }
+        }
+    }
+
+    private static String getShotResultText(IGame.ShotResult res) {
+        if (!res.valid())
+            return "Invalid";
+        if (res.repeated())
+            return "Repeated";
+        if (res.ship() != null && res.sunk())
+            return "Sunk";
+        if (res.ship() != null)
+            return "Hit";
+        return "Miss";
+    }
+
     private static void formatShots(IMove move, PdfPTable table) {
-        // Shots as a single string, e.g., "(2,3) (4,5) (1,1)"
         StringBuilder shots = new StringBuilder();
         for (IPosition pos : move.getShots()) {
             shots.append("(").append(pos.getClassicRow())
@@ -106,6 +110,7 @@ public class PDFExporter {
         }
         table.addCell(shots.toString().trim());
     }
+
 
     private static void addGameStatistics(IGame game, Document document) {
         // Add general game statistics

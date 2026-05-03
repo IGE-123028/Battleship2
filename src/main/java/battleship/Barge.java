@@ -8,7 +8,7 @@ package battleship;
  * Date: 2023-10-10
  * Time: 15:30
  */
-public class Barge extends Ship {
+public class Barge extends LinearShip {
 
 	/**
 	 * Instantiates a new Barge.
@@ -18,8 +18,5 @@ public class Barge extends Ship {
 	 */
 	public Barge(Compass bearing, IPosition pos) {
 		super("Barca", bearing, pos, 1);
-
-		// Add the single position of the barge to the list of positions
-		getPositions().add(new Position(pos.getRow(), pos.getColumn()));
 	}
 }
