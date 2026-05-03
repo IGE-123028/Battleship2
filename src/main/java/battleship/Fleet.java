@@ -12,23 +12,29 @@ import java.util.List;
 public class Fleet implements IFleet
 {
 	/**
-	 * Creates a randomly generated fleet containing ships of various predefined types.
+	 * Standard fleet composition for a default game.
+	 */
+	public static final ShipType[] STANDARD_SHIP_TYPES = {
+			ShipType.GALEAO,                           // 1 galleon
+			ShipType.FRAGATA,                          // 1 frigate
+			ShipType.NAU, ShipType.NAU,                // 2 carracks
+			ShipType.CARAVELA, ShipType.CARAVELA, ShipType.CARAVELA,  // 3 caravels
+			ShipType.BARCA, ShipType.BARCA, ShipType.BARCA, ShipType.BARCA // 4 barges
+	};
+
+	/**
+	 * Creates a randomly generated fleet containing ships of various types.
 	 * Each ship is assigned a random bearing and position. If a ship cannot be added
 	 * due to constraints (e.g., collision or boundary issues), it will be retried.
 	 *
+	 * @param shipTypes the types of ships to be added to the fleet
 	 * @return a fully constructed and valid fleet as an instance of IFleet
 	 */
-	public static IFleet createRandom() {
+	public static IFleet createRandom(ShipType[] shipTypes) {
+
+		assert shipTypes != null;
 
 		Fleet randomFleet = new Fleet();
-
-		// Define the types of ships to be added
-		ShipType[] shipTypes =
-					{ShipType.GALEAO,                           // 1 galleon
-				 	ShipType.FRAGATA,                           // 1 frigate
- 				 	ShipType.NAU, ShipType.NAU,                 // 2 carracks
-					ShipType.CARAVELA, ShipType.CARAVELA, ShipType.CARAVELA,  // 3 caravels
-					ShipType.BARCA, ShipType.BARCA, ShipType.BARCA, ShipType.BARCA}; // 4 barges
 
 		int fleetSize = 0;
 
@@ -43,6 +49,15 @@ public class Fleet implements IFleet
 			}
 		}
 		return randomFleet;
+	}
+
+	/**
+	 * Creates a randomly generated fleet using the standard composition.
+	 *
+	 * @return a fully constructed and valid fleet as an instance of IFleet
+	 */
+	public static IFleet createRandom() {
+		return createRandom(STANDARD_SHIP_TYPES);
 	}
 
 
