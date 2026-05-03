@@ -151,20 +151,26 @@ public class LLMService {
     }
 
     private String cleanJsonResponse(String response) {
-        int arrayStartMarker = response.indexOf("\"rajada\"");
-        int start = -1;
+        try {
+            return JsonUtils.extractRajadaArray(response);
+        } catch (Exception e) {
+            // Fallback: preserve previous behaviour if extraction fails
+            if (response == null) return "";
+            int arrayStartMarker = response.indexOf("\"rajada\"");
+            int start = -1;
 
-        if (arrayStartMarker != -1) {
-            start = response.indexOf("[", arrayStartMarker);
-        } else {
-            start = response.indexOf("[");
+            if (arrayStartMarker != -1) {
+                start = response.indexOf("[", arrayStartMarker);
+            } else {
+                start = response.indexOf("[");
+            }
+
+            int end = response.lastIndexOf("]");
+
+            if (start != -1 && end != -1 && start < end) {
+                return response.substring(start, end + 1).trim();
+            }
+            return response.trim();
         }
-
-        int end = response.lastIndexOf("]");
-
-        if (start != -1 && end != -1 && start < end) {
-            return response.substring(start, end + 1);
-        }
-        return response.trim();
     }
 }
