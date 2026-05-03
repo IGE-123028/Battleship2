@@ -29,41 +29,13 @@ public class Game implements IGame
 		assert fleet != null;
 		assert moves != null;
 
-		char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
+		char[][] map = createEmptyMap();
 
-		for (int r = 0; r < BOARD_SIZE; r++)
-			for (int c = 0; c < BOARD_SIZE; c++)
-				map[r][c] = EMPTY_MARKER;
+		markShipsOnMap(fleet, hide_ships, map);
 
-		for (IShip ship : fleet.getShips()) {
-			if (!hide_ships || !ship.stillFloating()) {
-				for (IPosition ship_pos : ship.getPositions())
-					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
-				if (!ship.stillFloating())
-					for (IPosition adjacent_pos : ship.getAdjacentPositions())
-						map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
-			}
-		}
+		markShotsOnMap(fleet, moves, show_shots, map);
 
-		if (show_shots)
-			for (IMove move : moves)
-				for (IPosition shot : move.getShots()) {
-					if (shot.isInside()){
-						int row = shot.getRow();
-						int col = shot.getColumn();
-						if (fleet.shipAt(shot) != null)
-							map[row][col] = SHOT_SHIP_MARKER;
-						else
-							map[row][col] = SHOT_WATER_MARKER;
-					}
-				}
-
-		System.out.println();
-		System.out.print("    ");
-		for (int col = 0; col < BOARD_SIZE; col++) {
-			System.out.print(" " + (col + 1));
-		}
-		System.out.println();
+		printMap();
 
 		System.out.print("   +-");
 		for (int col = 0; col < BOARD_SIZE; col++) {
@@ -72,13 +44,13 @@ public class Game implements IGame
 		System.out.println("+");
 
 		for (int row = 0; row < BOARD_SIZE; row++) {
-			Position pos = new Position(row, 0);
-			char rowLabel = pos.getClassicRow();
-			System.out.print(" " + rowLabel + " |");
-			for (int col = 0; col < BOARD_SIZE; col++)
-				System.out.print(" " + BoardColor.colored(map[row][col]));
-			System.out.println(" |");
-		}
+				Position pos = new Position(row, 0);
+				char rowLabel = pos.getClassicRow();
+				System.out.print(" " + rowLabel + " |");
+				for (int col = 0; col < BOARD_SIZE; col++)
+					System.out.print(" " + ConsoleBoardRenderer.colored(map[row][col]));
+				System.out.println(" |");
+			}
 
 		System.out.print("   +");
 		for (int col = 0; col < BOARD_SIZE; col++)
@@ -91,6 +63,51 @@ public class Game implements IGame
 			System.out.println("'" + SHOT_SHIP_MARKER + "'->Tiro certeiro, '" + SHOT_WATER_MARKER + "'->Tiro na água");
 		}
 		System.out.println();
+	}
+
+	private static void printMap() {
+		System.out.println();
+		System.out.print("    ");
+		for (int col = 0; col < BOARD_SIZE; col++) {
+			System.out.print(" " + (col + 1));
+		}
+		System.out.println();
+	}
+
+	private static void markShotsOnMap(IFleet fleet, List<IMove> moves, boolean show_shots, char[][] map) {
+		if (show_shots)
+			for (IMove move : moves)
+				for (IPosition shot : move.getShots()) {
+					if (shot.isInside()){
+						int row = shot.getRow();
+						int col = shot.getColumn();
+						if (fleet.shipAt(shot) != null)
+							map[row][col] = SHOT_SHIP_MARKER;
+						else
+							map[row][col] = SHOT_WATER_MARKER;
+					}
+				}
+	}
+
+	private static void markShipsOnMap(IFleet fleet, boolean hide_ships, char[][] map) {
+		for (IShip ship : fleet.getShips()) {
+			if (!hide_ships || !ship.stillFloating()) {
+				for (IPosition ship_pos : ship.getPositions())
+					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
+				if (!ship.stillFloating())
+					for (IPosition adjacent_pos : ship.getAdjacentPositions())
+						map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
+			}
+		}
+	}
+
+	private static char[] @NotNull [] createEmptyMap() {
+		char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
+
+		for (int r = 0; r < BOARD_SIZE; r++)
+			for (int c = 0; c < BOARD_SIZE; c++)
+				map[r][c] = EMPTY_MARKER;
+		return map;
 	}
 
 	/**
@@ -274,6 +291,28 @@ public class Game implements IGame
 			shots.add(last);
 
 		return shots;
+	}
+
+	private void addRandomUniqueShots(List<IPosition> shots, List<IPosition> candidateShots, Random random) {
+		int targetSize = Math.min(Game.NUMBER_SHOTS, candidateShots.size());
+		while (shots.size() < targetSize) {
+			IPosition shot = randomShot(candidateShots, random);
+			if (!shots.contains(shot))
+				shots.add(shot);
+		}
+	}
+
+	private IPosition randomShot(List<IPosition> candidateShots, Random random) {
+		return candidateShots.get(random.nextInt(candidateShots.size()));
+	}
+
+	private void repeatLastShotUntilFull(List<IPosition> shots) {
+		while (shots.size() < Game.NUMBER_SHOTS)
+			shots.add(lastShot(shots));
+	}
+
+	private IPosition lastShot(List<IPosition> shots) {
+		return shots.get(shots.size() - 1);
 	}
 
 
@@ -477,20 +516,19 @@ public class Game implements IGame
 
 	public boolean repeatedShot(IPosition pos)
 	{
-		assert pos != null;
-
-		for (IMove move : alienMoves)
-			if (move.getShots().contains(pos))
-				return true;
-		return false;
+		return hasRepeatedShot(pos, alienMoves);
 	}
 
 	public boolean myRepeatedShot(IPosition pos)
 	{
+		return hasRepeatedShot(pos, myMoves);
+	}
+
+	private boolean hasRepeatedShot(IPosition pos, List<IMove> moves) {
 		assert pos != null;
 
-		for (IMove move : myMoves)
-			if (move.getShots().contains(pos))
+		for (IMove move : moves)
+			if (move.hasShot(pos))
 				return true;
 		return false;
 	}
@@ -508,7 +546,7 @@ public class Game implements IGame
 	public void over() {
 		System.out.println();
 		System.out.println("+--------------------------------------------------------------+");
-                System.out.println( "| " + Messages.get("game_over") + " |");
+		System.out.println( "| " + Messages.get("game_over") + " |");
 		System.out.println("+--------------------------------------------------------------+");
 	}
 }

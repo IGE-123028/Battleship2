@@ -2,7 +2,9 @@
 
 | Local                             | Code Smell (Fowler)                                     | Refactoring                                                         | Student ID |
 | --------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------- | ---------- |
-| Tasks::menu                       | Long Method / Large Class (God Class)                   | Extract Class; Extract Method (separate CLI from game logic)        | IGE-123010 |
+| Game::repeatedShot                | Message Chains                                          | Hide Delegate (Move.hasShot)                                        | IGE-123010 |
+| Game::myRepeatedShot              | Duplicated Code                                         | Extract Method (find repeated shots in helper)                      | IGE-123010 |
+| Game::randomEnemyFire (temp vars) | Temporary Field                                         | Replace Temp with Query; Refactor Loop                              | IGE-123010 |
 | Move::processEnemyFire            | Long Method / Divergent Change                          | Extract Method; Introduce DTO (separate logic, formatting, and I/O) | IGE-123010 |
 | Caravel::Caravel                  | Duplicated Code                                         | Extract Method; Strategy Pattern for placement                      | IGE-123010 |
 | Ship::buildShip                   | Primitive Obsession                                     | Replace Type Code with Enum; Replace Null with Exception            | IGE-123010 |
@@ -21,10 +23,9 @@
 | Frigate::Frigate                  | Duplicated Code                                         | Extract Method; Strategy Pattern                                    | IGE-123023 |
 | Messages::get                     | Middle Man                                              | Remove Middle Man; Inline Method                                    | IGE-123023 |
 | IMove / Move                      | Data Class                                              | Move Behavior to Class; Encapsulate Data                            | IGE-123028 |
-| Game::repeatedShot                | Message Chains                                          | Hide Delegate (Move.hasShot)                                        | IGE-123028 |
 | Carrack::Carrack                  | Duplicated Code                                         | Extract Method; Strategy Pattern                                    | IGE-123028 |
-| Game::randomEnemyFire (temp vars) | Temporary Field                                         | Replace Temp with Query; Refactor Loop                              | IGE-123028 |
 | BoardColor (class)                | Lazy Class                                              | Inline Class / Move to UI layer                                     | IGE-123028 |
 | Fleet::printStatus                | Dead Code                                               | Remove Dead Code                                                    | IGE-123028 |
+| Tasks::menu                       | Long Method / Large Class (God Class)                   | Extract Class; Extract Method (separate CLI from game logic)        | IGE-123028 |
 
 **Author:** ADM

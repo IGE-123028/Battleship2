@@ -197,50 +197,50 @@ public class ShipTest {
         assertTrue(result.contains(ship.getPosition().toString()));
     }
 
-    @Test
-    @DisplayName("Should build a Barge when kind is barca")
-    void testBuildShipBarca() {
-        Ship built = Ship.buildShip("barca", Compass.NORTH, new Position(1, 1));
-        assertNotNull(built);
-        assertInstanceOf(Barge.class, built);
-    }
+	@Test
+	@DisplayName("Should build a Barge when kind is barca")
+	void testBuildShipBarca() {
+		Ship built = Ship.buildShip(ShipType.BARCA, Compass.NORTH, new Position(1, 1));
+		assertNotNull(built);
+		assertInstanceOf(Barge.class, built);
+	}
 
-    @Test
-    @DisplayName("Should build a Caravel when kind is caravela")
-    void testBuildShipCaravela() {
-        Ship built = Ship.buildShip("caravela", Compass.NORTH, new Position(1, 1));
-        assertNotNull(built);
-        assertInstanceOf(Caravel.class, built);
-    }
+	@Test
+	@DisplayName("Should build a Caravel when kind is caravela")
+	void testBuildShipCaravela() {
+		Ship built = Ship.buildShip(ShipType.CARAVELA, Compass.NORTH, new Position(1, 1));
+		assertNotNull(built);
+		assertInstanceOf(Caravel.class, built);
+	}
 
-    @Test
-    @DisplayName("Should build a Carrack when kind is nau")
-    void testBuildShipNau() {
-        Ship built = Ship.buildShip("nau", Compass.NORTH, new Position(1, 1));
-        assertNotNull(built);
-        assertInstanceOf(Carrack.class, built);
-    }
+	@Test
+	@DisplayName("Should build a Carrack when kind is nau")
+	void testBuildShipNau() {
+		Ship built = Ship.buildShip(ShipType.NAU, Compass.NORTH, new Position(1, 1));
+		assertNotNull(built);
+		assertInstanceOf(Carrack.class, built);
+	}
 
-    @Test
-    @DisplayName("Should build a Frigate when kind is fragata")
-    void testBuildShipFragata() {
-        Ship built = Ship.buildShip("fragata", Compass.NORTH, new Position(1, 1));
-        assertNotNull(built);
-        assertInstanceOf(Frigate.class, built);
-    }
+	@Test
+	@DisplayName("Should build a Frigate when kind is fragata")
+	void testBuildShipFragata() {
+		Ship built = Ship.buildShip(ShipType.FRAGATA, Compass.NORTH, new Position(1, 1));
+		assertNotNull(built);
+		assertInstanceOf(Frigate.class, built);
+	}
 
-    @Test
-    @DisplayName("Should build a Galleon when kind is galeao")
-    void testBuildShipGaleao() {
-        Ship built = Ship.buildShip("galeao", Compass.NORTH, new Position(3, 3));
-        assertNotNull(built);
-        assertInstanceOf(Galleon.class, built);
-    }
+	@Test
+	@DisplayName("Should build a Galleon when kind is galeao")
+	void testBuildShipGaleao() {
+		Ship built = Ship.buildShip(ShipType.GALEAO, Compass.NORTH, new Position(3, 3));
+		assertNotNull(built);
+		assertInstanceOf(Galleon.class, built);
+	}
 
-    @Test
-    @DisplayName("Should return null for an unknown ship kind")
-    void testBuildShipInvalidKind() {
-        Ship built = Ship.buildShip("unknown", Compass.NORTH, new Position(1, 1));
-        assertNull(built);
-    }
+	@Test
+	@DisplayName("Should return null for an unknown ship kind")
+	void testBuildShipInvalidKind() {
+		Ship built = Ship.buildShip(ShipType.fromCode("unknown"), Compass.NORTH, new Position(1, 1));
+		assertNull(built);
+	}
 }

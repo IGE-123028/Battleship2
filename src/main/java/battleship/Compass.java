@@ -80,25 +80,9 @@ public enum Compass
 	 */
 	static Compass charToCompass(char ch)
     {
-        Compass bearing;
-        switch (ch)
-        {
-        case 'n':
-            bearing = NORTH;
-            break;
-        case 's':
-            bearing = SOUTH;
-            break;
-        case 'e':
-            bearing = EAST;
-            break;
-        case 'o':
-            bearing = WEST;
-            break;
-        default:
-            bearing = null;
-        }
-    
-        return bearing;
+		for (Compass compass : values())
+			if (compass.getDirection() == ch)
+				return compass;
+		return null;
     }
 }

@@ -1,5 +1,6 @@
 package battleship;
 
+import battleship.ui.ConsoleBoardRenderer;
 import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;
 import org.junit.jupiter.api.AfterEach;
@@ -99,7 +100,7 @@ class BoardColorTest {
     void colored1() {
         assertAll(
                 () -> assertNotNull(boardColor, "Error: expected BoardColor test fixture to exist but it was null."),
-                () -> assertEquals(BoardColor.ship(), BoardColor.colored('#'),
+                () -> assertEquals(BoardColor.ship(), ConsoleBoardRenderer.colored('#'),
                         "Error: expected colored('#') to delegate to ship() but it returned a different value.")
         );
     }
@@ -108,7 +109,7 @@ class BoardColorTest {
     void colored2() {
         assertAll(
                 () -> assertNotNull(boardColor, "Error: expected BoardColor test fixture to exist but it was null."),
-                () -> assertEquals(BoardColor.hit(), BoardColor.colored('*'),
+                () -> assertEquals(BoardColor.hit(), ConsoleBoardRenderer.colored('*'),
                         "Error: expected colored('*') to delegate to hit() but it returned a different value.")
         );
     }
@@ -117,7 +118,7 @@ class BoardColorTest {
     void colored3() {
         assertAll(
                 () -> assertNotNull(boardColor, "Error: expected BoardColor test fixture to exist but it was null."),
-                () -> assertEquals(BoardColor.miss(), BoardColor.colored('o'),
+                () -> assertEquals(BoardColor.miss(), ConsoleBoardRenderer.colored('o'),
                         "Error: expected colored('o') to delegate to miss() but it returned a different value.")
         );
     }
@@ -126,7 +127,7 @@ class BoardColorTest {
     void colored4() {
         assertAll(
                 () -> assertNotNull(boardColor, "Error: expected BoardColor test fixture to exist but it was null."),
-                () -> assertEquals(BoardColor.adjacent(), BoardColor.colored('-'),
+                () -> assertEquals(BoardColor.adjacent(), ConsoleBoardRenderer.colored('-'),
                         "Error: expected colored('-') to delegate to adjacent() but it returned a different value.")
         );
     }
@@ -135,7 +136,7 @@ class BoardColorTest {
     void colored5() {
         assertAll(
                 () -> assertNotNull(boardColor, "Error: expected BoardColor test fixture to exist but it was null."),
-                () -> assertEquals(BoardColor.water(), BoardColor.colored('.'),
+                () -> assertEquals(BoardColor.water(), ConsoleBoardRenderer.colored('.'),
                         "Error: expected colored('.') to delegate to water() but it returned a different value.")
         );
     }
@@ -144,7 +145,7 @@ class BoardColorTest {
     void colored6() {
         assertAll(
                 () -> assertNotNull(boardColor, "Error: expected BoardColor test fixture to exist but it was null."),
-                () -> assertEquals(String.valueOf('X'), BoardColor.colored('X'),
+                () -> assertEquals(String.valueOf('X'), ConsoleBoardRenderer.colored('X'),
                         "Error: expected colored('X') to return the original marker string but it returned a different value.")
         );
     }
