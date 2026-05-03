@@ -23,12 +23,12 @@ public class Fleet implements IFleet
 		Fleet randomFleet = new Fleet();
 
 		// Define the types of ships to be added
-		String[] shipTypes =
-					{"galeao",                           // 1 galleon
-				 	"fragata",                           // 1 frigate
- 				 	"nau", "nau",                        // 2 carracks
-					"caravela", "caravela", "caravela",  // 3 caravels
-					"barca", "barca", "barca", "barca"}; // 4 barges
+		ShipType[] shipTypes =
+					{ShipType.GALEAO,                           // 1 galleon
+				 	ShipType.FRAGATA,                           // 1 frigate
+ 				 	ShipType.NAU, ShipType.NAU,                 // 2 carracks
+					ShipType.CARAVELA, ShipType.CARAVELA, ShipType.CARAVELA,  // 3 caravels
+					ShipType.BARCA, ShipType.BARCA, ShipType.BARCA, ShipType.BARCA}; // 4 barges
 
 		int fleetSize = 0;
 
