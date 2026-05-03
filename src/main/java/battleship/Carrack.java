@@ -21,23 +21,14 @@ public class Carrack extends Ship {
 	public Carrack(Compass bearing, IPosition pos) {
 		super("Nau", bearing, pos, 3);
 
-		switch (bearing) {
-			case SOUTH:
-				for (int r = 0; r < this.getSize(); r++)
-					getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));
-				break;
-			case NORTH:
-				for (int r = 0; r < this.getSize(); r++)
-					getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));
-				break;
-			case EAST:
-				for (int c = 0; c < this.getSize(); c++)
-					getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));
-				break;
-			case WEST:
-				for (int c = 0; c < this.getSize(); c++)
-					getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));
-				break;
-		}
+        if (bearing == Compass.NORTH || bearing == Compass.SOUTH) {
+            for (int r = 0; r < this.getSize(); r++) {
+                getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));
+            }
+        } else {
+            for (int c = 0; c < this.getSize(); c++) {
+                getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));
+            }
+        }
 	}
 }
