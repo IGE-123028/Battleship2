@@ -3,11 +3,14 @@ package battleship;
 import java.util.List;
 
 public class LLMService {
+    public static final String DEFAULT_MODEL = "Qwen/Qwen2.5-72B-Instruct";
     private final HuggingFaceClient client;
+    private final String model;
     private final String initialPrompt;
 
-    public LLMService(String apiKey) {
-        this.client = new HuggingFaceClient(apiKey);
+    public LLMService(String apiKey, String model) {
+        this.model = model;
+        this.client = new HuggingFaceClient(apiKey, model);
         this.initialPrompt = """
                 CONTEXT AND ROLE
 
