@@ -225,7 +225,8 @@ public class Position implements IPosition {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(row, column, isOccupied, isHit);
+		// Only row and column are used in equals(), so hashCode must use the same fields.
+		return Objects.hash(row, column);
 	}
 
 	/**
