@@ -3,6 +3,7 @@ package battleship;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import battleship.ui.ConsoleBoardRenderer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -44,13 +45,13 @@ public class Game implements IGame
 		System.out.println("+");
 
 		for (int row = 0; row < BOARD_SIZE; row++) {
-			Position pos = new Position(row, 0);
-			char rowLabel = pos.getClassicRow();
-			System.out.print(" " + rowLabel + " |");
-			for (int col = 0; col < BOARD_SIZE; col++)
-				System.out.print(" " + BoardColor.colored(map[row][col]));
-			System.out.println(" |");
-		}
+				Position pos = new Position(row, 0);
+				char rowLabel = pos.getClassicRow();
+				System.out.print(" " + rowLabel + " |");
+				for (int col = 0; col < BOARD_SIZE; col++)
+					System.out.print(" " + ConsoleBoardRenderer.colored(map[row][col]));
+				System.out.println(" |");
+			}
 
 		System.out.print("   +");
 		for (int col = 0; col < BOARD_SIZE; col++)
