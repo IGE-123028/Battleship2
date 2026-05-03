@@ -3,6 +3,7 @@ package battleship;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -341,6 +342,22 @@ public class Game implements IGame
 	 */
 	public void fireShots(List<IPosition> shots)
 	{
+		Move move = getMove(shots);
+
+		alienMoves.add(move);
+
+		moveNumber++;
+	}
+
+	@Override
+	public void fireMyShots(List<IPosition> shots)
+	{
+		Move move = getMove(shots);
+
+		myMoves.add(move);
+	}
+
+	private @NotNull Move getMove(List<IPosition> shots) {
 		assert shots != null;
 
 		List<ShotResult> shotResults = new ArrayList<ShotResult>();
@@ -356,36 +373,8 @@ public class Game implements IGame
 
 		Move move = new Move(moveNumber, shots, shotResults);
 
-//		System.out.println(move);
-
 		move.processEnemyFire(true);
-
-		alienMoves.add(move);
-
-		moveNumber++;
-	}
-
-	@Override
-	public void fireMyShots(List<IPosition> shots)
-	{
-		assert shots != null;
-
-		List<ShotResult> shotResults = new ArrayList<ShotResult>();
-		if (shots.size() != NUMBER_SHOTS) {
-			throw new IllegalArgumentException("Must fire exactly " + NUMBER_SHOTS + " shots per move.");
-		}
-
-		List<IPosition> alreadyShot = new ArrayList<IPosition>();
-		for (IPosition pos : shots) {
-			shotResults.add(fireMySingleShot(pos, alreadyShot.contains(pos)));
-			alreadyShot.add(pos);
-		}
-
-		Move move = new Move(myMoves.size() + 1, shots, shotResults);
-
-		move.processEnemyFire(true);
-
-		myMoves.add(move);
+		return move;
 	}
 
 	/**
