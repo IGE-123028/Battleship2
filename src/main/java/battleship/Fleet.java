@@ -133,14 +133,19 @@ public class Fleet implements IFleet
      * @see battleship.IFleet#getFloatingShips()
      */
     @Override
-    public List<IShip> getFloatingShips()
-    {
-		List<IShip> floatingShips = new ArrayList<IShip>();
-		for (IShip s : ships)
-			if (s.stillFloating())
-				floatingShips.add(s);
+    public List<IShip> getFloatingShips() {
+        return filterShips(true);
+    }
 
-		return floatingShips;
+
+    private List<IShip> filterShips(boolean floating) {
+        List<IShip> result = new ArrayList<>();
+        for (IShip s : ships) {
+            if (s.stillFloating() == floating) {
+                result.add(s);
+            }
+        }
+        return result;
     }
 
 	/**
@@ -154,15 +159,9 @@ public class Fleet implements IFleet
 	 * @see battleship.IFleet#getSunkShips()
 	 */
 	@Override
-	public List<IShip> getSunkShips()
-	{
-		List<IShip> sunkShips = new ArrayList<IShip>();
-		for (IShip s : ships)
-			if (!s.stillFloating())
-				sunkShips.add(s);
-
-		return sunkShips;
-	}
+    public List<IShip> getSunkShips() {
+        return filterShips(false);
+    }
 
 	/**
 	 * Ship at ship.
