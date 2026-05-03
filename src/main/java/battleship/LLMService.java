@@ -147,24 +147,8 @@ public class LLMService {
                 + "\nO seu output estritamente em JSON (com 'raciocinio' e 'rajada'):";
 
         String response = client.chat(fullPrompt);
-        return cleanJsonResponse(response);
+        return JsonUtils.cleanJsonResponse(response);
     }
 
-    private String cleanJsonResponse(String response) {
-        int arrayStartMarker = response.indexOf("\"rajada\"");
-        int start = -1;
 
-        if (arrayStartMarker != -1) {
-            start = response.indexOf("[", arrayStartMarker);
-        } else {
-            start = response.indexOf("[");
-        }
-
-        int end = response.lastIndexOf("]");
-
-        if (start != -1 && end != -1 && start < end) {
-            return response.substring(start, end + 1);
-        }
-        return response.trim();
-    }
 }
