@@ -37,11 +37,39 @@ public abstract class Ship implements IShip
 	/**
 	 * Create a new ship
 	 *
-	 * @param shipKind the ship kind
+	 * @param kind the ship kind
 	 * @param bearing  the bearing
 	 * @param pos      the pos
 	 * @return s ship
 	 */
+	static Ship buildShip(ShipKind kind, Compass bearing, Position pos) {
+		assert kind != null;
+		assert bearing != null;
+		assert pos != null;
+
+		Ship s;
+		switch (kind) {
+		case BARCA:
+			s = new Barge(bearing, pos);
+			break;
+		case CARAVELA:
+			s = new Caravel(bearing, pos);
+			break;
+		case NAU:
+			s = new Carrack(bearing, pos);
+			break;
+		case FRAGATA:
+			s = new Frigate(bearing, pos);
+			break;
+		case GALEAO:
+			s = new Galleon(bearing, pos);
+			break;
+		default:
+			s = null;
+		}
+		return s;
+	}
+
 	static Ship buildShip(String shipKind, Compass bearing, Position pos)
     {
 		assert shipKind != null;

@@ -23,19 +23,19 @@ public class Fleet implements IFleet
 		Fleet randomFleet = new Fleet();
 
 		// Define the types of ships to be added
-		String[] shipTypes =
-					{"galeao",                           // 1 galleon
-				 	"fragata",                           // 1 frigate
- 				 	"nau", "nau",                        // 2 carracks
-					"caravela", "caravela", "caravela",  // 3 caravels
-					"barca", "barca", "barca", "barca"}; // 4 barges
+		ShipKind[] shipKinds =
+					{ShipKind.GALEAO,                           // 1 galleon
+				 	ShipKind.FRAGATA,                           // 1 frigate
+ 				 	ShipKind.NAU, ShipKind.NAU,                        // 2 carracks
+					ShipKind.CARAVELA, ShipKind.CARAVELA, ShipKind.CARAVELA,  // 3 caravels
+					ShipKind.BARCA, ShipKind.BARCA, ShipKind.BARCA, ShipKind.BARCA}; // 4 barges
 
 		int fleetSize = 0;
 
-		while (fleetSize < shipTypes.length) {
+		while (fleetSize < shipKinds.length) {
 
 			// Build the ship
-			Ship ship = Ship.buildShip(shipTypes[fleetSize], Compass.randomBearing(), Position.randomPosition());
+			Ship ship = Ship.buildShip(shipKinds[fleetSize].label(), Compass.randomBearing(), Position.randomPosition());
 
 			// Attempt to add the ship to the fleet
 			if (ship != null && randomFleet.addShip(ship)) {
