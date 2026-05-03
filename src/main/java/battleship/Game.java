@@ -215,38 +215,9 @@ public class Game implements IGame
 		// Criar uma instância de Random com uma seed baseada no timestamp atual
 		Random random = new Random(System.currentTimeMillis());
 
-		Set<IPosition> usablePositions = new HashSet<IPosition>();
-		for (int r = 0; r < BOARD_SIZE; r++)
-			for (int c = 0; c < BOARD_SIZE; c++)
-				usablePositions.add(new Position(r, c));
+		List<IPosition> candidateShots = buildCandidateShots();
 
-		this.myFleet.getSunkShips().forEach(ship -> usablePositions.removeAll(ship.getAdjacentPositions()));
-		this.alienMoves.forEach(move ->  usablePositions.removeAll(move.getShots()));
-
-		List<IPosition> candidateShots = new ArrayList<>(usablePositions);
-
-		// Criar lista para armazenar os tiros
-		List<IPosition> shots = new ArrayList<IPosition>();
-
-		System.out.println();
-		// Gerar coordenadas únicas até atingir o número definido por NUMBER_SHOTS
-
-		IPosition newShot = null;
-		if (candidateShots.size() >= Game.NUMBER_SHOTS)
-			while (shots.size() < Game.NUMBER_SHOTS) {
-				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
-				if (!shots.contains(newShot))
-					shots.add(newShot);
-			}
-		else {
-			while (shots.size() < candidateShots.size()) {
-				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
-				if (!shots.contains(newShot))
-					shots.add(newShot);
-			}
-			while (shots.size() < Game.NUMBER_SHOTS)
-				shots.add(newShot);
-		}
+		List<IPosition> shots = selectRandomShots(candidateShots, Game.NUMBER_SHOTS, random);
 
 		System.out.print("rajada ");
 		for (IPosition shot : shots)
@@ -256,6 +227,52 @@ public class Game implements IGame
 		this.fireShots(shots);
 
 		return Game.jsonShots(shots);
+	}
+
+	/**
+	 * Build the list of candidate positions the enemy can shoot at.
+	 */
+	private List<IPosition> buildCandidateShots() {
+		Set<IPosition> usablePositions = new HashSet<IPosition>();
+		for (int r = 0; r < BOARD_SIZE; r++)
+			for (int c = 0; c < BOARD_SIZE; c++)
+				usablePositions.add(new Position(r, c));
+
+		this.myFleet.getSunkShips().forEach(ship -> usablePositions.removeAll(ship.getAdjacentPositions()));
+		this.alienMoves.forEach(move -> usablePositions.removeAll(move.getShots()));
+
+		return new ArrayList<IPosition>(usablePositions);
+	}
+
+	/**
+	 * Selects up to 'n' shots randomly from candidates. Preserves original behaviour
+	 * where, if there are fewer unique candidates than required, the last selected
+	 * position is repeated to reach the desired count.
+	 */
+	private List<IPosition> selectRandomShots(List<IPosition> candidates, int n, Random random) {
+		List<IPosition> copy = new ArrayList<IPosition>(candidates);
+		List<IPosition> shots = new ArrayList<IPosition>();
+
+		if (copy.isEmpty()) {
+			Position fallback = new Position(0, 0);
+			for (int i = 0; i < n; i++)
+				shots.add(fallback);
+			return shots;
+		}
+
+		Collections.shuffle(copy, random);
+		for (IPosition p : copy) {
+			if (shots.size() >= n)
+				break;
+			if (!shots.contains(p))
+				shots.add(p);
+		}
+
+		IPosition last = shots.isEmpty() ? copy.get(0) : shots.get(shots.size() - 1);
+		while (shots.size() < n)
+			shots.add(last);
+
+		return shots;
 	}
 
 
