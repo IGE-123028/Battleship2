@@ -3,6 +3,7 @@ package battleship;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -28,43 +29,15 @@ public class Game implements IGame
 		assert fleet != null;
 		assert moves != null;
 
-		char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
+        char[][] map = createEmptyMap();
 
-		for (int r = 0; r < BOARD_SIZE; r++)
-			for (int c = 0; c < BOARD_SIZE; c++)
-				map[r][c] = EMPTY_MARKER;
+        markShipsOnMap(fleet, hide_ships, map);
 
-		for (IShip ship : fleet.getShips()) {
-			if (!hide_ships || !ship.stillFloating()) {
-				for (IPosition ship_pos : ship.getPositions())
-					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
-				if (!ship.stillFloating())
-					for (IPosition adjacent_pos : ship.getAdjacentPositions())
-						map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
-			}
-		}
+        markShotsOnMap(fleet, moves, show_shots, map);
 
-		if (show_shots)
-			for (IMove move : moves)
-				for (IPosition shot : move.getShots()) {
-					if (shot.isInside()){
-						int row = shot.getRow();
-						int col = shot.getColumn();
-						if (fleet.shipAt(shot) != null)
-							map[row][col] = SHOT_SHIP_MARKER;
-						else
-							map[row][col] = SHOT_WATER_MARKER;
-					}
-				}
+        printMap();
 
-		System.out.println();
-		System.out.print("    ");
-		for (int col = 0; col < BOARD_SIZE; col++) {
-			System.out.print(" " + (col + 1));
-		}
-		System.out.println();
-
-		System.out.print("   +-");
+        System.out.print("   +-");
 		for (int col = 0; col < BOARD_SIZE; col++) {
 			System.out.print("--");
 		}
@@ -92,7 +65,52 @@ public class Game implements IGame
 		System.out.println();
 	}
 
-	/**
+    private static void printMap() {
+        System.out.println();
+        System.out.print("    ");
+        for (int col = 0; col < BOARD_SIZE; col++) {
+            System.out.print(" " + (col + 1));
+        }
+        System.out.println();
+    }
+
+    private static void markShotsOnMap(IFleet fleet, List<IMove> moves, boolean show_shots, char[][] map) {
+        if (show_shots)
+			for (IMove move : moves)
+				for (IPosition shot : move.getShots()) {
+					if (shot.isInside()){
+						int row = shot.getRow();
+						int col = shot.getColumn();
+						if (fleet.shipAt(shot) != null)
+							map[row][col] = SHOT_SHIP_MARKER;
+						else
+							map[row][col] = SHOT_WATER_MARKER;
+					}
+				}
+    }
+
+    private static void markShipsOnMap(IFleet fleet, boolean hide_ships, char[][] map) {
+        for (IShip ship : fleet.getShips()) {
+			if (!hide_ships || !ship.stillFloating()) {
+				for (IPosition ship_pos : ship.getPositions())
+					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
+				if (!ship.stillFloating())
+					for (IPosition adjacent_pos : ship.getAdjacentPositions())
+						map[adjacent_pos.getRow()][adjacent_pos.getColumn()] = SHIP_ADJACENT_MARKER;
+			}
+		}
+    }
+
+    private static char[] @NotNull [] createEmptyMap() {
+        char[][] map = new char[BOARD_SIZE][BOARD_SIZE];
+
+        for (int r = 0; r < BOARD_SIZE; r++)
+            for (int c = 0; c < BOARD_SIZE; c++)
+                map[r][c] = EMPTY_MARKER;
+        return map;
+    }
+
+    /**
 	 * Serializes a list of shot positions into a JSON string. Each shot is represented
 	 * with its classic row and column values. The method uses the Jackson library for
 	 * JSON serialization.

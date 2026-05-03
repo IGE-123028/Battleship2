@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Client for interacting with Hugging Face Inference API via Router.
@@ -33,8 +36,43 @@ public class HuggingFaceClient {
     }
 
     public String chat(String prompt) throws Exception {
-        String apiUrl = "https://router.huggingface.co/v1/chat/completions";
+        String apiUrl = getApiUrl();
 
+        String jsonBody = createRequestBody(prompt);
+
+        HttpRequest request = createHttpRequest(apiUrl, jsonBody);
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 200) {
+            throw new RuntimeException("HTTP error " + response.statusCode() + ": " + response.body());
+        }
+
+        return extractContentFromResponse(response);
+    }
+
+    private String extractContentFromResponse(HttpResponse<String> response) throws JsonProcessingException {
+        JsonNode rootNode = objectMapper.readTree(response.body());
+        JsonNode choices = rootNode.path("choices");
+
+        if (choices.isArray() && !choices.isEmpty()) {
+            return choices.get(0).path("message").path("content").asText();
+        }
+
+        return "";
+    }
+
+    private HttpRequest createHttpRequest(String apiUrl, String jsonBody) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiUrl))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + apiKey)
+                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+                .build();
+        return request;
+    }
+
+    private String createRequestBody(String prompt) throws JsonProcessingException {
         Map<String, Object> body = new HashMap<>();
         body.put("model", this.model);
 
@@ -49,27 +87,11 @@ public class HuggingFaceClient {
         body.put("temperature", 0.1);
 
         String jsonBody = objectMapper.writeValueAsString(body);
+        return jsonBody;
+    }
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(apiUrl))
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + apiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() != 200) {
-            throw new RuntimeException("HTTP error " + response.statusCode() + ": " + response.body());
-        }
-
-        JsonNode rootNode = objectMapper.readTree(response.body());
-        JsonNode choices = rootNode.path("choices");
-
-        if (choices.isArray() && !choices.isEmpty()) {
-            return choices.get(0).path("message").path("content").asText();
-        }
-
-        return "";
+    private static @NotNull String getApiUrl() {
+        String apiUrl = "https://router.huggingface.co/v1/chat/completions";
+        return apiUrl;
     }
 }
