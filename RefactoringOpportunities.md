@@ -3,6 +3,7 @@
 | Local                             | Code Smell (Fowler)                                     | Refactoring                                                         | Student ID |
 | --------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------- | ---------- |
 | Game::repeatedShot                | Message Chains                                          | Hide Delegate (Move.hasShot)                                        | IGE-123010 |
+| Game::myRepeatedShot              | Duplicated Code                                         | Extract Method (find repeated shots in helper)                      | IGE-123010 |
 | Game::randomEnemyFire (temp vars) | Temporary Field                                         | Replace Temp with Query; Refactor Loop                              | IGE-123010 |
 | Move::processEnemyFire            | Long Method / Divergent Change                          | Extract Method; Introduce DTO (separate logic, formatting, and I/O) | IGE-123010 |
 | Caravel::Caravel                  | Duplicated Code                                         | Extract Method; Strategy Pattern for placement                      | IGE-123010 |
