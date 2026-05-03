@@ -10,12 +10,12 @@
 | Ship::buildShip                   | Primitive Obsession                                     | Replace Type Code with Enum; Replace Null with Exception            | IGE-123010 |
 | Compass::charToCompass            | Switch Statements                                       | Replace Conditional with Polymorphism / Factory Method              | IGE-123010 |
 | BoardColor::colored               | Inappropriate Intimacy (presentation mixed with domain) | Move Method to UI layer (separation of concerns)                    | IGE-123010 |
-| Caravel / Carrack / Frigate    | Duplicated Code (line-filling logic)                    | Extract Superclass (LinearShip to hold common placement logic)      | IGE-123016 |
+| Move::processEnemyFire          | Long Method                                             | Extract Method (buildVerboseMessage, generateJsonResponse)          | IGE-123016 |
 | Game::fireShots / fireMyShots | Duplicated Code (identical volley logic)                | Extract Method (unify common firing logic into a helper)            | IGE-123016 |
 | Fleet::createRandom            | Primitive Obsession / Hard-coded dependency             | Introduce Parameter (for shipTypes composition array)               | IGE-123016 |
 | LLMService::cleanJsonResponse  | Feature Envy                                             | Move Instance Method (to a JSON utility class)                      | IGE-123016 |
 | LLMService (class)             | Hard-coded configuration                                | Introduce Parameter (for model name) and Introduce Field            | IGE-123016 |
-| Game::fireShots                | Long expression / Complex logic                          | Introduce Variable (for 'isRepeatedInVolley' check)                 | IGE-123016 |
+| PDFExporter::addMovesTable     | Long Method                                             | Extract Method (addTableHeader, addMoveRow, getShotResultText)      | IGE-123016 |
 | HuggingFaceClient::chat           | Large Method / Exception Handling Smell                 | Extract Method; Introduce Specific Exceptions; Add timeouts/retries | IGE-123023 |
 | PDFExporter::exportGameToPDF      | Long Method                                             | Extract Method (header, stats, table); Introduce Builder            | IGE-123023 |
 | Scoreboard::saveResult            | Inappropriate Intimacy / Hard-coded Dependency          | Introduce Configuration; Replace Error Handling                     | IGE-123023 |
