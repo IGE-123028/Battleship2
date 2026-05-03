@@ -489,20 +489,19 @@ public class Game implements IGame
 
 	public boolean repeatedShot(IPosition pos)
 	{
-		assert pos != null;
-
-		for (IMove move : alienMoves)
-			if (move.getShots().contains(pos))
-				return true;
-		return false;
+		return hasRepeatedShot(pos, alienMoves);
 	}
 
 	public boolean myRepeatedShot(IPosition pos)
 	{
+		return hasRepeatedShot(pos, myMoves);
+	}
+
+	private boolean hasRepeatedShot(IPosition pos, List<IMove> moves) {
 		assert pos != null;
 
-		for (IMove move : myMoves)
-			if (move.getShots().contains(pos))
+		for (IMove move : moves)
+			if (move.hasShot(pos))
 				return true;
 		return false;
 	}
