@@ -30,3 +30,6 @@ jobs:
         
     - name: Build and Test with Maven
       run: mvn -B clean verify
+
+    - name: Generate Javadoc
+      run: mvn -B javadoc:javadoc
