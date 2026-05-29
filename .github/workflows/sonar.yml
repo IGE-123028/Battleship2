@@ -27,6 +27,7 @@ jobs:
       - name: Build, Test and Analyze
         run: |
           mvn -B clean verify
+          test -s target/site/jacoco/jacoco.xml
           mvn -B sonar:sonar \
             -Dsonar.projectKey=IGE-123028_Battleship2 \
             -Dsonar.organization=ige-123028 \
@@ -34,6 +35,7 @@ jobs:
             -Dsonar.sources=src/main/java \
             -Dsonar.tests=src/test/java \
             -Dsonar.java.binaries=target/classes \
+            -Dsonar.coverage.jacoco.xmlReportPaths="${GITHUB_WORKSPACE}/target/site/jacoco/jacoco.xml" \
             -Dsonar.exclusions=**/docs/**,**/*.json,**/*.sarif,**/*.yaml,**/*.md
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
