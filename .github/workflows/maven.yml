@@ -37,11 +37,6 @@ jobs:
       - name: Generate Maven Site (Dependencies)
         run: mvn -B site
 
-      - name: Inject Custom Index HTML
-        run: |
-          if [ -f "custom-index.html" ]; then
-            cp custom-index.html docs/index.html
-            echo "Personalized index.html applied"
-          fi
+
 
 
