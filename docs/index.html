@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚓ Battleship 2.0 - Documentação do Projeto</title>
+    <title>⚓ Battleship 2.0 - Project Documentation</title>
     
-    <!-- Meta Tags SEO -->
-    <meta name="description" content="Página de documentação moderna para o projeto Battleship 2.0. Concebido com padrões avançados de Engenharia de Software no contexto do século XVII.">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Modern documentation page for the Battleship 2.0 project. Designed with advanced software engineering patterns for a XVII century naval theme.">
     <meta name="author" content="@britoeabreu">
     <meta name="robots" content="index, follow">
     
@@ -15,18 +15,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- KaTeX para Fórmulas Matemáticas -->
+    <!-- KaTeX for Mathematical Formulas -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
-    <!-- FontAwesome para Ícones -->
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* DESIGN SYSTEM - TOKENS DE ESTILO */
+        /* DESIGN SYSTEM - STYLE TOKENS */
         :root {
-            /* Cores */
+            /* Colors */
             --bg-primary: #f8fafc;
             --bg-secondary: #ffffff;
             --bg-accent: #f1f5f9;
@@ -54,12 +54,12 @@
             --danger: #ef4444;
             --danger-light: #fee2e2;
             
-            /* Tipografia */
+            /* Typography */
             --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             --font-display: 'Outfit', 'Space Grotesk', sans-serif;
             --font-mono: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
             
-            /* Efeitos */
+            /* Effects */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
@@ -71,7 +71,7 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* RESET & ESTILOS BASE */
+        /* RESET & BASE STYLES */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -108,7 +108,7 @@
             background: var(--text-muted);
         }
 
-        /* ESTRUTURA GERAL DA PÁGINA */
+        /* LAYOUT CONTAINER STRUCTURE */
         .app-container {
             display: flex;
             flex-direction: column;
@@ -128,11 +128,11 @@
         @media (min-width: 1024px) {
             .main-wrapper {
                 grid-template-columns: 280px 1fr;
-                padding-top: 6rem; /* Para compensar o header fixo */
+                padding-top: 6rem; /* Top margin offset for sticky header */
             }
         }
 
-        /* HEADER FIXO & NAVEGAÇÃO SUPERIOR */
+        /* STICKY HEADER & TOP NAVIGATION */
         header {
             position: sticky;
             top: 0;
@@ -207,7 +207,7 @@
             flex-wrap: wrap;
         }
 
-        /* BOTÕES ESTILIZADOS DO CABEÇALHO */
+        /* HEADER STYLIZED BUTTONS */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -249,7 +249,7 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* ÍNDICE LATERAL (TABLE OF CONTENTS) */
+        /* STICKY TABLE OF CONTENTS SIDEBAR */
         .sidebar {
             position: static;
         }
@@ -319,14 +319,14 @@
             border-left-color: var(--accent);
         }
 
-        /* CONTEÚDO PRINCIPAL */
+        /* MAIN CONTENT AREA */
         .content-area {
             display: flex;
             flex-direction: column;
             gap: 2.5rem;
         }
 
-        /* COMPONENTES DE CARD */
+        /* CARD STYLES */
         .card {
             background-color: var(--bg-secondary);
             border: 1px solid var(--border);
@@ -357,7 +357,7 @@
             border-bottom: 1px solid rgba(2, 132, 199, 0.1);
         }
 
-        /* TÍTULOS E TIPOGRAFIA DE CONTEÚDO */
+        /* TYPOGRAPHY AND CONTENT STYLES */
         h1, h2, h3, h4 {
             font-family: var(--font-display);
             color: var(--text-headings);
@@ -409,7 +409,7 @@
             color: var(--primary);
         }
 
-        /* BADGES DO HERO BANNER */
+        /* HERO BANNER STYLES */
         .hero-banner {
             background: radial-gradient(100% 100% at 0% 0%, rgba(2, 132, 199, 0.05) 0%, rgba(255, 255, 255, 0) 100%), var(--bg-secondary);
             border: 1px solid var(--border);
@@ -475,7 +475,7 @@
             border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
         }
 
-        /* GRID MATH FORMULA */
+        /* GRID MATH FORMULA BLOCK */
         .math-block {
             display: flex;
             justify-content: center;
@@ -490,7 +490,7 @@
             color: var(--primary);
         }
 
-        /* TABELAS PREMIUM E RESPONSIVAS */
+        /* RESPONSIVE PREMIUM TABLES */
         .table-responsive-container {
             width: 100%;
             overflow-x: auto;
@@ -532,7 +532,7 @@
             background-color: rgba(2, 132, 199, 0.02);
         }
 
-        /* Custom cell icons and labels in tables */
+        /* Status Pills in Tables */
         .status-pill {
             display: inline-flex;
             align-items: center;
@@ -613,7 +613,7 @@
             margin: 0;
         }
 
-        /* LISTAS MODERNAS E ITENS */
+        /* MODERN LISTS AND ITEMS */
         ul, ol {
             margin-bottom: 1.25rem;
             padding-left: 1.5rem;
@@ -628,7 +628,7 @@
             color: var(--accent);
         }
 
-        /* MOCK DE EDITOR DE CÓDIGO (IDE) */
+        /* IDE CODE EDITOR WINDOW MOCKUP */
         .code-editor {
             border-radius: var(--radius-md);
             background-color: var(--bg-dark);
@@ -734,14 +734,14 @@
             line-height: 1.5;
         }
 
-        /* Sintaxe minimalista de código */
+        /* Minimal syntax highlighting */
         .hl-keyword { color: #f43f5e; font-weight: 500; }
         .hl-type { color: #38bdf8; }
         .hl-string { color: #34d399; }
         .hl-comment { color: #64748b; font-style: italic; }
         .hl-method { color: #fbbf24; }
 
-        /* Inline code styling */
+        /* Inline code style */
         p code, li code, td code {
             font-family: var(--font-mono);
             background-color: var(--bg-accent);
@@ -752,7 +752,7 @@
             border: 1px solid rgba(15, 23, 42, 0.08);
         }
 
-        /* ALERTA DE DESIGN GITHUB-STYLE */
+        /* GITHUB-STYLE CUSTOM ALERTS */
         .custom-alert {
             border-left: 4px solid;
             padding: 1rem 1.25rem;
@@ -787,7 +787,7 @@
             margin-top: 0.1rem;
         }
 
-        /* CONSOLE TERMINAL MOCK PARA INSTRUÇÕES */
+        /* CONSOLE TERMINAL WINDOW MOCKUP */
         .terminal-mock {
             background-color: #090d16;
             border-radius: var(--radius-md);
@@ -838,7 +838,7 @@
             margin: 0.25rem 0 0.5rem 0;
         }
 
-        /* MERMAID CONTAINER */
+        /* MERMAID INTERACTIVE BOX */
         .mermaid-container {
             background-color: var(--bg-primary);
             border: 1px solid var(--border);
@@ -850,7 +850,7 @@
             box-shadow: inset var(--shadow-sm);
         }
 
-        /* ROADMAP CHECKLIST */
+        /* ROADMAP EVOLUTION CHECKLIST */
         .roadmap-list {
             list-style: none;
             padding-left: 0;
@@ -899,7 +899,7 @@
             color: var(--text-muted);
         }
 
-        /* AI TACTICAL HUD (CONSOLE WIDGET FOR LLM PROMPT) */
+        /* AI MILITARY TACTICAL HUD (CONSOLE DISPLAY FOR THE LLM PROMPT) */
         .tactical-hud {
             background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 100%);
             border: 2px solid #38bdf8;
@@ -1046,7 +1046,7 @@
             border-bottom: none;
         }
 
-        /* DEMO PREVIEW CARD */
+        /* YOUTUBE DEMO PREVIEW CARD MOCKUP */
         .demo-video-card {
             background-color: var(--bg-secondary);
             border: 1px solid var(--border);
@@ -1089,7 +1089,7 @@
             font-size: 1.8rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             transition: var(--transition);
-            padding-left: 5px; /* Alinhar visualmente o triângulo de play */
+            padding-left: 5px; /* Visual alignment for play triangle icon */
             z-index: 2;
         }
 
@@ -1145,7 +1145,7 @@
             align-items: center;
         }
 
-        /* LINK EXTERNO DE OUTRA FORMA */
+        /* INTERACTIVE RESOURCE CARD LINKS */
         .external-link-card {
             display: flex;
             align-items: center;
@@ -1200,7 +1200,7 @@
             transform: translateX(3px);
         }
 
-        /* FOOTER DE PÁGINA */
+        /* PAGE FOOTER */
         footer {
             background-color: var(--bg-dark);
             color: #94a3b8;
@@ -1284,7 +1284,7 @@
 
 <div class="app-container">
     
-    <!-- HEADER FIXO E BOTÕES EXIGIDOS -->
+    <!-- FIXED FLOATING NAVIGATION HEADER -->
     <header>
         <div class="header-content">
             <a href="#" class="logo-container">
@@ -1297,47 +1297,47 @@
                 <!-- Requisito 3: Link para o Javadoc -->
                 <a href="battleship/package-summary.html" class="btn btn-primary" id="javadoc-btn">
                     <i class="fa-solid fa-book-open"></i>
-                    Ver Javadoc (API Docs)
+                    View Javadoc (API Docs)
                 </a>
                 
                 <!-- Requisito 3: Link para Dependências do Maven -->
                 <a href="dependencies.html" class="btn btn-secondary" id="dependencies-btn">
                     <i class="fa-solid fa-cubes"></i>
-                    Dependências do Projeto
+                    Project Dependencies
                 </a>
             </nav>
         </div>
     </header>
 
-    <!-- ÁREA PRINCIPAL -->
+    <!-- MAIN GRID CONTAINER -->
     <div class="main-wrapper">
         
-        <!-- SIDEBAR DE NAVEGAÇÃO INTERNA (TOC) -->
+        <!-- FLOATING TABLE OF CONTENTS -->
         <aside class="sidebar">
             <div class="toc-card">
                 <div class="toc-title">
-                    <i class="fa-solid fa-compass"></i> Conteúdo
+                    <i class="fa-solid fa-compass"></i> Contents
                 </div>
                 <ul class="toc-list">
-                    <li><a href="#overview" class="toc-link active"><i class="fa-solid fa-circle-dot"></i> Visão Geral</a></li>
-                    <li><a href="#rules" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Regras de Jogo</a></li>
-                    <li><a href="#features" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Funcionalidades</a></li>
-                    <li><a href="#tech-stack" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Pilha Técnica</a></li>
-                    <li><a href="#installation" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Instalação</a></li>
-                    <li><a href="#documentation" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Documentação & Código</a></li>
-                    <li><a href="#logic-flow" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Fluxo de Lógica</a></li>
-                    <li><a href="#roadmap" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Roteiro (Roadmap)</a></li>
-                    <li><a href="#testing" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Testes & CI</a></li>
-                    <li><a href="#llm-prompt" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Prompt de IA</a></li>
-                    <li><a href="#links" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Recursos Úteis</a></li>
+                    <li><a href="#overview" class="toc-link active"><i class="fa-solid fa-circle-dot"></i> Overview</a></li>
+                    <li><a href="#rules" class="toc-link"><i class="fa-solid fa-circle-dot"></i> The Rules</a></li>
+                    <li><a href="#features" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Key Features</a></li>
+                    <li><a href="#tech-stack" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Tech Stack</a></li>
+                    <li><a href="#installation" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Setup Guide</a></li>
+                    <li><a href="#documentation" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Code & Docs</a></li>
+                    <li><a href="#logic-flow" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Logic Flow</a></li>
+                    <li><a href="#roadmap" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Roadmap</a></li>
+                    <li><a href="#testing" class="toc-link"><i class="fa-solid fa-circle-dot"></i> QA & Testing</a></li>
+                    <li><a href="#llm-prompt" class="toc-link"><i class="fa-solid fa-circle-dot"></i> AI LLM Prompt</a></li>
+                    <li><a href="#links" class="toc-link"><i class="fa-solid fa-circle-dot"></i> Useful Resources</a></li>
                 </ul>
             </div>
         </aside>
 
-        <!-- SECÇÃO DE CONTEÚDO PRINCIPAL -->
+        <!-- MAIN CONTENT MODULES -->
         <main class="content-area">
             
-            <!-- HERO / INTRODUÇÃO -->
+            <!-- HERO HERO BANNER -->
             <section id="overview" class="hero-banner">
                 <div class="badge-row">
                     <!-- Build Status Badge -->
@@ -1360,77 +1360,77 @@
                 <h1>⚓ Battleship 2.0</h1>
                 
                 <p class="hero-quote">
-                    Uma abordagem moderna ao clássico jogo de combate naval, concebida para o cenário histórico do século XVII com padrões de engenharia de software atualizados.
+                    A modern take on the classic naval warfare game, designed for the XVII century setting with updated software engineering patterns.
                 </p>
             </section>
 
-            <!-- RULES / REGRAS -->
+            <!-- GAMEPLAY OVERVIEW -->
             <section id="rules" class="card">
                 <span class="card-header-badge">Gameplay</span>
-                <h2>🎯 Visão Geral do Projeto & Regras</h2>
+                <h2>🎯 Project Overview & Rules</h2>
                 <p>
-                    Este projeto serve como modelo e referência para estudantes de engenharia e ciências da computação que estão a aprender <strong>Programação Orientada a Objetos (OOP)</strong> e <strong>Qualidade de Software</strong>. O sistema simula um ambiente tático de batalha naval no qual os jogadores devem posicionar estrategicamente a sua frota de navios e afundar a armada inimiga.
+                    This project serves as a template and reference for students learning <strong>Object-Oriented Programming (OOP)</strong> and <strong>Software Quality</strong>. It simulates a battleship tactical environment where players must strategically place ships and sink the enemy fleet.
                 </p>
 
-                <h3>🎮 Regras do Jogo</h3>
+                <h3>🎮 The Rules</h3>
                 <p>
-                    O jogo é jogado numa grelha quadrada bidimensional (geralmente com uma dimensão de 10x10). O sistema de coordenadas cartesianas discretas é rigorosamente definido pela seguinte fórmula matemática:
+                    The game is played on a grid (typically 10x10). The coordinate system is mathematically defined as:
                 </p>
 
-                <!-- Fórmula matemática usando KaTeX para renderização de alta fidelidade -->
+                <!-- Mathematical formulation rendered via KaTeX -->
                 <div class="math-block">
                     $$(x, y) \in \{0, \dots, 9\} \times \{0, \dots, 9\}$$
                 </div>
 
                 <p>
-                    Os impactos tiros vs. navios são calculados dinamicamente com base na interseção geométrica do vetor do disparo efetuado e a caixa delimitadora (bounding box) da embarcação afetada.
+                    Hits are calculated dynamically based on the geometric intersection of the shot vector and the ship's bounding box.
                 </p>
             </section>
 
-            <!-- FEATURES / TABELA -->
+            <!-- FEATURE COMPLIANCE TABLE -->
             <section id="features" class="card">
-                <h2>✨ Funcionalidades Principais</h2>
+                <h2>✨ Key Features</h2>
                 <p>
-                    O projeto engloba diversos aspetos mecânicos e arquiteturais, avaliados segundo os seguintes níveis de prontidão:
+                    The project encompasses various technical mechanics and architectural layers, evaluated under the following readiness states:
                 </p>
 
-                <!-- Tabela premium formatada e responsiva -->
+                <!-- Premium bordered and responsive table -->
                 <div class="table-responsive-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Funcionalidade</th>
-                                <th>Descrição Detalhada</th>
-                                <th style="text-align: center; width: 150px;">Estado</th>
+                                <th>Feature</th>
+                                <th>Description</th>
+                                <th style="text-align: center; width: 150px;">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Sistema de Grelha</strong></td>
-                                <td>Geração flexível de tabuleiros de dimensões parametrizáveis \(N \times N\).</td>
+                                <td><strong>Grid System</strong></td>
+                                <td>Flexible \(N \times N\) board generation.</td>
                                 <td style="text-align: center;">
-                                    <span class="status-pill done"><i class="fa-solid fa-check"></i> Concluído</span>
+                                    <span class="status-pill done"><i class="fa-solid fa-check"></i> Completed</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Variedades de Navios</strong></td>
-                                <td>Naus, Galés, Fragatas e Bergantins temáticos inspirados no século XVII.</td>
+                                <td><strong>Ship Varieties</strong></td>
+                                <td>Galleons, Frigates, and Brigantines (XVII Century theme).</td>
                                 <td style="text-align: center;">
-                                    <span class="status-pill done"><i class="fa-solid fa-check"></i> Concluído</span>
+                                    <span class="status-pill done"><i class="fa-solid fa-check"></i> Completed</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Oponente de IA</strong></td>
-                                <td>Sistema tático de disparo computorizado baseado em algoritmos heurísticos.</td>
+                                <td><strong>AI Opponent</strong></td>
+                                <td>Heuristic-based targeting system.</td>
                                 <td style="text-align: center;">
-                                    <span class="status-pill wip"><i class="fa-solid fa-hourglass-half"></i> Em Curso</span>
+                                    <span class="status-pill wip"><i class="fa-solid fa-hourglass-half"></i> In Progress</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Jogo em Rede</strong></td>
-                                <td>Ligação multijogador remota assente no protocolo de comunicação Sockets TCP/IP.</td>
+                                <td><strong>Network Play</strong></td>
+                                <td>Socket-based multiplayer system.</td>
                                 <td style="text-align: center;">
-                                    <span class="status-pill todo"><i class="fa-solid fa-xmark"></i> Pendente</span>
+                                    <span class="status-pill todo"><i class="fa-solid fa-xmark"></i> Pending</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -1438,11 +1438,11 @@
                 </div>
             </section>
 
-            <!-- TECH STACK / PILHA TÉCNICA -->
+            <!-- TECHNICAL ENVIRONMENT STACK -->
             <section id="tech-stack" class="card">
-                <h2>🛠 Pilha Técnica do Sistema</h2>
+                <h2>🛠 Technical Stack</h2>
                 <p>
-                    O projeto foi estruturado utilizando tecnologias de ponta e ambientes de execução focados em estabilidade técnica e performance:
+                    The project architecture is built upon robust enterprise software development frameworks and runtimes focused on stability:
                 </p>
 
                 <div class="tech-grid">
@@ -1451,7 +1451,7 @@
                             <i class="fa-brands fa-java"></i>
                         </div>
                         <div class="tech-info">
-                            <h4>Linguagem de Base</h4>
+                            <h4>Base Language</h4>
                             <p>Java 17 (JDK LTS)</p>
                         </div>
                     </div>
@@ -1460,7 +1460,7 @@
                             <i class="fa-solid fa-tools"></i>
                         </div>
                         <div class="tech-info">
-                            <h4>Gestor de Dependências</h4>
+                            <h4>Build Tools</h4>
                             <p>Maven / Gradle</p>
                         </div>
                     </div>
@@ -1469,7 +1469,7 @@
                             <i class="fa-solid fa-vial"></i>
                         </div>
                         <div class="tech-info">
-                            <h4>Suporte de Testes</h4>
+                            <h4>Unit Testing</h4>
                             <p>JUnit 5 Framework</p>
                         </div>
                     </div>
@@ -1478,27 +1478,27 @@
                             <i class="fa-solid fa-receipt"></i>
                         </div>
                         <div class="tech-info">
-                            <h4>Registo de Atividades</h4>
+                            <h4>Logging Utility</h4>
                             <p>Log4j2 (Apache Log)</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- INSTALLATION / INSTALAÇÃO -->
+            <!-- SETUP AND INSTALLATION -->
             <section id="installation" class="card">
-                <h2>🚀 Instalação & Configuração Rápida</h2>
+                <h2>🚀 Installation & Setup</h2>
                 <p>
-                    Siga o protocolo de comandos em baixo para descarregar o repositório localmente e executar a aplicação:
+                    Follow the CLI command instructions below to clone the repository and run the engine locally:
                 </p>
 
-                <h3>Pré-requisitos Operacionais</h3>
+                <h3>Prerequisites</h3>
                 <ul>
-                    <li><strong>JDK 17</strong> ou uma versão superior (JDK 21 recomendado).</li>
-                    <li><strong>Git</strong> instalado nas variáveis de ambiente.</li>
+                    <li><strong>JDK 17</strong> or higher (JDK 21 highly recommended).</li>
+                    <li><strong>Git</strong> installed and configured in your environment.</li>
                 </ul>
 
-                <h3>Fluxo de Trabalho via Terminal</h3>
+                <h3>Step-by-Step CLI Walkthrough</h3>
                 
                 <div class="terminal-mock">
                     <div class="terminal-header">
@@ -1507,7 +1507,7 @@
                             <span class="action-dot yellow"></span>
                             <span class="action-dot green"></span>
                         </div>
-                        <div class="terminal-title">BASH - TERMINAL OPERATIVO</div>
+                        <div class="terminal-title">BASH - SYSTEM SHELL</div>
                     </div>
                     <div class="terminal-line">
                         <span class="terminal-prompt">$</span><span class="terminal-command">git clone https://github.com/britoeabreu/Battleship2.git</span>
@@ -1523,28 +1523,28 @@
                 </div>
             </section>
 
-            <!-- DOCUMENTATION & CODE / DOCUMENTAÇÃO E CÓDIGO -->
+            <!-- DOCUMENTATION & CODE INTERACTIVES -->
             <section id="documentation" class="card">
-                <h2>📚 Documentação de Referência & Padrões</h2>
+                <h2>📚 Reference Documentation & Patterns</h2>
                 <p>
-                    A documentação oficial completa das APIs pode ser gerada dinamicamente através de ferramentas Maven e está disponível online:
+                    The official API documentation is generated dynamically and hosted statically:
                 </p>
 
                 <a href="https://britoeabreu.github.io/Battleship2/" target="_blank" class="external-link-card">
                     <i class="fa-solid fa-graduation-cap link-main-icon"></i>
                     <div class="link-text-group">
-                        <span class="link-card-title">Documentação da API do Battleship2</span>
-                        <span class="link-card-desc">Visite as páginas estáticas alojadas no GitHub Pages com a estrutura completa de classes.</span>
+                        <span class="link-card-title">Battleship2 API Documentation</span>
+                        <span class="link-card-desc">Explore the detailed structural pages hosted via GitHub Pages detailing the class hierarchy.</span>
                     </div>
                     <i class="fa-solid fa-chevron-right chevron-icon"></i>
                 </a>
 
-                <h3>Estrutura do Componente Core</h3>
+                <h3>Core Logic Code representation</h3>
                 <p>
-                    Abaixo encontra-se a modelação conceptual da classe primordial de navegação e as ações que regulam a lógica do jogo:
+                    Below is the simplified structure of the core ship representation representing damage calculations:
                 </p>
 
-                <!-- IDE Code Editor Mock -->
+                <!-- IDE Editor Mockup -->
                 <div class="code-editor">
                     <div class="editor-header">
                         <div class="editor-actions">
@@ -1557,7 +1557,7 @@
                                 <i class="fa-solid fa-mug-hot"></i> Ship.java
                             </div>
                         </div>
-                        <button class="copy-code-btn" onclick="copyCodeText()"><i class="fa-regular fa-copy"></i> Copiar</button>
+                        <button class="copy-code-btn" onclick="copyCodeText()"><i class="fa-regular fa-copy"></i> Copy</button>
                     </div>
                     <div class="code-container">
                         <pre><code id="java-code-block"><span class="hl-keyword">public class</span> <span class="hl-type">Ship</span> {
@@ -1565,29 +1565,29 @@
     <span class="hl-keyword">private int</span> size;
     <span class="hl-keyword">private boolean</span> isSunk;
 
-    <span class="hl-comment">// TODO: Implementar lógica detalhada para cálculo de danos</span>
+    <span class="hl-comment">// TODO: Implement damage logic</span>
     <span class="hl-keyword">public void</span> <span class="hl-method">hit</span>() {
-        <span class="hl-comment">// Implementação e decremento do indicador de integridade</span>
+        <span class="hl-comment">// Implementation here</span>
     }
 }</code></pre>
                     </div>
                 </div>
 
-                <h3>Padrões de Desenho (Design Patterns) Aplicados</h3>
+                <h3>Design Patterns Employed</h3>
                 <ul>
-                    <li><strong>Strategy Pattern:</strong> Empregue para gerir dinamicamente e permutar entre os diferentes níveis de dificuldade do oponente de Inteligência Artificial.</li>
-                    <li><strong>Observer Pattern:</strong> Utilizado na sincronização visual de eventos, notificando a interface utilizador sempre que uma embarcação sofre um impacto destrutivo.</li>
+                    <li><strong>Strategy Pattern:</strong> Leveraged to support dynamic hot-swapping between different AI tactical target-seeking levels.</li>
+                    <li><strong>Observer Pattern:</strong> Used to update the user interface immediately when a ship coordinates record damage.</li>
                 </ul>
             </section>
 
-            <!-- MERMAID LOGIC FLOW / FLUXO DE LÓGICA -->
+            <!-- LIVE MERMAID FLOWCHART -->
             <section id="logic-flow" class="card">
-                <h2>Diagrama de Fluxo de Jogo</h2>
+                <h2>Game Logic Flow</h2>
                 <p>
-                    O fluxograma de execução seguinte detalha a arquitetura geral de turnos que compõem o ciclo principal de jogabilidade do Battleship:
+                    The flowchart below documents the main round-based state machine that governs a complete game loop in Battleship:
                 </p>
 
-                <!-- Renderização interativa do Mermaid.js -->
+                <!-- Dynamic Mermaid rendering -->
                 <div class="mermaid-container">
                     <pre class="mermaid" style="background:transparent;text-align:center;width:100%;">
 graph TD
@@ -1603,42 +1603,42 @@ graph TD
                 </div>
             </section>
 
-            <!-- ROADMAP / ROTEIRO -->
+            <!-- PRODUCT EVOLUTION ROADMAP -->
             <section id="roadmap" class="card">
-                <h2>🗺 Roteiro de Desenvolvimento (Roadmap)</h2>
+                <h2>🗺 Roadmap</h2>
                 <p>
-                    O ciclo de evolução planeado para as próximas iterações do Battleship 2.0 engloba:
+                    The planned evolutionary roadmap for upcoming releases of Battleship 2.0 incorporates:
                 </p>
 
                 <ul class="roadmap-list">
                     <li class="roadmap-item completed">
                         <span class="roadmap-checkbox checked"><i class="fa-solid fa-check"></i></span>
-                        <span>Implementação da grelha de tabuleiro base parametrizada.</span>
+                        <span>Basic grid board layout implementation.</span>
                     </li>
                     <li class="roadmap-item completed">
                         <span class="roadmap-checkbox checked"><i class="fa-solid fa-check"></i></span>
-                        <span>Algoritmos de validação matemática do posicionamento dos navios.</span>
+                        <span>Geometrical validations for ship placement positioning.</span>
                     </li>
                     <li class="roadmap-item">
                         <span class="roadmap-checkbox unchecked"><i class="fa-regular fa-circle"></i></span>
-                        <span>Adição de biblioteca e ficheiros de efeitos sonoros (SFX).</span>
+                        <span>Add sound effects (SFX) engine hooks.</span>
                     </li>
                     <li class="roadmap-item">
                         <span class="roadmap-checkbox unchecked"><i class="fa-regular fa-circle"></i></span>
-                        <span>Implementação de mecânica dinâmica de visualização "Fog of War" (Nevoeiro de Guerra).</span>
+                        <span>Implement dynamic "Fog of War" vision mechanics.</span>
                     </li>
                     <li class="roadmap-item">
                         <span class="roadmap-checkbox unchecked"><i class="fa-regular fa-circle"></i></span>
-                        <span><strong>Integração Multijogador Online</strong> (Prioridade Elevada).</span>
+                        <span><strong>Online Multiplayer Integration</strong> (High Priority).</span>
                     </li>
                 </ul>
             </section>
 
-            <!-- TESTING & CI / TESTES E CI -->
+            <!-- UNIT TESTING AND GITHUB CI -->
             <section id="testing" class="card">
-                <h2>🧪 Verificação de Qualidade & Testes</h2>
+                <h2>🧪 Testing & Quality Assurance</h2>
                 <p>
-                    Garantimos a resiliência e corretude conceptual da lógica interna do jogo através de um ecossistema rigoroso de testes de unidade de alta cobertura.
+                    We assert structural stability and business rule compliance of our engine with high coverage JUnit tests.
                 </p>
 
                 <div class="terminal-mock">
@@ -1664,31 +1664,31 @@ graph TD
                 <div class="custom-alert tip">
                     <i class="fa-solid fa-lightbulb"></i>
                     <div>
-                        <strong>Dica de Desenvolvimento:</strong> Use o argumento <code>-Dtest=NomeDaClasse</code> para executar isoladamente suítes de teste específicas ou ficheiros individuais durante a depuração.
+                        <strong>Development Tip:</strong> Use the <code>-Dtest=ClassName</code> flag to isolate and execute specific test suites or test files during development.
                     </div>
                 </div>
 
-                <h3>🚀 Integração Contínua (GitHub Actions)</h3>
+                <h3>🚀 Continuous Integration (GitHub Actions)</h3>
                 <p>
-                    O repositório está integrado com um ecossistema de <strong>Integração Contínua (CI)</strong> automático baseado em GitHub Actions que audita a qualidade da árvore de código a cada alteração submetida:
+                    This project utilizes **GitHub Actions** to automate compilation, testing, and compliance gatekeeping on every code submission:
                 </p>
 
                 <div class="custom-alert warning-alert">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                     <div>
-                        <strong>Estado das Ações do Repositório:</strong> O workflow compila o código em ambiente Linux isolado, configura JDK 21 (Temurin), e realiza o comando de validação <code>mvn clean verify</code> de forma automática.
+                        <strong>Repository Action Status:</strong> The automated runner checks out the branch, installs JDK 21 (Temurin), and fires `mvn clean verify` on all Pull Requests automatically.
                     </div>
                 </div>
             </section>
 
-            <!-- AI HUD TACTICAL / PROMPT DO LLM -->
+            <!-- TACTICAL AI Monospace HUD -->
             <section id="llm-prompt" class="card">
-                <h2>🤖 Prompt Final de Comportamento para LLM</h2>
+                <h2>🤖 Final LLM Behavioral Prompt</h2>
                 <p>
-                    O comportamento e as decisões táticas do oponente de IA nas partidas avançadas do Battleship são instruídos pelo seguinte prompt operacional estruturado em formato estrito:
+                    The targeting strategy and analytical logic of the advanced computer-controlled opponent are dictated by the following strict execution rules:
                 </p>
 
-                <!-- Tactical AI HUD Simulator Widget -->
+                <!-- Military AI HUD simulator widget -->
                 <div class="tactical-hud">
                     <div class="hud-scanlines"></div>
                     <div class="hud-header">
@@ -1696,52 +1696,52 @@ graph TD
                             <i class="fa-solid fa-microchip"></i> CORTEZA TACTICAL AI v2.0
                         </div>
                         <div class="hud-status-node">
-                            <div class="status-glow"></div> SISTEMA OPERACIONAL ATIVO
+                            <div class="status-glow"></div> SYSTEM TELEMETRY ACTIVE
                         </div>
                     </div>
 
                     <div class="hud-grid">
                         <div class="hud-panel">
-                            <div class="hud-panel-title">Instruções de Missão</div>
+                            <div class="hud-panel-title">Mission Parameters</div>
                             <ul class="hud-list">
-                                <li>Minimizar contagem total de disparos até neutralização total da frota.</li>
-                                <li>Estruturar resposta final estritamente em formato JSON legível.</li>
-                                <li>Proibida a inserção de marcas markdown de código no corpo.</li>
-                                <li>Fornecer exatamente 3 disparos por rodada.</li>
+                                <li>Maximize efficiency. Minimize the total number of shots to win.</li>
+                                <li>Response MUST strictly consist of a single JSON structure.</li>
+                                <li>Do NOT wrap output within markdown json block formatting.</li>
+                                <li>Provide exactly 3 firing coordinates per volley.</li>
                             </ul>
                         </div>
 
                         <div class="hud-panel">
-                            <div class="hud-panel-title">Regras Táticas e Heurísticas</div>
+                            <div class="hud-panel-title">Tactical Targeting Heuristics</div>
                             <ul class="hud-list">
-                                <li>Ao registar impacto positivo, priorizar células cardinais adjacentes.</li>
-                                <li>Evitar Halo envolvente de navios já neutralizados.</li>
-                                <li>Aplicar sistema de rastreio de paridade rectangular.</li>
-                                <li>Diagonais apenas viáveis contra o cruzador do tipo Galeão.</li>
+                                <li>Upon successful hit -> prioritize cardinal neighbors (N, S, E, W).</li>
+                                <li>Upon ship destruction -> mark all surrounding cells (halo) as water.</li>
+                                <li>Implement quadrant-based search with strict coordinate parity.</li>
+                                <li>Diagonals only allowed when hunting Galleon structures.</li>
                             </ul>
                         </div>
                     </div>
 
                     <div style="margin-top: 1.5rem;">
-                        <div class="hud-panel-title">Registo do Log de Memória do Agente (Simulado)</div>
+                        <div class="hud-panel-title">Internal Telemetry Logbook (Simulated)</div>
                         <div class="hud-logbook">
-                            <div class="hud-logbook-line">[SISTEMA] Inicialização da simulação do Logbook interno.</div>
-                            <div class="hud-logbook-line">[TACTICAL] Salva 1: Tiros em D3 (Água), G4 (Água), F7 (Impacto - Fragata!).</div>
-                            <div class="hud-logbook-line">[TACTICAL] Salva 2: Focando adjacências de F7 -> F8 (Impacto!), F9 (Água).</div>
-                            <div class="hud-logbook-line">[SISTEMA] Fragata inimiga afundada. Registando área circundante como neutra.</div>
+                            <div class="hud-logbook-line">[SYSTEM] Tactical logbook parsing initialized.</div>
+                            <div class="hud-logbook-line">[TACTICAL] Volley 1: Coordinates Fired: D3 (Miss), G4 (Miss), F7 (Hit - Frigate!).</div>
+                            <div class="hud-logbook-line">[TACTICAL] Volley 2: Focus adjustments from F7 -> F8 (Hit!), F9 (Miss).</div>
+                            <div class="hud-logbook-line">[SYSTEM] Target Frigate fully destroyed. Seeding neighboring grid cells as neutral water.</div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- DEMO & USEFUL LINKS / LINKS ÚTEIS E VÍDEO -->
+            <!-- DEMO VIDEO & EXTERNAL DOCUMENT LINK CARDS -->
             <section id="links" class="card">
-                <h2>🎥 Demonstração de Execução & Links Adicionais</h2>
+                <h2>🎥 Demo Video & Project Files</h2>
                 <p>
-                    Consulte a gravação em vídeo que demonstra as capacidades interativas, o fluxo de execução completo da aplicação em tempo real e o funcionamento tático das jogadas:
+                    Watch the system recording showcasing structural gameplay rounds, visual board feedback, and automated workflow checks in action:
                 </p>
 
-                <!-- Mockup Interativo Premium de Vídeo do YouTube -->
+                <!-- YouTube Premium Preview Box -->
                 <div class="demo-video-card">
                     <a href="https://youtu.be/7Hz4BcZQ2fw" target="_blank" class="video-container">
                         <div class="video-backdrop-mesh"></div>
@@ -1749,25 +1749,25 @@ graph TD
                             <i class="fa-solid fa-play"></i>
                         </div>
                         <div class="video-overlay-details">
-                            <h4 class="video-title">⚓ Battleship 2.0 - Demonstração Completa do Sistema</h4>
+                            <h4 class="video-title">⚓ Battleship 2.0 - System Runtime & AI Demonstration</h4>
                             <span class="video-duration">5:42</span>
                         </div>
                     </a>
                     <div class="video-desc-bar">
-                        <span style="font-size: 0.9rem; color: var(--text-muted);">Assista no YouTube à demonstração do fluxo tático do jogo Battleship.</span>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">Watch the demonstration video on YouTube detailing battleships tactics.</span>
                         <a href="https://youtu.be/7Hz4BcZQ2fw" target="_blank" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
-                            <i class="fa-solid fa-external-link"></i> Abrir Vídeo
+                            <i class="fa-solid fa-external-link"></i> Open Video
                         </a>
                     </div>
                 </div>
 
-                <h3>ℹ️ Recursos e Ficheiros de Apoio</h3>
+                <h3>ℹ️ Supporting Project Files</h3>
                 
                 <a href="./ANSWERS.md" class="external-link-card">
                     <i class="fa-solid fa-file-shield link-main-icon"></i>
                     <div class="link-text-group">
-                        <span class="link-card-title">Respostas ao Guião de Trabalho (ANSWERS.md)</span>
-                        <span class="link-card-desc">Aceda ao documento de respostas detalhado que contém as resoluções das perguntas propostas no guião.</span>
+                        <span class="link-card-title">Answers to Assignment Lab (ANSWERS.md)</span>
+                        <span class="link-card-desc">Read the structured solutions detailing answers to the guide's conceptual questions.</span>
                     </div>
                     <i class="fa-solid fa-chevron-right chevron-icon"></i>
                 </a>
@@ -1775,52 +1775,52 @@ graph TD
                 <a href="https://github.com/IGE-123028/Battleship2/issues/15#issue-4079657615" target="_blank" class="external-link-card">
                     <i class="fa-solid fa-circle-exclamation link-main-icon"></i>
                     <div class="link-text-group">
-                        <span class="link-card-title">Questão de Workflow de Repositório (Issue #15)</span>
-                        <span class="link-card-desc">Explicação circunstanciada sobre o processo de reestruturação do registo de atividades e commits do projeto.</span>
+                        <span class="link-card-title">Repository Refactoring Workflow (Issue #15)</span>
+                        <span class="link-card-desc">Detailed explanation addressing task re-sequencing, branch histories, and repository recoveries.</span>
                     </div>
                     <i class="fa-solid fa-chevron-right chevron-icon"></i>
                 </a>
             </section>
 
-            <!-- CONTRIBUTING / CONTRIBUIÇÃO -->
+            <!-- CONTRIBUTING MECHANISM -->
             <section class="card">
-                <h2>🤝 Como Contribuir para o Projeto</h2>
+                <h2>🤝 Contributing</h2>
                 <p>
-                    As contribuições sustentam a comunidade de código aberto como um ecossistema valioso para aprender, inovar e programar colaborativamente:
+                    Contributions make the open-source community an incredible ecosystem to learn, inspire, and build together:
                 </p>
 
                 <ol>
-                    <li>Faça um <strong>Fork</strong> deste repositório na sua conta GitHub.</li>
-                    <li>Crie um ramo local para a sua funcionalidade (<code>git checkout -b feature/FuncionalidadeIncrivel</code>).</li>
-                    <li>Submeta as suas alterações localmente (<code>git commit -m 'Add: Alguma Funcionalidade Incrível'</code>).</li>
-                    <li>Faça um envio remoto para o ramo correspondente (<code>git push origin feature/FuncionalidadeIncrivel</code>).</li>
-                    <li>Submeta um <strong>Pull Request</strong> para revisão da equipa do projeto.</li>
+                    <li><strong>Fork</strong> the Project repository.</li>
+                    <li>Create your local Feature Branch (<code>git checkout -b feature/AmazingFeature</code>).</li>
+                    <li>Commit your local adjustments (<code>git commit -m 'Add some AmazingFeature'</code>).</li>
+                    <li>Push the changes to your Fork repository (<code>git push origin feature/AmazingFeature</code>).</li>
+                    <li>Submit a formal <strong>Pull Request</strong> for structural review.</li>
                 </ol>
             </section>
 
         </main>
     </div>
 
-    <!-- FOOTER DA PÁGINA -->
+    <!-- MAIN FOOTER BLOCK -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
                 <span class="footer-brand"><i class="fa-solid fa-anchor"></i> Battleship 2.0</span>
-                <span class="footer-text">Projeto de Engenharia de Software no contexto do século XVII.</span>
+                <span class="footer-text">Software Engineering project designed for the XVII century setting.</span>
             </div>
             <div class="footer-meta">
-                <span class="maintainer-tag">Mantido por: <a href="https://github.com/britoeabreu" target="_blank">@britoeabreu</a></span>
-                <span class="license-footer-text">Distribuído sob licença MIT de Software Livre.</span>
+                <span class="maintainer-tag">Maintained by: <a href="https://github.com/britoeabreu" target="_blank">@britoeabreu</a></span>
+                <span class="license-footer-text">Distributed under the MIT Free Software License.</span>
             </div>
         </div>
     </footer>
 
 </div>
 
-<!-- Biblioteca JavaScript do Mermaid.js para desenhar diagramas de fluxo nativamente -->
+<!-- Mermaid.js library script loading for dynamic flowchart renders -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 <script>
-    // Inicialização do Mermaid com tema elegante
+    // Initialize Mermaid library engine
     mermaid.initialize({
         startOnLoad: true,
         theme: 'default',
@@ -1832,7 +1832,7 @@ graph TD
         }
     });
 
-    // Função utilitária para copiar o bloco de código
+    // Helper method to copy IDE code text elements
     function copyCodeText() {
         const codeElement = document.getElementById('java-code-block');
         const textToCopy = codeElement.innerText;
@@ -1840,7 +1840,7 @@ graph TD
         navigator.clipboard.writeText(textToCopy).then(() => {
             const copyBtn = document.querySelector('.copy-code-btn');
             const originalHTML = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copiado!';
+            copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
             copyBtn.style.borderColor = '#22c55e';
             copyBtn.style.color = '#22c55e';
             
@@ -1850,11 +1850,11 @@ graph TD
                 copyBtn.style.color = '#94a3b8';
             }, 2000);
         }).catch(err => {
-            console.error('Falha ao copiar texto: ', err);
+            console.error('Failed to copy code snippet: ', err);
         });
     }
 
-    // Lógica simples para destacar a secção ativa no índice lateral à medida que se faz scroll
+    // Interactive sticky Sidebar TOC section highlight on page scrolling
     window.addEventListener('DOMContentLoaded', () => {
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -1868,7 +1868,7 @@ graph TD
             });
         }, { threshold: [0.15, 0.5] });
 
-        // Observar todas as secções que têm ID e correspondem aos links
+        // Observe all main sections with an ID attribute
         document.querySelectorAll('main section[id]').forEach(section => {
             observer.observe(section);
         });
