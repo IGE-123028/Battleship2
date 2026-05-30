@@ -19,17 +19,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up JDK 21
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: maven
-        
-    - name: Build and Test with Maven
-      run: mvn -B clean verify
+      - uses: actions/checkout@v4
 
-    - name: Generate Javadoc
-      run: mvn -B javadoc:javadoc
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and Test with Maven
+        run: mvn -B clean verify
+
+      - name: Generate Javadoc
+        run: mvn -B javadoc:javadoc
+
+      - name: Generate Maven Site (Dependencies)
+        run: mvn -B site
+
+      - name: Inject Custom Index HTML
+        run: |
+          if [ -f "custom-index.html" ]; then
+            cp custom-index.html docs/index.html
+            echo "Personalized index.html applied"
+          fi
+
+
