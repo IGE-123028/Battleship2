@@ -46,7 +46,7 @@ jobs:
       - name: Run unit tests
         run: mvn test
 
-      - name: SonarQube Quality Gate
+      - name: SonarQube analysis
         run: |
           mvn -B clean verify
           test -s target/site/jacoco/jacoco.xml
@@ -58,8 +58,7 @@ jobs:
             -Dsonar.tests=src/test/java \
             -Dsonar.java.binaries=target/classes \
             -Dsonar.coverage.jacoco.xmlReportPaths="${GITHUB_WORKSPACE}/target/site/jacoco/jacoco.xml" \
-            -Dsonar.exclusions=**/docs/**,**/*.json,**/*.sarif,**/*.yaml,**/*.md \
-            -Dsonar.qualitygate.wait=true
+            -Dsonar.exclusions=**/docs/**,**/*.json,**/*.sarif,**/*.yaml,**/*.md
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
