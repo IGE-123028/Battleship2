@@ -1,5 +1,6 @@
 package battleship;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -35,17 +36,14 @@ public class HuggingFaceClient {
         this.objectMapper = new ObjectMapper();
     }
 
-    public String chat(String prompt) throws Exception {
+    public String chat(String prompt) throws IOException, InterruptedException {
         String apiUrl = getApiUrl();
-
         String jsonBody = createRequestBody(prompt);
 
-        HttpRequest request = createHttpRequest(apiUrl, jsonBody);
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpClient.send(createHttpRequest(apiUrl, jsonBody), HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
-            throw new RuntimeException("HTTP error " + response.statusCode() + ": " + response.body());
+            throw new IOException("HTTP error " + response.statusCode() + ": " + response.body());
         }
 
         return extractContentFromResponse(response);
@@ -63,13 +61,12 @@ public class HuggingFaceClient {
     }
 
     private HttpRequest createHttpRequest(String apiUrl, String jsonBody) {
-        HttpRequest request = HttpRequest.newBuilder()
+        return HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + apiKey)
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
-        return request;
     }
 
     private String createRequestBody(String prompt) throws JsonProcessingException {
@@ -86,12 +83,10 @@ public class HuggingFaceClient {
         body.put("max_tokens", 500);
         body.put("temperature", 0.1);
 
-        String jsonBody = objectMapper.writeValueAsString(body);
-        return jsonBody;
+        return objectMapper.writeValueAsString(body);
     }
 
     private static @NotNull String getApiUrl() {
-        String apiUrl = "https://router.huggingface.co/v1/chat/completions";
-        return apiUrl;
+        return "https://router.huggingface.co/v1/chat/completions";
     }
 }

@@ -28,7 +28,6 @@ public class Scoreboard {
 
     private static @NotNull String getFilePath() {
         String homeDir = System.getProperty("user.home");
-        String filePath = homeDir + java.io.File.separator + "battleship_scoreboard.csv";
-        return filePath;
+        return homeDir + java.io.File.separator + "battleship_scoreboard.csv";
     }
 }

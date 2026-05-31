@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import battleship.ui.ConsoleBoardRenderer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.security.SecureRandom;
@@ -11,6 +13,7 @@ import java.util.*;
 
 public class Game implements IGame
 {
+	private static final Logger LOGGER = LogManager.getLogger(Game.class);
 	private static final SecureRandom RANDOM = new SecureRandom();
 
 	/**
@@ -28,16 +31,16 @@ public class Game implements IGame
 	 *                    to represent various elements such as ships, misses, hits, etc.
 	 * @param hide_ships  if true, only shows ships that are completely sunk, hiding intact ones.
 	 */
-	public static void printBoard(IFleet fleet, List<IMove> moves, boolean show_shots, boolean showLegend, boolean hide_ships) {
+	public static void printBoard(IFleet fleet, List<IMove> moves, boolean showShots, boolean showLegend, boolean hideShips) {
 
 		assert fleet != null;
 		assert moves != null;
 
 		char[][] map = createEmptyMap();
 
-		markShipsOnMap(fleet, hide_ships, map);
+		markShipsOnMap(fleet, hideShips, map);
 
-		markShotsOnMap(fleet, moves, show_shots, map);
+		markShotsOnMap(fleet, moves, showShots, map);
 
 		printMap();
 
@@ -48,13 +51,16 @@ public class Game implements IGame
 		System.out.println("+");
 
 		for (int row = 0; row < BOARD_SIZE; row++) {
-				Position pos = new Position(row, 0);
-				char rowLabel = pos.getClassicRow();
-				System.out.print(" " + rowLabel + " |");
-				for (int col = 0; col < BOARD_SIZE; col++)
-					System.out.print(" " + ConsoleBoardRenderer.colored(map[row][col]));
-				System.out.println(" |");
+			Position pos = new Position(row, 0);
+			char rowLabel = pos.getClassicRow();
+			StringBuilder rowContent = new StringBuilder();
+			rowContent.append(" ").append(rowLabel).append(" |");
+			for (int col = 0; col < BOARD_SIZE; col++) {
+				rowContent.append(" ").append(ConsoleBoardRenderer.colored(map[row][col]));
 			}
+			rowContent.append(" |");
+			System.out.println(rowContent.toString());
+		}
 
 		System.out.print("   +");
 		for (int col = 0; col < BOARD_SIZE; col++)
@@ -78,8 +84,8 @@ public class Game implements IGame
 		System.out.println();
 	}
 
-	private static void markShotsOnMap(IFleet fleet, List<IMove> moves, boolean show_shots, char[][] map) {
-		if (!show_shots) return;
+	private static void markShotsOnMap(IFleet fleet, List<IMove> moves, boolean showShots, char[][] map) {
+		if (!showShots) return;
 		for (IMove move : moves)
 			markMoveShotsOnMap(fleet, move, map);
 	}
@@ -92,9 +98,9 @@ public class Game implements IGame
 		}
 	}
 
-	private static void markShipsOnMap(IFleet fleet, boolean hide_ships, char[][] map) {
+	private static void markShipsOnMap(IFleet fleet, boolean hideShips, char[][] map) {
 		for (IShip ship : fleet.getShips()) {
-			if (!hide_ships || !ship.stillFloating()) {
+			if (!hideShips || !ship.stillFloating()) {
 				for (IPosition ship_pos : ship.getPositions())
 					map[ship_pos.getRow()][ship_pos.getColumn()] = SHIP_MARKER;
 				if (!ship.stillFloating())
@@ -186,8 +192,8 @@ public class Game implements IGame
 	{
 		this.moveNumber = 1;
 
-		this.alienMoves = new ArrayList<IMove>();
-		this.myMoves = new ArrayList<IMove>();
+		this.alienMoves = new ArrayList<>();
+		this.myMoves = new ArrayList<>();
 
 		this.alienFleet = Fleet.createRandom();
 		this.myFleet = myFleet;
@@ -233,7 +239,7 @@ public class Game implements IGame
 	 */
 	public String randomEnemyFire() {
 
-		Set<IPosition> usablePositions = new HashSet<IPosition>();
+		Set<IPosition> usablePositions = new HashSet<>();
 		for (int r = 0; r < BOARD_SIZE; r++)
 			for (int c = 0; c < BOARD_SIZE; c++)
 				usablePositions.add(new Position(r, c));
@@ -244,7 +250,7 @@ public class Game implements IGame
 		List<IPosition> candidateShots = new ArrayList<>(usablePositions);
 
 		// Criar lista para armazenar os tiros
-		List<IPosition> shots = new ArrayList<IPosition>();
+		List<IPosition> shots = new ArrayList<>();
 
 		System.out.println();
 		// Gerar coordenadas únicas até atingir o número definido por NUMBER_SHOTS
@@ -512,14 +518,14 @@ public class Game implements IGame
 		return false;
 	}
 
-	public void printMyBoard(boolean show_shots, boolean show_legend)
+	public void printMyBoard(boolean showShots, boolean showLegend)
 	{
-		Game.printBoard(this.myFleet, this.alienMoves, show_shots, show_legend, false);
+		Game.printBoard(this.myFleet, this.alienMoves, showShots, showLegend, false);
 	}
 
-	public void printAlienBoard(boolean show_shots, boolean show_legend)
+	public void printAlienBoard(boolean showShots, boolean showLegend)
 	{
-		Game.printBoard(this.alienFleet, this.myMoves, show_shots, show_legend, true);
+		Game.printBoard(this.alienFleet, this.myMoves, showShots, showLegend, true);
 	}
 
 	public void over() {

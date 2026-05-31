@@ -137,7 +137,7 @@ public class Position implements IPosition {
 	@Override
 	public List<IPosition> adjacentPositions() {
 
-		List<IPosition> adjacents = new ArrayList<IPosition>();
+		List<IPosition> adjacents = new ArrayList<>();
 
 		int row = this.getRow();
 		int col = this.getColumn();

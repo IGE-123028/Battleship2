@@ -1,15 +1,14 @@
 package battleship;
 
+import java.io.IOException;
 import java.util.List;
 
 public class LLMService {
     public static final String DEFAULT_MODEL = "Qwen/Qwen2.5-72B-Instruct";
     private final HuggingFaceClient client;
-    private final String model;
     private final String initialPrompt;
 
     public LLMService(String apiKey, String model) {
-        this.model = model;
         this.client = new HuggingFaceClient(apiKey, model);
         this.initialPrompt = """
                 CONTEXT AND ROLE
@@ -131,7 +130,7 @@ public class LLMService {
                 """;
     }
 
-    public String getNextMove(Game game) throws Exception {
+    public String getNextMove(Game game) throws IOException, InterruptedException {
         StringBuilder history = new StringBuilder();
         history.append("Histórico de tiros (Diário de Bordo):\n");
 

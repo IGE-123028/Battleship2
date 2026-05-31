@@ -4,6 +4,10 @@ import battleship.BoardColor;
 
 public class ConsoleBoardRenderer {
 
+	private ConsoleBoardRenderer() {
+		// Utility class
+	}
+
 	public static String colored(char marker) {
 		return switch (marker) {
 			case '#' -> BoardColor.ship();

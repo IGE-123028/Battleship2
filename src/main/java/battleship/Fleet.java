@@ -14,7 +14,7 @@ public class Fleet implements IFleet
 	/**
 	 * Standard fleet composition for a default game.
 	 */
-	public static final ShipType[] STANDARD_SHIP_TYPES = {
+	protected static final ShipType[] STANDARD_SHIP_TYPES = {
 			ShipType.GALEAO,                           // 1 galleon
 			ShipType.FRAGATA,                          // 1 frigate
 			ShipType.NAU, ShipType.NAU,                // 2 carracks
@@ -32,7 +32,9 @@ public class Fleet implements IFleet
 	 */
 	public static IFleet createRandom(ShipType[] shipTypes) {
 
-		assert shipTypes != null;
+		if (shipTypes == null) {
+			throw new IllegalArgumentException("Ship types cannot be null");
+		}
 
 		Fleet randomFleet = new Fleet();
 

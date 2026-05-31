@@ -13,7 +13,7 @@ public abstract class LinearShip extends Ship {
      * @param pos      the pos
      * @param size     the size
      */
-    public LinearShip(String category, Compass bearing, IPosition pos, int size) {
+    protected LinearShip(String category, Compass bearing, IPosition pos, int size) {
         super(category, bearing, pos, size);
         addPositionsByBearing(bearing, pos);
     }
@@ -26,18 +26,16 @@ public abstract class LinearShip extends Ship {
      */
     protected void addPositionsByBearing(Compass bearing, IPosition pos) {
         switch (bearing) {
-            case NORTH:
-            case SOUTH:
+            case NORTH, SOUTH -> {
                 for (int r = 0; r < this.getSize(); r++) {
                     getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));
                 }
-                break;
-            case EAST:
-            case WEST:
+            }
+            case EAST, WEST -> {
                 for (int c = 0; c < this.getSize(); c++) {
                     getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));
                 }
-                break;
+            }
         }
     }
 }

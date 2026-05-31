@@ -93,10 +93,7 @@ public abstract class Ship implements IShip
 		this.category = Objects.requireNonNull(category, "Ship's category must not be null");
 		this.bearing = Objects.requireNonNull(bearing, "Ship's bearing must not be null");
 		this.pos = Objects.requireNonNull(pos, "Ship's position must not be null");
-	
-		this.category = category;
-		this.bearing = bearing;
-		this.pos = pos;
+
 		this.size = size;
 
 		positions = new ArrayList<>();
@@ -137,7 +134,7 @@ public abstract class Ship implements IShip
 	 */
 	public List<IPosition> getAdjacentPositions()
 	{
-		List<IPosition> adjacentPositions = new ArrayList<IPosition>();
+		List<IPosition> adjacentPositions = new ArrayList<>();
 		for (IPosition position : getPositions())
 		{
 			List<IPosition> adjacents = position.adjacentPositions();

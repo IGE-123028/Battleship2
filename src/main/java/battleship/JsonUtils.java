@@ -5,6 +5,10 @@ package battleship;
  */
 public class JsonUtils {
 
+    private JsonUtils() {
+        // Utility class
+    }
+
     /**
      * Cleans a JSON response string by extracting the array part.
      *
