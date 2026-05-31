@@ -12,23 +12,13 @@ import java.util.List;
  */
 public class Carrack extends LinearShip {
 
-	/**
-	 * Instantiates a new Carrack.
-	 *
-	 * @param bearing The bearing of the ship (NORTH, SOUTH, EAST, or WEST).
-	 * @param pos     The initial position of the ship on the game board.
-	 */
-	public Carrack(Compass bearing, IPosition pos) {
-		super("Nau", bearing, pos, 3);
-
-        if (bearing == Compass.NORTH || bearing == Compass.SOUTH) {
-            for (int r = 0; r < this.getSize(); r++) {
-                getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));
-            }
-        } else {
-            for (int c = 0; c < this.getSize(); c++) {
-                getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));
-            }
-        }
-	}
+    /**
+     * Instantiates a new Carrack.
+     *
+     * @param bearing The bearing of the ship (NORTH, SOUTH, EAST, or WEST).
+     * @param pos     The initial position of the ship on the game board.
+     */
+    public Carrack(Compass bearing, IPosition pos) {
+        super("Nau", bearing, pos, 3);
+    }
 }
