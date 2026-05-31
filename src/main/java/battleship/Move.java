@@ -15,6 +15,8 @@ import java.util.*;
  */
 public class Move implements IMove {
 
+    private static final String TIRO_LITERAL = " tiro";
+
     // -------------------------------------------------------------------
     private final int number;
     private final List<IPosition> shots;
@@ -56,23 +58,6 @@ public class Move implements IMove {
         return this.shotResults;
     }
 
-    /**
-     * Processes the results of enemy fire on the game board, analyzing the outcomes
-     * of shots,
-     * such as valid shots, repeated shots, missed shots, hits on ships, and sunk
-     * ships. It can
-     * also display a detailed summary of the shot results if verbose mode is
-     * activated.
-     *
-     * @param verbose a boolean indicating whether a detailed summary should be
-     *                printed to the console
-     *                for the processed enemy fire data.
-     * @return a JSON-formatted string that encapsulates the results, including
-     *         counts of valid shots,
-     *         repeated shots, missed shots, shots outside the game board, and
-     *         details of hits and
-     *         sunk ships.
-     */
     @Override
     public String processEnemyFire(boolean verbose) {
 
@@ -118,27 +103,33 @@ public class Move implements IMove {
         StringBuilder output = new StringBuilder();
 
         if (validShots == 0 && repeatedShots > 0) {
-            output.append(repeatedShots).append(" tiro").append(repeatedShots > 1 ? "s" : "").append(" repetido")
-                    .append(repeatedShots > 1 ? "s" : "");
+            output.append(getTiro(repeatedShots)).append(repeatedShots > 1 ? " repetidos" : " repetido");
         } else {
-            if (validShots > 0) {
-                output.append(validShots).append(" tiro").append(validShots > 1 ? "s" : "").append(" válido")
-                        .append(validShots > 1 ? "s" : "").append(": ");
-            }
-
-            appendSunkBoats(output, sunkBoatsCount);
-            appendBoatHits(output, sunkBoatsCount, hitsPerBoat);
-
-            if (missedShots > 0) {
-                output.append(missedShots).append(" tiro").append(missedShots > 1 ? "s" : "").append(" na água");
-            } else if (!sunkBoatsCount.isEmpty() || !hitsPerBoat.isEmpty()) {
-                output.setLength(output.length() - 2); // Remove trailing " + "
-            }
-
+            appendMainShots(output, validShots, missedShots, sunkBoatsCount, hitsPerBoat);
             appendRepeatedAndOutsideShots(output, validShots, repeatedShots, outsideShots);
         }
 
         System.out.println("Jogada nº" + this.number + " -> " + output);
+    }
+
+    private void appendMainShots(StringBuilder output, int validShots, int missedShots,
+                                 Map<String, Integer> sunkBoatsCount, Map<String, Integer> hitsPerBoat) {
+        if (validShots > 0) {
+            output.append(getTiro(validShots)).append(validShots > 1 ? " válidos: " : " válido: ");
+        }
+
+        appendSunkBoats(output, sunkBoatsCount);
+        appendBoatHits(output, sunkBoatsCount, hitsPerBoat);
+
+        if (missedShots > 0) {
+            output.append(getTiro(missedShots)).append(" na água");
+        } else if (!sunkBoatsCount.isEmpty() || !hitsPerBoat.isEmpty()) {
+            output.setLength(output.length() - 2); // Remove trailing " + "
+        }
+    }
+
+    private String getTiro(int count) {
+        return count + TIRO_LITERAL + (count > 1 ? "s" : "");
     }
 
     private void appendSunkBoats(StringBuilder output, Map<String, Integer> sunkBoatsCount) {
@@ -156,7 +147,7 @@ public class Move implements IMove {
             String boatName = entry.getKey();
             int hits = entry.getValue();
             if (!sunkBoatsCount.containsKey(boatName)) {
-                output.append(hits).append(" tiro").append(hits > 1 ? "s" : "").append(" num(a) ").append(boatName)
+                output.append(getTiro(hits)).append(" num(a) ").append(boatName)
                         .append(" + ");
             }
         }
@@ -167,15 +158,13 @@ public class Move implements IMove {
         if (repeatedShots > 0) {
             if (validShots > 0)
                 output.append(", ");
-            output.append(repeatedShots).append(" tiro").append(repeatedShots > 1 ? "s" : "").append(" repetido")
-                    .append(repeatedShots > 1 ? "s" : "");
+            output.append(getTiro(repeatedShots)).append(repeatedShots > 1 ? " repetidos" : " repetido");
         }
 
         if (outsideShots > 0) {
             if (!output.isEmpty())
                 output.append(", ");
-            output.append(outsideShots).append(" tiro").append(outsideShots > 1 ? "s" : "").append(" exterior")
-                    .append(outsideShots > 1 ? "es" : "");
+            output.append(getTiro(outsideShots)).append(outsideShots > 1 ? " exteriores" : " exterior");
         }
     }
 

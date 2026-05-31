@@ -11,6 +11,8 @@ import java.util.*;
 
 public class Game implements IGame
 {
+	private static final SecureRandom RANDOM = new SecureRandom();
+
 	/**
 	 * Prints the game board by representing the positions of ships, adjacent tiles,
 	 * shots, and other game elements onto the console. The method also optionally
@@ -77,18 +79,17 @@ public class Game implements IGame
 	}
 
 	private static void markShotsOnMap(IFleet fleet, List<IMove> moves, boolean show_shots, char[][] map) {
-		if (show_shots)
-			for (IMove move : moves)
-				for (IPosition shot : move.getShots()) {
-					if (shot.isInside()){
-						int row = shot.getRow();
-						int col = shot.getColumn();
-						if (fleet.shipAt(shot) != null)
-							map[row][col] = SHOT_SHIP_MARKER;
-						else
-							map[row][col] = SHOT_WATER_MARKER;
-					}
-				}
+		if (!show_shots) return;
+		for (IMove move : moves)
+			markMoveShotsOnMap(fleet, move, map);
+	}
+
+	private static void markMoveShotsOnMap(IFleet fleet, IMove move, char[][] map) {
+		for (IPosition shot : move.getShots()) {
+			if (shot.isInside()) {
+				map[shot.getRow()][shot.getColumn()] = (fleet.shipAt(shot) != null) ? SHOT_SHIP_MARKER : SHOT_WATER_MARKER;
+			}
+		}
 	}
 
 	private static void markShipsOnMap(IFleet fleet, boolean hide_ships, char[][] map) {
@@ -232,9 +233,6 @@ public class Game implements IGame
 	 */
 	public String randomEnemyFire() {
 
-		// Criar uma instância de SecureRandom
-		Random random = new SecureRandom();
-
 		Set<IPosition> usablePositions = new HashSet<IPosition>();
 		for (int r = 0; r < BOARD_SIZE; r++)
 			for (int c = 0; c < BOARD_SIZE; c++)
@@ -251,7 +249,7 @@ public class Game implements IGame
 		System.out.println();
 		// Gerar coordenadas únicas até atingir o número definido por NUMBER_SHOTS
 
-		addRandomUniqueShots(shots, candidateShots, random);
+		addRandomUniqueShots(shots, candidateShots);
 		repeatLastShotUntilFull(shots);
 
 		System.out.print("rajada ");
@@ -264,17 +262,17 @@ public class Game implements IGame
 		return Game.jsonShots(shots);
 	}
 
-	private void addRandomUniqueShots(List<IPosition> shots, List<IPosition> candidateShots, Random random) {
+	private void addRandomUniqueShots(List<IPosition> shots, List<IPosition> candidateShots) {
 		int targetSize = Math.min(Game.NUMBER_SHOTS, candidateShots.size());
 		while (shots.size() < targetSize) {
-			IPosition shot = randomShot(candidateShots, random);
+			IPosition shot = randomShot(candidateShots);
 			if (!shots.contains(shot))
 				shots.add(shot);
 		}
 	}
 
-	private IPosition randomShot(List<IPosition> candidateShots, Random random) {
-		return candidateShots.get(random.nextInt(candidateShots.size()));
+	private IPosition randomShot(List<IPosition> candidateShots) {
+		return candidateShots.get(RANDOM.nextInt(candidateShots.size()));
 	}
 
 	private void repeatLastShotUntilFull(List<IPosition> shots) {
