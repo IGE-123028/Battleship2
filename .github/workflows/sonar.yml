@@ -5,6 +5,9 @@ name: SonarQube Analysis
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   sonar:
     runs-on: ubuntu-latest
