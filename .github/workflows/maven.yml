@@ -8,6 +8,9 @@
 
 name: Java CI with Maven
 
+permissions:
+  contents: read
+
 # Disabled as an automatic workflow because Complete CI/CD Pipeline now runs
 # the Maven dependency check, compile, tests, and documentation generation.
 on:
