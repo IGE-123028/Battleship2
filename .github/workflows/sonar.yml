@@ -1,12 +1,9 @@
 name: SonarQube Analysis
 
+# Disabled as an automatic workflow because Complete CI/CD Pipeline now runs
+# SonarQube Cloud analysis and waits for the Quality Gate.
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   sonar:

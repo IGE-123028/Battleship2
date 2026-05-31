@@ -1,9 +1,12 @@
 name: Build and Publish Docker Image
 
+# Disabled as an automatic workflow because Complete CI/CD Pipeline now builds
+# and publishes the Docker image to Docker Hub.
 on:
-  push:
-    branches:
-      - main
+  #  push:
+  #    branches:
+  #      - main
+  workflow_dispatch:
 
 jobs:
   docker:
