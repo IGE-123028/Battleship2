@@ -1,6 +1,9 @@
 # IGE-123023 - Rodrigo Sampaio
 name: Qodana Long Method Check
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
