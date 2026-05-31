@@ -20,5 +20,15 @@ public class Carrack extends LinearShip {
 	 */
 	public Carrack(Compass bearing, IPosition pos) {
 		super("Nau", bearing, pos, 3);
+
+        if (bearing == Compass.NORTH || bearing == Compass.SOUTH) {
+            for (int r = 0; r < this.getSize(); r++) {
+                getPositions().add(new Position(pos.getRow() + r, pos.getColumn()));
+            }
+        } else {
+            for (int c = 0; c < this.getSize(); c++) {
+                getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));
+            }
+        }
 	}
 }
