@@ -1,0 +1,39 @@
+{
+  "name": "Battleship2 Java DevContainer",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/Battleship2,type=bind,consistency=cached",
+  "workspaceFolder": "/workspace/Battleship2",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-maven",
+        "ms-azuretools.vscode-docker",
+        "github.vscode-github-actions",
+        "yzhang.markdown-all-in-one",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.compile.nullAnalysis.mode": "automatic",
+        "maven.executable.path": "/usr/share/maven/bin/mvn"
+      }
+    },
+    "jetbrains": {
+      "backend": "IntelliJ"
+    }
+  },
+  "postCreateCommand": "mvn -q -DskipTests dependency:go-offline",
+  "containerEnv": {
+    "JAVA_HOME": "/opt/java/openjdk",
+    "MAVEN_OPTS": "-Dfile.encoding=UTF-8"
+  },
+  "remoteUser": "root",
+  "features": {},
+  "portsAttributes": {},
+  "otherPortsAttributes": {},
+  "forwardPorts": []
+}

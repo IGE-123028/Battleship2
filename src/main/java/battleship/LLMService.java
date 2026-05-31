@@ -3,11 +3,14 @@ package battleship;
 import java.util.List;
 
 public class LLMService {
+    public static final String DEFAULT_MODEL = "Qwen/Qwen2.5-72B-Instruct";
     private final HuggingFaceClient client;
+    private final String model;
     private final String initialPrompt;
 
-    public LLMService(String apiKey) {
-        this.client = new HuggingFaceClient(apiKey);
+    public LLMService(String apiKey, String model) {
+        this.model = model;
+        this.client = new HuggingFaceClient(apiKey, model);
         this.initialPrompt = """
                 CONTEXT AND ROLE
 
@@ -147,24 +150,8 @@ public class LLMService {
                 + "\nO seu output estritamente em JSON (com 'raciocinio' e 'rajada'):";
 
         String response = client.chat(fullPrompt);
-        return cleanJsonResponse(response);
+        return JsonUtils.cleanJsonResponse(response);
     }
 
-    private String cleanJsonResponse(String response) {
-        int arrayStartMarker = response.indexOf("\"rajada\"");
-        int start = -1;
 
-        if (arrayStartMarker != -1) {
-            start = response.indexOf("[", arrayStartMarker);
-        } else {
-            start = response.indexOf("[");
-        }
-
-        int end = response.lastIndexOf("]");
-
-        if (start != -1 && end != -1 && start < end) {
-            return response.substring(start, end + 1);
-        }
-        return response.trim();
-    }
 }

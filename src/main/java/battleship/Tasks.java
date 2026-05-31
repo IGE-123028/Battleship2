@@ -159,7 +159,7 @@ public class Tasks {
 							System.out.println("Erro: Token da Hugging Face inválido ou não introduzido.");
 							break;
 						}
-						LLMService llmService = new LLMService(token);
+						LLMService llmService = new LLMService(token, LLMService.DEFAULT_MODEL);
 						System.out.println("A preparar para interagir com o LLM (Hugging Face)...");
 						try {
 						boolean quitIA = false;

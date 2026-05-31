@@ -17,17 +17,16 @@ jobs:
       checks: write
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          # Using the head SHA is good for PRs, but for push events,
-          # just checking out the branch is safer.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
 
       - name: 'Qodana'
-        uses: JetBrains/qodana-action@v2024.3
+        uses: JetBrains/qodana-action@v2026.1
         with:
           # Explicitly pointing to your custom profile
-          args: --profile-name,qodana.recommended
+          args: --profile-name,qodana.recommended --property=project.open.type=Maven
           # Setting cache to true speeds up subsequent runs
           use-caches: true
         env:

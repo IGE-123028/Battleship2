@@ -10,7 +10,7 @@ import java.util.List;
  * Date: 2023-10-10
  * Time: 15:30
  */
-public class Carrack extends Ship {
+public class Carrack extends LinearShip {
 
 	/**
 	 * Instantiates a new Carrack.

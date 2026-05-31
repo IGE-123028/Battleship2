@@ -353,26 +353,31 @@ public class Game implements IGame
 	{
 		assert shots != null;
 
-		List<ShotResult> shotResults = new ArrayList<ShotResult>();
 		if (shots.size() != NUMBER_SHOTS) {
 			throw new IllegalArgumentException("Must fire exactly " + NUMBER_SHOTS + " shots per move.");
 		}
 
-		List<IPosition> alreadyShot = new ArrayList<IPosition>();
+		List<ShotResult> shotResults = collectShotResults(shots, true);
+		recordMove(moveNumber++, shots, shotResults, alienMoves);
+	}
+
+	private List<ShotResult> collectShotResults(List<IPosition> shots, boolean isAlienTurn) {
+		List<ShotResult> shotResults = new ArrayList<>();
+		List<IPosition> alreadyInVolley = new ArrayList<>();
+
 		for (IPosition pos : shots) {
-			shotResults.add(fireSingleShot(pos, alreadyShot.contains(pos)));
-			alreadyShot.add(pos);
+			boolean isRepeatedInVolley = alreadyInVolley.contains(pos);
+			ShotResult result = isAlienTurn ? fireSingleShot(pos, isRepeatedInVolley) : fireMySingleShot(pos, isRepeatedInVolley);
+			shotResults.add(result);
+			alreadyInVolley.add(pos);
 		}
+		return shotResults;
+	}
 
-		Move move = new Move(moveNumber, shots, shotResults);
-
-//		System.out.println(move);
-
+	private void recordMove(int number, List<IPosition> shots, List<ShotResult> results, List<IMove> moveHistory) {
+		Move move = new Move(number, shots, results);
 		move.processEnemyFire(true);
-
-		alienMoves.add(move);
-
-		moveNumber++;
+		moveHistory.add(move);
 	}
 
 	@Override
@@ -380,22 +385,12 @@ public class Game implements IGame
 	{
 		assert shots != null;
 
-		List<ShotResult> shotResults = new ArrayList<ShotResult>();
 		if (shots.size() != NUMBER_SHOTS) {
 			throw new IllegalArgumentException("Must fire exactly " + NUMBER_SHOTS + " shots per move.");
 		}
 
-		List<IPosition> alreadyShot = new ArrayList<IPosition>();
-		for (IPosition pos : shots) {
-			shotResults.add(fireMySingleShot(pos, alreadyShot.contains(pos)));
-			alreadyShot.add(pos);
-		}
-
-		Move move = new Move(myMoves.size() + 1, shots, shotResults);
-
-		move.processEnemyFire(true);
-
-		myMoves.add(move);
+		List<ShotResult> shotResults = collectShotResults(shots, false);
+		recordMove(myMoves.size() + 1, shots, shotResults, myMoves);
 	}
 
 	/**

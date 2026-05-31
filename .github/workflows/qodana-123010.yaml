@@ -18,15 +18,15 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
 
       - name: 'Qodana Scan - Overly Complex Method'
-        uses: JetBrains/qodana-action@v2024.3
+        uses: JetBrains/qodana-action@v2026.1
         with:
-          args: --profile-path, .qodana/profiles/qodana-123010.yml --fail-threshold 0
+          args: --profile-path .qodana/profiles/qodana-123010.yml --fail-threshold 0 --property=project.open.type=Maven
           pr-mode: false
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1695558519 }}
