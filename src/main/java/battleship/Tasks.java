@@ -278,7 +278,7 @@ public class Tasks {
 						}
 						} catch (Exception e) {
 							System.out.println("Erro na interação com o LLM: " + e.getMessage());
-							e.printStackTrace();
+							LOGGER.error("Erro na interação com o LLM", e);
 						}
 					} else {
 						System.out.println("Gere uma frota primeiro!");

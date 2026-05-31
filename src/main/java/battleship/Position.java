@@ -1,5 +1,6 @@
 package battleship;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +11,8 @@ import java.util.Objects;
  * and it can be occupied or hit during the game.
  */
 public class Position implements IPosition {
+
+	private static final SecureRandom RANDOM = new SecureRandom();
 
 	/**
 	 * The row coordinate of the position.
@@ -34,8 +37,8 @@ public class Position implements IPosition {
 	//------------------------------------------------------------------
 	public static Position randomPosition() {
 		// Generate random position on the board
-		int row = (int) (Math.random() * Game.BOARD_SIZE);
-		int col = (int) (Math.random() * Game.BOARD_SIZE);
+		int row = RANDOM.nextInt(Game.BOARD_SIZE);
+		int col = RANDOM.nextInt(Game.BOARD_SIZE);
 		return new Position(row, col);
 	}
 	/**

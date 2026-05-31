@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import battleship.ui.ConsoleBoardRenderer;
 import org.jetbrains.annotations.NotNull;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public class Game implements IGame
@@ -231,8 +232,8 @@ public class Game implements IGame
 	 */
 	public String randomEnemyFire() {
 
-		// Criar uma instância de Random com uma seed baseada no timestamp atual
-		Random random = new Random(System.currentTimeMillis());
+		// Criar uma instância de SecureRandom
+		Random random = new SecureRandom();
 
 		Set<IPosition> usablePositions = new HashSet<IPosition>();
 		for (int r = 0; r < BOARD_SIZE; r++)
@@ -309,22 +310,25 @@ public class Game implements IGame
 		List<IPosition> shots = new ArrayList<>();
 
 		Scanner inputScanner = new Scanner(input);
-		while (shots.size() < NUMBER_SHOTS && inputScanner.hasNext()) {
-			// Lê a próxima parte e constrói uma posição
-			String token = inputScanner.next();
+		try (inputScanner) {
+			while (shots.size() < NUMBER_SHOTS && inputScanner.hasNext()) {
+				// Lê a próxima parte e constrói uma posição
+				String token = inputScanner.next();
 
-			if (token.matches("[A-Za-z]")) {
-				// Caso seja somente uma coluna ("A", "B", etc.), esperar o próximo número
-				if (inputScanner.hasNextInt()) {
-					int row = inputScanner.nextInt();
-					shots.add(new Position(token.toUpperCase().charAt(0), row));
+				if (token.matches("[A-Za-z]")) {
+					// Caso seja somente uma coluna ("A", "B", etc.), esperar o próximo número
+					if (inputScanner.hasNextInt()) {
+						int row = inputScanner.nextInt();
+						shots.add(new Position(token.toUpperCase().charAt(0), row));
+					} else {
+						throw new IllegalArgumentException("Posição incompleta! A coluna '" + token + "' não é seguida por uma linha.");
+					}
 				} else {
-					throw new IllegalArgumentException("Posição incompleta! A coluna '" + token + "' não é seguida por uma linha.");
+					// Caso o token já contenha a coluna e a linha juntas (ex.: "A3")
+					try (Scanner singleScanner = new Scanner(token)) {
+						shots.add(Tasks.readClassicPosition(singleScanner));
+					}
 				}
-			} else {
-				// Caso o token já contenha a coluna e a linha juntas (ex.: "A3")
-				Scanner singleScanner = new Scanner(token);
-				shots.add(Tasks.readClassicPosition(singleScanner));
 			}
 		}
 

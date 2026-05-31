@@ -145,14 +145,7 @@ class MoveTest {
      */
     @SuppressWarnings("unchecked")
     private IGame.ShotResult newShotResult(boolean valid, boolean repeated, IShip ship, boolean sunk) throws Exception {
-        Class<?> shotResultClass = null;
-
-        for (Class<?> nested : IGame.class.getDeclaredClasses()) {
-            if (nested.getSimpleName().equals("ShotResult")) {
-                shotResultClass = nested;
-                break;
-            }
-        }
+        Class<?> shotResultClass = IGame.ShotResult.class;
 
         assertNotNull(shotResultClass, "Could not find IGame.ShotResult nested type.");
 

@@ -1,5 +1,7 @@
 package battleship;
 
+import java.security.SecureRandom;
+
 /**
  * The enum Compass.
  *
@@ -24,6 +26,8 @@ public enum Compass
 	 */
 	WEST('o');
 
+	private static final SecureRandom RANDOM = new SecureRandom();
+
 	/**
 	 * Generate a random compass direction (bearing).
 	 *
@@ -31,7 +35,7 @@ public enum Compass
 	 */
 	public static Compass randomBearing() {
 		Compass[] values = Compass.values();  // Get all enum values
-		int randomIndex = (int) (Math.random() * values.length);  // Pick a random index
+		int randomIndex = RANDOM.nextInt(values.length);  // Pick a random index
 		return values[randomIndex];  // Return the random compass direction
 	}
 
