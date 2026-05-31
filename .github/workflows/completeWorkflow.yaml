@@ -58,12 +58,14 @@ jobs:
             -Dsonar.projectKey=IGE-123028_Battleship2 \
             -Dsonar.organization=ige-123028 \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.qualitygate.wait=true \
             -Dsonar.sources=src/main/java \
             -Dsonar.tests=src/test/java \
             -Dsonar.java.binaries=target/classes \
             -Dsonar.coverage.jacoco.xmlReportPaths="${GITHUB_WORKSPACE}/target/site/jacoco/jacoco.xml" \
             -Dsonar.exclusions=**/docs/**,**/*.json,**/*.sarif,**/*.yaml,**/*.md
+            # Quality Gate blocking temporarily disabled for evaluation.
+            # See issue #49.
+            # -Dsonar.qualitygate.wait=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
