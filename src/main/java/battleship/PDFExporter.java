@@ -18,6 +18,10 @@ import java.util.List;
  */
 public class PDFExporter {
 
+    private PDFExporter() {
+        // Utility class
+    }
+
     /**
      * Generates a PDF file containing a summary of the game and detailed moves.
      *

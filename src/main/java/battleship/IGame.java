@@ -40,6 +40,14 @@ public interface IGame
 	 */
 	void fireMyShots(List<IPosition> shots);
 
+	/**
+	 * Represents the result of a single shot.
+	 *
+	 * @param valid    true if the shot was inside the board
+	 * @param repeated true if the position had been shot at before
+	 * @param ship     the ship that was hit, or null if no ship was hit
+	 * @param sunk     true if the ship was sunk by this shot
+	 */
 	record ShotResult(boolean valid, boolean repeated, IShip ship, boolean sunk) {}
 
 	/**
@@ -125,13 +133,22 @@ public interface IGame
 
 	/**
 	 * Print my board (my fleet + alien shots).
+	 *
+	 * @param showShots  if true, displays the shots taken during the game and marks their result on the board.
+	 * @param showLegend if true, displays an explanatory legend of the symbols used.
 	 */
-	void printMyBoard(boolean show_shots, boolean show_legend);
+	void printMyBoard(boolean showShots, boolean showLegend);
 
 	/**
 	 * Print the alien board (alien fleet + my shots).
+	 *
+	 * @param showShots  if true, displays the shots taken during the game and marks their result on the board.
+	 * @param showLegend if true, displays an explanatory legend of the symbols used.
 	 */
-	void printAlienBoard(boolean show_shots, boolean show_legend);
+	void printAlienBoard(boolean showShots, boolean showLegend);
 
+	/**
+	 * Performs the actions to be executed when the game is over.
+	 */
 	void over();
 }

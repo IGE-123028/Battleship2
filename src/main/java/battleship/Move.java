@@ -7,11 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.util.*;
 
 /**
- * Shot
- *
- * @author Your Name
- *         Date: 20/02/2026
- *         Time: 19:39
+ * Class representing a move in the game, including the volley of shots and their results.
  */
 public class Move implements IMove {
 
@@ -23,6 +19,13 @@ public class Move implements IMove {
     private final List<IGame.ShotResult> shotResults;
 
     // -------------------------------------------------------------------
+    /**
+     * Constructs a new Move with the specified move number, shots, and results.
+     *
+     * @param moveNumber  the sequence number of the move
+     * @param moveShots   the list of positions targeted
+     * @param moveResults the results of the shots
+     */
     public Move(int moveNumber, List<IPosition> moveShots, List<IGame.ShotResult> moveResults) {
         this.number = moveNumber;
         this.shots = moveShots;

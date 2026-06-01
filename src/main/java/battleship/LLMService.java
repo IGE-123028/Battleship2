@@ -3,11 +3,23 @@ package battleship;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Service that interacts with an LLM via HuggingFaceClient to decide the next move.
+ */
 public class LLMService {
+    /**
+     * The default LLM model name.
+     */
     public static final String DEFAULT_MODEL = "Qwen/Qwen2.5-72B-Instruct";
     private final HuggingFaceClient client;
     private final String initialPrompt;
 
+    /**
+     * Constructs an LLMService with the specified API key and model.
+     *
+     * @param apiKey the Hugging Face API key
+     * @param model  the model name to use
+     */
     public LLMService(String apiKey, String model) {
         this.client = new HuggingFaceClient(apiKey, model);
         this.initialPrompt = """
@@ -130,6 +142,14 @@ public class LLMService {
                 """;
     }
 
+    /**
+     * Requests the next move from the LLM based on the current game history.
+     *
+     * @param game the current game instance
+     * @return a JSON string containing the next move decided by the LLM
+     * @throws IOException          if an I/O error occurs
+     * @throws InterruptedException if the process is interrupted
+     */
     public String getNextMove(Game game) throws IOException, InterruptedException {
         StringBuilder history = new StringBuilder();
         history.append("Histórico de tiros (Diário de Bordo):\n");

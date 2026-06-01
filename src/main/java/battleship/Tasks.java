@@ -23,6 +23,10 @@ public class Tasks {
 	 */
 	private static final Logger LOGGER = LogManager.getLogger(Tasks.class);
 
+	private Tasks() {
+		// Utility class
+	}
+
 	/**
 	 * The constant GOODBYE_MESSAGE.
 	 */

@@ -11,6 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import java.security.SecureRandom;
 import java.util.*;
 
+/**
+ * Core class for the Battleship game logic, managing fleets, moves, and board state.
+ */
 public class Game implements IGame
 {
 	private static final Logger LOGGER = LogManager.getLogger(Game.class);
@@ -25,11 +28,11 @@ public class Game implements IGame
 	 *                    and their positions are shown according to their placement.
 	 * @param moves       the list of moves containing shots. If shot positions are shown,
 	 *                    they will be rendered based on their outcome (hit, miss, etc.).
-	 * @param show_shots  if true, displays the shots taken during the game and marks
+	 * @param showShots   if true, displays the shots taken during the game and marks
 	 *                    their result (hit or miss) on the board.
 	 * @param showLegend  if true, displays an explanatory legend of the symbols used
 	 *                    to represent various elements such as ships, misses, hits, etc.
-	 * @param hide_ships  if true, only shows ships that are completely sunk, hiding intact ones.
+	 * @param hideShips   if true, only shows ships that are completely sunk, hiding intact ones.
 	 */
 	public static void printBoard(IFleet fleet, List<IMove> moves, boolean showShots, boolean showLegend, boolean hideShips) {
 
@@ -53,13 +56,11 @@ public class Game implements IGame
 		for (int row = 0; row < BOARD_SIZE; row++) {
 			Position pos = new Position(row, 0);
 			char rowLabel = pos.getClassicRow();
-			StringBuilder rowContent = new StringBuilder();
-			rowContent.append(" ").append(rowLabel).append(" |");
+			System.out.print(" " + rowLabel + " |");
 			for (int col = 0; col < BOARD_SIZE; col++) {
-				rowContent.append(" ").append(ConsoleBoardRenderer.colored(map[row][col]));
+				System.out.print(" " + ConsoleBoardRenderer.colored(map[row][col]));
 			}
-			rowContent.append(" |");
-			System.out.println(rowContent.toString());
+			System.out.println(" |");
 		}
 
 		System.out.print("   +");
@@ -164,8 +165,13 @@ public class Game implements IGame
 		return jsonString;
 	}
 
-	//------------------------------------------------------------------
+	/**
+	 * The side length of the square board.
+	 */
 	public static final int BOARD_SIZE = 10;
+	/**
+	 * The number of shots in a single move (volley).
+	 */
 	public static final int NUMBER_SHOTS = 3;
 
 	private static final char EMPTY_MARKER = '.';
@@ -187,7 +193,11 @@ public class Game implements IGame
 	private Integer countSinks;
 	private int moveNumber;
 
-	//------------------------------------------------------------------
+	/**
+	 * Constructs a new Game with the specified player fleet.
+	 *
+	 * @param myFleet the player's fleet
+	 */
 	public Game(IFleet myFleet)
 	{
 		this.moveNumber = 1;
@@ -300,6 +310,7 @@ public class Game implements IGame
 	 * @param in the scanner object to read the enemy fire positions from, input must
 	 *           be formatted either as a single token combining the column and row
 	 *           (e.g., "A3") or as separate tokens (e.g., "A" followed by "3").
+	 * @return a JSON representation of the shots fired.
 	 * @throws IllegalArgumentException if the provided positions are incomplete,
 	 *                                  incorrectly formatted, or do not match the
 	 *                                  required number of shots (NUMBER_SHOTS).
@@ -439,6 +450,13 @@ public class Game implements IGame
 		}
 	}
 
+	/**
+	 * Fires a single shot at the specified position on the opponent board.
+	 *
+	 * @param pos        the position to fire the shot at
+	 * @param isRepeated true if the shot is marked as a repeat attempt
+	 * @return a ShotResult object containing the result of the shot
+	 */
 	public ShotResult fireMySingleShot(IPosition pos, boolean isRepeated) {
 
 		assert pos != null;
@@ -499,11 +517,23 @@ public class Game implements IGame
 		return floatingShips.size();
 	}
 
+	/**
+	 * Checks if the position has been shot by the enemy before.
+	 *
+	 * @param pos the position to check
+	 * @return true if the position has been shot before, false otherwise
+	 */
 	public boolean repeatedShot(IPosition pos)
 	{
 		return hasRepeatedShot(pos, alienMoves);
 	}
 
+	/**
+	 * Checks if the position has been shot by the player before.
+	 *
+	 * @param pos the position to check
+	 * @return true if the position has been shot before, false otherwise
+	 */
 	public boolean myRepeatedShot(IPosition pos)
 	{
 		return hasRepeatedShot(pos, myMoves);

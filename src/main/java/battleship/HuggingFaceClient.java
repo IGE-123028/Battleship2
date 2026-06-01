@@ -25,10 +25,21 @@ public class HuggingFaceClient {
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
+    /**
+     * Constructs a HuggingFaceClient with the specified API key using the default model.
+     *
+     * @param apiKey the Hugging Face API key
+     */
     public HuggingFaceClient(String apiKey) {
         this(apiKey, DEFAULT_MODEL);
     }
 
+    /**
+     * Constructs a HuggingFaceClient with the specified API key and model.
+     *
+     * @param apiKey the Hugging Face API key
+     * @param model  the model to be used for completions
+     */
     public HuggingFaceClient(String apiKey, String model) {
         this.apiKey = apiKey;
         this.model = model;
@@ -36,6 +47,14 @@ public class HuggingFaceClient {
         this.objectMapper = new ObjectMapper();
     }
 
+    /**
+     * Sends a prompt to the LLM and returns the text response.
+     *
+     * @param prompt the text prompt to send
+     * @return the content of the LLM's response
+     * @throws IOException          if an I/O error occurs when sending or receiving
+     * @throws InterruptedException if the operation is interrupted
+     */
     public String chat(String prompt) throws IOException, InterruptedException {
         String apiUrl = getApiUrl();
         String jsonBody = createRequestBody(prompt);

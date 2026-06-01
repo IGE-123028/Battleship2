@@ -35,12 +35,18 @@ public class Position implements IPosition {
 	private boolean isHit;
 
 	//------------------------------------------------------------------
+	/**
+	 * Generates a random position on the board.
+	 *
+	 * @return a new Position with random row and column within BOARD_SIZE
+	 */
 	public static Position randomPosition() {
 		// Generate random position on the board
 		int row = RANDOM.nextInt(Game.BOARD_SIZE);
 		int col = RANDOM.nextInt(Game.BOARD_SIZE);
 		return new Position(row, col);
 	}
+
 	/**
 	 * Constructs a new Position with the specified row and column.
 	 * By default, the position is not occupied and not hit.

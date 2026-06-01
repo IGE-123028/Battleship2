@@ -8,8 +8,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Utility class for saving game results to a CSV file.
+ */
 public class Scoreboard {
 
+    private Scoreboard() {
+        // Utility class
+    }
+
+    /**
+     * Saves the game result to the scoreboard file.
+     *
+     * @param resultado the result string to save
+     */
     public static void saveResult(String resultado) {
         String filePath = getFilePath();
         writeResultToCSV(resultado, filePath);
