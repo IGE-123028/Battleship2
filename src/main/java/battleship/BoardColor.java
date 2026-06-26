@@ -10,6 +10,7 @@ public class BoardColor {
         private static final AnsiFormat HIT = new AnsiFormat(Attribute.RED_TEXT());
         private static final AnsiFormat MISS = new AnsiFormat(Attribute.CYAN_TEXT());
         private static final AnsiFormat ADJ = new AnsiFormat(Attribute.YELLOW_TEXT());
+        private String hello = "HELLO";
 
         public static String water() {
                 return WATER.format(".");
