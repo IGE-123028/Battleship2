@@ -31,7 +31,7 @@
 
 		<apache.log4j.version>2.25.4</apache.log4j.version>
 
-		<jackson.version>3.1.0</jackson.version>
+		<jackson.version>3.1.5</jackson.version>
 
 		<allure.version>2.31.0</allure.version>
 
